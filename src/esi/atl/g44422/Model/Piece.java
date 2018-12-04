@@ -28,23 +28,20 @@ public enum Piece {
 	TWENTYONE(new ArrayList<Position>(asList(new Position(1, 1), new Position(0, 1), new Position(1, 0), new Position(2, 1), new Position(1, 2))));
 
 	private ArrayList<Position> cells;
-	private Position position;
+	private Position position; // il y a 4 joeurs, leur pieces seront à la meme position ?
 
 	Piece(ArrayList<Position> cells) {
 		this.cells = cells;
 	}
 
 	 public ArrayList<Position> getCells() {
-		return this.cells;
+		return this.cells; // copie
 	}
 
 	public Position getPosition() {
 		return this.position;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
-	}
 
 	private static ArrayList<Position> toPositionList(boolean[][] shape) {
 		ArrayList<Position> positionList = new ArrayList<Position>();

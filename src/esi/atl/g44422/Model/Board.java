@@ -23,7 +23,7 @@ public class Board extends GridPane {
 		return sizeY;
 	}
 
-	public ArrayList<Piece> getPiecesPut() {
+	public ArrayList<Piece> getPiecesPut() { // pas public ou copie
 		return piecesPut;
 	}
 

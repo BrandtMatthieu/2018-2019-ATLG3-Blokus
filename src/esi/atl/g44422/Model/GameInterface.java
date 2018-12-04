@@ -15,5 +15,4 @@ public interface GameInterface extends Observable {
 	boolean isDone();
 	void currentPlayerPutsPiece(int index);
 	void currentPlayerSkips();
-	void nextPlayer();
 }

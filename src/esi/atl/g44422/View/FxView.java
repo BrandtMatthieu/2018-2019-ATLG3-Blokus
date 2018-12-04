@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class FxView implements Observer {
+    // sortir les classes dans ds ficheirs séparés
 	private final Game game;
 	private final Controller controller;
 

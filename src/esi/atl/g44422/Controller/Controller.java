@@ -1,4 +1,4 @@
-package esi.atl.g44422.Controller;
+package esi.atl.g44422.Controller; // package en minuscule
 
 import esi.atl.g44422.Model.*;
 import esi.atl.g44422.View.*;
