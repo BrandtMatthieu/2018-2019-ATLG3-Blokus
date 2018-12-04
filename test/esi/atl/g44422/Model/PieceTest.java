@@ -1,49 +1,60 @@
 package esi.atl.g44422.Model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.Assert.*;
+ class PieceTest {
 
-public class PieceTest {
-	@Test
-	public void pieceValueTest() {
-		boolean[][] shape = {{}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(0, myPiece.getValue());
+	Piece myPiece;
+
+	@BeforeEach
+	 void initialize() {
+		this.myPiece = Piece.FOURTEEN;
 	}
 
 	@Test
-	public void pieceValueTest2() {
-		boolean[][] shape = {{true}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(1, myPiece.getValue());
+	 void pieceCellValueTest() {
+		assertEquals(5, myPiece.getValue());
 	}
 
 	@Test
-	public void pieceValueTest3() {
-		boolean[][] shape = {{true}, {true}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(2, myPiece.getValue());
+	 void pieceCellWidthTest() {
+		assertEquals(2, myPiece.getSizeX());
 	}
 
 	@Test
-	public void pieceValueTest4() {
-		boolean[][] shape = {{true, true}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(2, myPiece.getValue());
+	 void pieceCellHeightTest() {
+		assertEquals(3, myPiece.getSizeY());
 	}
 
 	@Test
-	public void pieceValueTest5() {
-		boolean[][] shape = {{true, true}, {true, true}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(4, myPiece.getValue());
+	 void pieceToStringTest() {
+		assertEquals(
+	"xx\n" +
+			" x\n" +
+			"xx\n",
+			myPiece.toString()
+		);
 	}
 
 	@Test
-	public void pieceValueTest6() {
-		boolean[][] shape = {{true, false}, {false, true}};
-		Piece myPiece = new Piece(shape, Color.BLUE);
-		assertEquals(2, myPiece.getValue());
+	 void pieceRotateTest() {
+		myPiece.rotate90();
+		assertEquals(
+	"x x\n" +
+			"xxx\n",
+			myPiece.toString()
+		);
+	}
+
+	@Test
+	 void pieceMirrorTest() {
+		myPiece.mirror();
+		assertEquals(
+	"xx\n" +
+			"x \n" +
+			"xx\n",
+			myPiece.toString()
+		);
 	}
 }

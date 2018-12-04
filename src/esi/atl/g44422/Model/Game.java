@@ -1,135 +1,103 @@
 package esi.atl.g44422.Model;
 
+import esi.atl.g44422.Util.*;
+
 import java.util.ArrayList;
 
-/**
- * Represents a game
- */
 public class Game implements GameInterface {
+	private final int SIZEX = 20;
+	private final int SIZEY = 20;
+	private final int numberRequiredPlayers = 4;
 
-    private final int MAXPLAYERS = 4;
+	private ArrayList<Observer> observers;
 
-    private final int GRIDWIDTH = 20;
-    private final int GRIDHEIGHT = 20;
+	private ArrayList<Player> players;
+	private final Board board;
+	private Player winner;
+	private Player currentPlayer;
 
-    private ArrayList<Player> players;
+	 public Game() {
+		this.players = new ArrayList<>();
+		this.board = new Board(SIZEX, SIZEY);
+		this.winner = null;
+	}
 
-    private Player currentPlayer;
-    private Player winner;
-    private Board board;
+	 public Board getBoard() {
+		return this.board;
+	}
 
-    /**
-     * Creates a new Game
-     */
-    public Game() {
-        this.players = new ArrayList<Player>();
-        this.board = new Board(this.GRIDWIDTH, this.GRIDHEIGHT);
-    }
+	 public Player getWinner() {
+		return this.winner;
+	}
 
-    /**
-     * Returns the maximum of players the game has
-     * @return the maximum of players the game has
-     */
-    public int getMAXPLAYERS() {
-        return this.MAXPLAYERS;
-    }
+	 public Player getCurrentPlayer() {
+		return this.currentPlayer;
+	}
 
-    /**
-     * Returns the game's grid's width
-     * @return the game's grid's width
-     */
-    public int getGRIDWIDTH() {
-        return this.GRIDWIDTH;
-    }
+	 public int getNumberRequiredPlayers() {
+		return numberRequiredPlayers;
+	}
 
-    /**
-     * Returns the game's grid's height
-     * @return  the game's grid's height
-     */
-    public int getGRIDHEIGHT() {
-        return this.GRIDHEIGHT;
-    }
+	 public ArrayList<Player> getPlayers() {
+		return players;
+	}
 
-    /**
-     * Adds a plyaer in the game
-     * @param player the player that should be added
-     */
-    public void addPlayer(Player player) {
-        if(this.players.size() > this.getMAXPLAYERS() -1 ) {
-            throw new IllegalStateException("Cannot add more than " + this.getMAXPLAYERS() + " players!");
-        } else {
-            this.players.add(player);
-        }
-    }
+	 public void addPlayer(Player player) {
+		if (player == null) {
+			throw new IllegalArgumentException("Le nouveau joueur ne peut pas être null.");
+		} else if (this.players.size() >= numberRequiredPlayers) {
+			throw new IllegalStateException("Il ne peut pas y avoir plus que " + numberRequiredPlayers + " joueurs.");
+		} else {
+			this.players.add(player);
+		}
+	}
 
-    /**
-     * Returns all the game's players
-     * @return all the game's players
-     */
-    public ArrayList<Player> getPlayers() {
-        return this.players;
-    }
+	 public void start() {
+		if (this.players.isEmpty()) {
+			throw new IllegalStateException("Cannot begin the game without any player");
+		} else if (this.players.size() != numberRequiredPlayers) {
+			throw new IllegalStateException("Cannot begin the game when there is not enough players");
+		} else {
+			this.currentPlayer = this.players.get(0);
+		}
+	}
 
-    /**
-     * Returns the playing's player
-     * @return the playing's player
-     */
-    public Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
+	 public boolean isDone() {
+		return false;
+	}
 
-    /**
-     * Sets the current player
-     * Only used when the game begins
-     * @param currentPlayer the current player
-     */
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
+	 public void currentPlayerPutsPiece(int index) {
+		if (index < 0) {
+			throw new IllegalArgumentException("Piece index cannot be negative");
+		} else {
+			this.board.put(this.currentPlayer.getStock().get(index));
+			this.currentPlayer.put(index);
+		}
+	}
 
-    /**
-     * Returns the winner of the game
-     * @return the winner of the game
-     */
-    public Player getWinner() {
-        return this.winner;
-    }
+	 public void currentPlayerSkips() {
+		this.currentPlayer.skip();
+		nextPlayer();
+	}
 
-    /**
-     * Returns true if the game is done
-     * @return true if the game is done
-     */
-    public boolean isDone() {
-        for (Player player : this.players) {
-            if (player.getStock().size() == 0) {
-                this.winner = player;
-                return true;
-            }
-        }
-        return false;
-    }
+	public void nextPlayer() {
+		this.currentPlayer = this.players.get((this.players.indexOf(this.currentPlayer) + 1) % this.numberRequiredPlayers);
+	}
 
-    /**
-     * Puts a piece on the board
-     * @param piece The piece to put
-     * @param pos The position to put the piece on the board.
-     */
-    public void putPiece(Piece piece, Position pos){
-        this.board.putPiece(piece, pos);
-    }
+	@Override
+	public void addObserver(Observer obs) {
+		this.observers.add(obs);
+	}
 
-    /**
-     * Returns the game's board
-     * @return the game's board
-     */
-    public ArrayList<ArrayList<Color>> show() {
-        return this.board.getBoard();
-    }
+	@Override
+	public void removeObserver(Observer obs) {
+		this.observers.remove(obs);
+	}
 
-    /**
-     * Switches to the next player
-     */
-    public void nextPlayer() {
-        this.currentPlayer = this.players.get((this.players.indexOf(this.currentPlayer) + 1) % this.players.size());
-    }
+	@Override
+	public void notifyObservers() {
+		for(Observer obs : observers) {
+			obs.update();
+		}
+	}
 }
