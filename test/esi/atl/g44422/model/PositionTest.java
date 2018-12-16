@@ -1,46 +1,43 @@
 package esi.atl.g44422.model;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class PositionTest {
+public class PositionTest {
 
 	Position pos1;
 	Position pos2;
 
-	@BeforeEach
-	void initialize() {
+	@Before
+	public void initialize() {
 		pos1 = new Position(0, 0);
 		pos2 = new Position(0, 0);
 	}
 
 	@Test
-	void equals() {
+	public void equals() {
 		assertTrue(Position.equals(pos1, pos2));
 	}
 
 	@Test
-	void add2zeros() {
+	public void add2zeros() {
 		assertTrue(Position.equals(Position.add(pos1, pos2), new Position(0, 0)));
 	}
 
 	@Test
-	void add() {
+	public void add() {
 		pos2 = new Position(1, 1);
 		assertTrue(Position.equals(Position.add(pos1, pos2), new Position(1, 1)));
 	}
 
 	@Test
-	void dist() {
+	public void dist() {
 		pos2 = new Position(0, 1);
-		assertEquals(1, Position.dist(pos1, pos2));
+		assertEquals(1, Position.dist(pos1, pos2), 0);
 	}
 
 	@Test
-	void dist2() {
+	public void dist2() {
 		pos2 = new Position(1, 1);
 		assertNotEquals(1, Position.dist(pos1, pos2));
 	}
