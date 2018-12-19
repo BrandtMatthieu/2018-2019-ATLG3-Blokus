@@ -1,27 +1,29 @@
 package esi.atl.g44422.view;
 
-import esi.atl.g44422.model.AIPlayer;
 import esi.atl.g44422.model.Game;
 import esi.atl.g44422.model.Player;
 import esi.atl.g44422.util.Observer;
+
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+
+
 
 /**
  * represents a Fx View for the game (what the user sees)
  */
 public class FxView implements Observer {
-	private final int MAXHEIGHT = 750;
+	private final int MAXHEIGHT = 850;
 	private final int MAXWIDTH = 1000;
 	private final String TITLE = "Blokus";
 	private final Stage primaryStage;
@@ -29,6 +31,7 @@ public class FxView implements Observer {
 	private final VBox mainVBox;
 	private final MenuBar menuBar;
 	private final Menu file;
+        private final MenuItem history;
 	private final Menu edit;
 	private final Menu help;
 	private final HBox gameInfoBox;
@@ -64,6 +67,25 @@ public class FxView implements Observer {
 
 		this.menuBar = new MenuBar();
 		this.file = new Menu("File");
+                this.history = new MenuItem("History");
+                this.file.getItems().add(history);
+                this.history.setOnAction((ActionEvent event) -> {
+                    VBox secondaryLayout = new VBox();
+                    Label title = new Label("Game History :");
+                    title.setAlignment(Pos.CENTER);
+                    title.setFont(new Font(24));
+                    title.setPadding(new Insets(5,5,5,5));
+                    ListView<String> list = new ListView<>();
+                    secondaryLayout.getChildren().addAll(title, list);
+                    Scene secondScene = new Scene(secondaryLayout, 330, 400);
+                    Stage newWindow = new Stage();
+                    newWindow.setTitle("Game History");
+                    newWindow.setScene(secondScene);
+                    newWindow.setX(primaryStage.getX() + 200);
+                    newWindow.setY(primaryStage.getY() + 100);
+                    newWindow.show();
+                });
+
 		this.edit = new Menu("Edit");
 		this.help = new Menu("Help");
 		this.menuBar.getMenus().addAll(this.file, this.edit, this.help);

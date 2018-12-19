@@ -152,12 +152,18 @@ public class Game implements GameInterface {
 		});
 
 		Platform.runLater(() -> {
+                    
+                    // Responsable pour faire jouer les bots
+                    // Boulce infinie fait planter le programme
+                    // Pas réussi à combiner event based et non-event based
+                    /*
 			while(!(this.isDone())) {
 				if(!(currentPlayer instanceof AIPlayer)) {
 					currentPlayerSkips();
 				}
 				currentPlayer.play();
 			}
+                    */
 		});
 	}
 
