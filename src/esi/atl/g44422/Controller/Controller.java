@@ -1,39 +1,34 @@
-package esi.atl.g44422.Controller; // package en minuscule
+package esi.atl.g44422.controller;
 
-import esi.atl.g44422.Model.*;
-import esi.atl.g44422.View.*;
-import javafx.application.Platform;
+import esi.atl.g44422.model.*;
+import esi.atl.g44422.util.Observer;
+import esi.atl.g44422.view.ConsoleView;
+import esi.atl.g44422.view.FxView;
 import javafx.stage.Stage;
 
+/**
+ * Represents a controller for the game
+ */
 public class Controller {
-	private final GameInterface game;
-	private final FxView fxView;
-	private final ConsoleView consoleView;
 
-	public Controller(Stage primarystage) {
+	private final GameInterface game;
+	private final ConsoleView consoleView;
+	private final FxView fxView;
+
+	/**
+	 * Creates a new controller
+	 *
+	 * @param primaryStage the primary stage of the JavaFx application
+	 */
+	public Controller(Stage primaryStage) {
 		this.game = new Game();
 
-		this.fxView = new FxView(primarystage, (Game) game, this);
 		this.consoleView = new ConsoleView();
+		this.game.addObserver(this.consoleView);
 
-		this.start();
-	}
+		this.fxView = new FxView(primaryStage, (Game) game);
+		this.game.addObserver(this.fxView);
 
-	private void start() {
-		game.addPlayer(new Player("Human", Color.BLUE));
-		game.addPlayer(new AIPlayer("BOT 1", Color.GREEN));
-		game.addPlayer(new AIPlayer("BOT 2", Color.RED));
-		game.addPlayer(new AIPlayer("BOT 3", Color.YELLOW));
-			Platform.runLater(() -> {
-				fxView.update();
-			});
-			/*
-		while (!game.isDone()) {
-		}
-		*/
-	}
-
-	public void placePieceHereEvent(int x, int y) {
-
+		this.game.start();
 	}
 }

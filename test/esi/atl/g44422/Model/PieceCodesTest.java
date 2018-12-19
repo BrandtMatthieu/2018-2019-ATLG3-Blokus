@@ -1,233 +1,240 @@
-package esi.atl.g44422.Model;
+package esi.atl.g44422.model;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
- class PieceCodesTest {
+public class PieceCodesTest {
 
-	@Test
-	 void toStringONE() {
-		Piece myPiece = Piece.ONE;
-		assertEquals("x\n",myPiece.toString());
+	Player testPlayer;
+
+	@Before
+	public void initialize() {
+		testPlayer = new Player("Test Player", Color.BLUE);
 	}
 
 	@Test
-	 void toStringTWO() {
-		Piece myPiece = Piece.TWO;
+	public void toStringONE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(0), testPlayer);
+		assertEquals("x\n", myPiece.toString());
+	}
+
+	@Test
+	public void toStringTWO() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(1), testPlayer);
 		assertEquals(
-	"x\n" +
-			"x\n",
-			myPiece.toString()
+				"x\n" +
+						"x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTHREE() {
-		Piece myPiece = Piece.THREE;
+	public void toStringTHREE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(2), testPlayer);
 		assertEquals(
-	"x\n" +
-			"x\n" +
-			"x\n",
-			myPiece.toString()
+				"x\n" +
+						"x\n" +
+						"x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringFOUR() {
-		Piece myPiece = Piece.FOUR;
+	public void toStringFOUR() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(3), testPlayer);
 		assertEquals(
-	"x \n" +
-			"xx\n",
-			myPiece.toString()
+				"x \n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringFIVE() {
-		Piece myPiece = Piece.FIVE;
+	public void toStringFIVE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(4), testPlayer);
 		assertEquals(
-	"x\n" +
-			"x\n" +
-			"x\n" +
-			"x\n",myPiece.toString());
+				"x\n" +
+						"x\n" +
+						"x\n" +
+						"x\n", myPiece.toString());
 	}
 
 	@Test
-	 void toStringSIX() {
-		Piece myPiece = Piece.SIX;
+	public void toStringSIX() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(5), testPlayer);
 		assertEquals(
-	" x\n" +
-			" x\n" +
-			"xx\n",
-			myPiece.toString()
+				" x\n" +
+						" x\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringSEVEN() {
-		Piece myPiece = Piece.SEVEN;
+	public void toStringSEVEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(6), testPlayer);
 		assertEquals(
-	"x \n" +
-			"xx\n" +
-			"x \n",
-			myPiece.toString()
+				"x \n" +
+						"xx\n" +
+						"x \n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringEIGHT() {
-		Piece myPiece = Piece.EIGHT;
+	public void toStringEIGHT() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(7), testPlayer);
 		assertEquals(
-	"xx\n" +
-			"xx\n",
-			myPiece.toString()
+				"xx\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringNINE() {
-		Piece myPiece = Piece.NINE;
+	public void toStringNINE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(8), testPlayer);
 		assertEquals(
-	"xx \n" +
-			" xx\n",
-			myPiece.toString()
+				"xx \n" +
+						" xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTEN() {
-		Piece myPiece = Piece.TEN;
+	public void toStringTEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(9), testPlayer);
 		assertEquals(
-	"x\n" +
-			"x\n" +
-			"x\n" +
-			"x\n" +
-			"x\n",
-			myPiece.toString()
+				"x\n" +
+						"x\n" +
+						"x\n" +
+						"x\n" +
+						"x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringELEVEN() {
-		Piece myPiece = Piece.ELEVEN;
+	public void toStringELEVEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(10), testPlayer);
 		assertEquals(
-	" x\n" +
-			" x\n" +
-			" x\n" +
-			"xx\n",
-			myPiece.toString()
+				" x\n" +
+						" x\n" +
+						" x\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTWELVE() {
-		Piece myPiece = Piece.TWELVE;
+	public void toStringTWELVE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(11), testPlayer);
 		assertEquals(
-	" x\n" +
-			" x\n" +
-			"xx\n" +
-			"x \n",
-			myPiece.toString()
+				" x\n" +
+						" x\n" +
+						"xx\n" +
+						"x \n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTHIRTEEN() {
-		Piece myPiece = Piece.THIRTEEN;
+	public void toStringTHIRTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(12), testPlayer);
 		assertEquals(
-	" x\n" +
-			"xx\n" +
-			"xx\n",
-			myPiece.toString()
+				" x\n" +
+						"xx\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringFOURTEEN() {
-		Piece myPiece = Piece.FOURTEEN;
+	public void toStringFOURTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(13), testPlayer);
 		assertEquals(
-	"xx\n" +
-			" x\n" +
-			"xx\n",
-			myPiece.toString()
+				"xx\n" +
+						" x\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringFIFTEEN() {
-		Piece myPiece = Piece.FIFTEEN;
+	public void toStringFIFTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(14), testPlayer);
 		assertEquals(
-	"x \n" +
-			"xx\n" +
-			"x \n" +
-			"x \n",
-			myPiece.toString()
+				"x \n" +
+						"xx\n" +
+						"x \n" +
+						"x \n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringSIXTEEN() {
-		Piece myPiece = Piece.SIXTEEN;
+	public void toStringSIXTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(15), testPlayer);
 		assertEquals(
-	" x \n" +
-			" x \n" +
-			"xxx\n",
-			myPiece.toString()
+				" x \n" +
+						" x \n" +
+						"xxx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringSEVENTEEN() {
-		Piece myPiece = Piece.SEVENTEEN;
+	public void toStringSEVENTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(16), testPlayer);
 		assertEquals(
-	"x  \n" +
-			"x  \n" +
-			"xxx\n",
-			myPiece.toString()
+				"x  \n" +
+						"x  \n" +
+						"xxx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringEIGHTEEN() {
-		Piece myPiece = Piece.EIGHTEEN;
+	public void toStringEIGHTEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(17), testPlayer);
 		assertEquals(
-	"xx \n" +
-			" xx\n" +
-			"  x\n",
-			myPiece.toString()
+				"xx \n" +
+						" xx\n" +
+						"  x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringNINETEEN() {
-		Piece myPiece = Piece.NINETEEN;
+	public void toStringNINETEEN() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(18), testPlayer);
 		assertEquals(
-	"x  \n" +
-			"xxx\n" +
-			"  x\n",
-			myPiece.toString()
+				"x  \n" +
+						"xxx\n" +
+						"  x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTWENTY() {
-		Piece myPiece = Piece.TWENTY;
+	public void toStringTWENTY() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(19), testPlayer);
 		assertEquals(
-	"x  \n" +
-			"xxx\n" +
-			" x \n",
-			myPiece.toString()
+				"x  \n" +
+						"xxx\n" +
+						" x \n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void toStringTWENTYONE() {
-		Piece myPiece = Piece.TWENTYONE;
+	public void toStringTWENTYONE() {
+		Piece myPiece = new Piece(Piece.getDefaultShapes().get(20), testPlayer);
 		assertEquals(
-	" x \n" +
-			"xxx\n" +
-			" x \n",
-			myPiece.toString()
+				" x \n" +
+						"xxx\n" +
+						" x \n",
+				myPiece.toString()
 		);
 	}
 }

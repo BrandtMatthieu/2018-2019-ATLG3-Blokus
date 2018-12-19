@@ -1,60 +1,115 @@
-package esi.atl.g44422.Model;
+package esi.atl.g44422.model;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.*;
+import static org.junit.Assert.*;
 
- class PieceTest {
+import java.util.Arrays;
 
+public class PieceTest {
+
+	Player myPlayer;
 	Piece myPiece;
+	Board myBoard;
 
-	@BeforeEach
-	 void initialize() {
-		this.myPiece = Piece.FOURTEEN;
+	@Before
+	public void initialize() {
+		this.myPlayer = new Player("Test player", Color.BLUE);
+		this.myPiece = new Piece(Piece.getDefaultShapes().get(13), this.myPlayer);
+		this.myBoard = new Board(20, 20);
 	}
 
 	@Test
-	 void pieceCellValueTest() {
+	public void pieceCellValueTest() {
 		assertEquals(5, myPiece.getValue());
 	}
 
 	@Test
-	 void pieceCellWidthTest() {
-		assertEquals(2, myPiece.getSizeX());
+	public void pieceCellWidthTest() {
+		assertEquals(2, myPiece.getShape().getSizeX());
 	}
 
 	@Test
-	 void pieceCellHeightTest() {
-		assertEquals(3, myPiece.getSizeY());
+	public void pieceCellHeightTest() {
+		assertEquals(3, myPiece.getShape().getSizeY());
 	}
 
 	@Test
-	 void pieceToStringTest() {
+	public void pieceToStringTest() {
 		assertEquals(
-	"xx\n" +
-			" x\n" +
-			"xx\n",
-			myPiece.toString()
+				"xx\n" +
+						" x\n" +
+						"xx\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void pieceRotateTest() {
+	public void pieceTo2DArrayTest() {
+		boolean[][] myPieceBis = new boolean[][]{
+				{true, true},
+				{false, true},
+				{true, true}
+		};
+		assertTrue(Arrays.deepEquals(myPieceBis, Piece.to2DArray(myPiece.getShape())));
+	}
+
+	@Test
+	public void toPieceShapeTest() {
+		assertEquals("xxx\nx x\nxxx\n", new Piece(Piece.toPieceShape(new boolean[][]{{true, true, true}, {true, false, true}, {true, true, true}}), myPlayer).toString());
+	}
+
+	@Test
+	public void pieceRotateTest() {
 		myPiece.rotate90();
 		assertEquals(
-	"x x\n" +
-			"xxx\n",
-			myPiece.toString()
+				"xxx\n" +
+						"x x\n",
+				myPiece.toString()
 		);
 	}
 
 	@Test
-	 void pieceMirrorTest() {
+	public void pieceMirrorTest() {
 		myPiece.mirror();
 		assertEquals(
-	"xx\n" +
-			"x \n" +
-			"xx\n",
-			myPiece.toString()
+				"xx\n" +
+						"x \n" +
+						"xx\n",
+				myPiece.toString()
 		);
+	}
+
+	@Test
+	public void pieceIsOutOfBounds() {
+		Board myBoard = new Board(20, 20);
+		myPiece.setPosition(null);
+		assertFalse(myBoard.isOutOfBounds(myPiece, new Position(17, 16)));
+	}
+
+	@Test
+	public void pieceIsOutOfBounds2() {
+		Board myBoard = new Board(20, 20);
+		myPiece.setPosition(null);
+		assertFalse(myBoard.isOutOfBounds(myPiece, new Position(10, 10)));
+	}
+
+	@Test
+	public void pieceIsOutOfBounds3() {
+		myPiece.setPosition(null);
+		assertTrue(myBoard.isOutOfBounds(myPiece, new Position(20, 20)));
+	}
+
+	@Test
+	public void pieceOverlapsOtherPiece() {
+		Position overlappingPosition = new Position(10, 10);
+		myBoard.put(myPiece, overlappingPosition);
+		assertTrue(myBoard.overlapsOtherPiece(myPiece, overlappingPosition));
+	}
+
+	@Test
+	public void pieceOverlapsOtherPiece2() {
+		Position overlappingPosition = new Position(10, 10);
+		myBoard.put(myPiece, overlappingPosition);
+		assertTrue(myBoard.overlapsOtherPiece(myPiece, Position.add(overlappingPosition, new Position(1, 0))));
 	}
 }

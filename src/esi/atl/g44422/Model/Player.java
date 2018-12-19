@@ -1,65 +1,129 @@
-package esi.atl.g44422.Model;
+package esi.atl.g44422.model;
+
+import esi.atl.g44422.util.Observer;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
-import static java.util.Arrays.asList;
-
+/**
+ * Represents a player in the game
+ */
 public class Player {
 	private final String nickname;
+	private final Color color;
+	private final ArrayList<Piece> stock;
+	private final ArrayList<Piece> piecesPut;
 	private int score;
 	private boolean hasSkipped;
-	private final Color color;
-	private ArrayList<Piece> stock;
-	private ArrayList<Piece> piecesPut;
 
-	 public Player(String nickname, Color color) {
+	/**
+	 * Creates a new player
+	 *
+	 * @param nickname the name of the player
+	 * @param color    the color of the player
+	 */
+	public Player(String nickname, Color color) {
 		this.nickname = nickname;
 		this.score = 0;
 		this.hasSkipped = false;
 		this.color = color;
-		this.stock = new ArrayList<Piece>();
+		this.stock = new ArrayList<>();
 		initStock();
-		this.piecesPut = new ArrayList<Piece>();
+		this.piecesPut = new ArrayList<>();
 	}
 
+	/**
+	 * Returns the name of the player
+	 *
+	 * @return the name of the player
+	 */
 	public String getNickname() {
 		return nickname;
 	}
 
-	 public int getScore() {
+	/**
+	 * Returns the score of the player
+	 *
+	 * @return the score of the player
+	 */
+	public int getScore() {
 		return score;
 	}
 
-	boolean hasSkipped() {
+	/**
+	 * returns if the player has skipped last turn
+	 *
+	 * @return if the player has skipped last turn
+	 */
+	public boolean hasSkipped() {
 		return hasSkipped;
 	}
 
-	 public Color getColor() {
+	/**
+	 * Returns the color of the player
+	 *
+	 * @return the color of the player
+	 */
+	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Returns the stock of the player
+	 *
+	 * @return the stock of the player
+	 */
 	public ArrayList<Piece> getStock() {
 		return stock;
 	}
 
-	ArrayList<Piece> getPiecesPut() {
+	/**
+	 * returns a list with all the pieces put by the player
+	 *
+	 * @return a list with all the pieces put by the player
+	 */
+	public ArrayList<Piece> getPiecesPut() {
 		return piecesPut;
 	}
 
+	/**
+	 * Initializes the stock of the player
+	 */
 	private void initStock() {
-		 this.stock.addAll(asList(Piece.values()));
+		for(PieceShape shape : Piece.getDefaultShapes()) {
+			this.stock.add(new Piece(new PieceShape(shape), this));
+		}
 	}
 
+	/**
+	 * Puts a piece and adds this piece to the piecesPut list
+	 *
+	 * @param piece the piece that has been put
+	 */
+	void putPiece(Piece piece) {
+		this.piecesPut.add(piece);
+		this.score += piece.getValue();
+		this.stock.remove(piece);
+	}
+
+	/**
+	 * Makes the player skip
+	 */
 	void skip() {
 		this.hasSkipped = true;
 	}
 
-	void put(int index) {
-		if (index > this.stock.size() - 1) {
-			throw new IllegalArgumentException("This piece doesn't exists");
-		} else {
-			this.piecesPut.add(this.stock.get(index));
-			this.stock.remove(index);
-		}
+	/**
+	 * Adds point to the player
+	 * @param amount the amount of points to add
+	 */
+	public void addToScore(int amount) {
+		this.score += amount;
+	}
+
+	/**
+	 * Makes the player plays (only available for AIPlayers)
+	 */
+	synchronized void play() {
 	}
 }

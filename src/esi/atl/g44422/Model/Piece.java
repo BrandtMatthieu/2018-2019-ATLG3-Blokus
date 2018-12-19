@@ -1,126 +1,236 @@
-package esi.atl.g44422.Model;
+package esi.atl.g44422.model;
 
 import java.util.ArrayList;
 
 import static java.util.Arrays.asList;
 
-public enum Piece {
-	ONE(new ArrayList<Position>(asList(new Position(0, 0)))),
-	TWO(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1)))),
-	THREE(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2)))),
-	FOUR(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1)))),
-	FIVE(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(0, 3)))),
-	SIX(new ArrayList<Position>(asList(new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(0, 2)))),
-	SEVEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(1, 1)))),
-	EIGHT(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 0), new Position(1, 1)))),
-	NINE(new ArrayList<Position>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(2, 1)))),
-	TEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(0, 3), new Position(0, 4)))),
-	ELEVEN(new ArrayList<Position>(asList(new Position(0, 3), new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(1, 3)))),
-	TWELVE(new ArrayList<Position>(asList(new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(0, 2), new Position(0, 3)))),
-	THIRTEEN(new ArrayList<Position>(asList(new Position(1, 0), new Position(0, 1), new Position(1, 0), new Position(1, 1), new Position(0, 2), new Position(1, 2)))),
-	FOURTEEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(0, 2), new Position(1, 2)))),
-	FIFTEEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(0, 2), new Position(0, 3)))),
-	SIXTEEN(new ArrayList<Position>(asList(new Position(0, 2), new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(2, 2)))),
-	SEVENTEEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(1, 2), new Position(2, 2)))),
-	EIGHTEEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(2, 1), new Position(2, 2)))),
-	NINETEEN(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(2, 1), new Position(2, 2)))),
-	TWENTY(new ArrayList<Position>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(1, 2), new Position(2, 1)))),
-	TWENTYONE(new ArrayList<Position>(asList(new Position(1, 1), new Position(0, 1), new Position(1, 0), new Position(2, 1), new Position(1, 2))));
+/**
+ * Represents a piece in the game
+ */
+public class Piece {
+	static private final ArrayList<PieceShape> defaultShapes = new ArrayList<>(
+			asList(
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(0, 3)))),
+					new PieceShape(new ArrayList<>(asList(new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(0, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(1, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 0), new Position(1, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(2, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(0, 3), new Position(0, 4)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 3), new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(1, 3)))),
+					new PieceShape(new ArrayList<>(asList(new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(0, 2), new Position(0, 3)))),
+					new PieceShape(new ArrayList<>(asList(new Position(1, 0), new Position(0, 1), new Position(1, 0), new Position(1, 1), new Position(0, 2), new Position(1, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(0, 2), new Position(1, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(0, 2), new Position(0, 3)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 2), new Position(1, 0), new Position(1, 1), new Position(1, 2), new Position(2, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(0, 2), new Position(1, 2), new Position(2, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(1, 0), new Position(1, 1), new Position(2, 1), new Position(2, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(2, 1), new Position(2, 2)))),
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(1, 2), new Position(2, 1)))),
+					new PieceShape(new ArrayList<>(asList(new Position(1, 1), new Position(0, 1), new Position(1, 0), new Position(2, 1), new Position(1, 2))))
+			)
+	);
+	private final Player owner;
+	private final ArrayList<Position> corners;
+	private PieceShape shape;
+	private Position position;
 
-	private ArrayList<Position> cells;
-	private Position position; // il y a 4 joeurs, leur pieces seront à la meme position ?
-
-	Piece(ArrayList<Position> cells) {
-		this.cells = cells;
+	/**
+	 * Creates a new piece
+	 *
+	 * @param newShape the shape of the piece
+	 * @param owner    the owner of the piece
+	 */
+	Piece(PieceShape newShape, Player owner) {
+		this.shape = newShape;
+		this.position = null;
+		this.owner = owner;
+		this.corners = new ArrayList<>();
+		findCorners();
 	}
 
-	 public ArrayList<Position> getCells() {
-		return this.cells; // copie
+	/**
+	 * Gets a list with all pre-defined shape
+	 *
+	 * @return Gets a list with all pre-defined shape
+	 */
+	static public ArrayList<PieceShape> getDefaultShapes() {
+		return new ArrayList<>(defaultShapes);
 	}
 
-	public Position getPosition() {
-		return this.position;
+	/**
+	 * Converts a piece's shape to a 2D boolean array
+	 *
+	 * @param shape the shape to be converted
+	 * @return a 2D boolean array of the shape
+	 */
+	public static boolean[][] to2DArray(PieceShape shape) {
+		boolean[][] new2DShape = new boolean[shape.getSizeY()][shape.getSizeX()];
+		for(Position pos : shape.getCells()) {
+			new2DShape[pos.getY()][pos.getX()] = true;
+		}
+		return new2DShape;
 	}
 
-
-	private static ArrayList<Position> toPositionList(boolean[][] shape) {
-		ArrayList<Position> positionList = new ArrayList<Position>();
-		for (int y = 0; y < shape.length; y++) {
-			for (int x = 0; x < shape[0].length; x++) {
-				if (shape[y][x]) {
-					positionList.add(new Position(x, y));
+	/**
+	 * Returns a piece shape made from a 2d boolean array
+	 *
+	 * @param shape a 2d boolean array of a shape
+	 * @return a piece shape
+	 */
+	public static PieceShape toPieceShape(boolean[][] shape) {
+		ArrayList<Position> newShape = new ArrayList<>();
+		for(int y = 0; y < shape.length; y++) {
+			for(int x = 0; x < shape[0].length; x++) {
+				if(shape[y][x]) {
+					newShape.add(new Position(x, y));
 				}
 			}
 		}
-		return positionList;
+		return new PieceShape(newShape);
 	}
 
+	/**
+	 * Rotates a 2d boolean array
+	 *
+	 * @param original the array to rotate
+	 * @return the rotated array
+	 */
 	private static boolean[][] rotate2DArray90(boolean[][] original) {
-		boolean[][] rotated = new boolean[original.length][original[0].length];
-		for (int i = 0; i < original.length; i++) {
-			for (int j = 0; j < original[0].length; j++) {
-				rotated[i][j] = original[j][original.length - i - 1];
+		int totalRowsOfRotatedMatrix = original[0].length;
+		int totalColsOfRotatedMatrix = original.length;
+
+		boolean[][] rotated = new boolean[totalRowsOfRotatedMatrix][totalColsOfRotatedMatrix];
+
+		for(int i = 0; i < original.length; i++) {
+			for(int j = 0; j < original[0].length; j++) {
+				rotated[(totalRowsOfRotatedMatrix - 1) - j][i] = original[i][j];
 			}
 		}
 		return rotated;
 	}
 
+	/**
+	 * Returns a mirrored array
+	 *
+	 * @param original the original array
+	 * @return the rotated array
+	 */
 	private static boolean[][] mirror2DArray(boolean[][] original) {
-		for (int j = 0; j < original.length; ++j) {  // Extra for loop to go through each row in turn, performing the reversal within that row.
-			boolean[] row = original[j];
-			for (int i = 0; i < (row.length / 2); i++) {
+		for(boolean[] row : original) {
+			for(int i = 0; i < (row.length / 2); i++) {
 				boolean temp = row[i];
-				row[i] = original[j][row.length - i - 1];
+				row[i] = row[row.length - i - 1];
 				row[row.length - i - 1] = temp;
 			}
 		}
 		return original;
 	}
 
-	 int getSizeX() {
-		int maxX = 0;
-		for (Position pos : this.cells) {
-			maxX = Math.max(maxX, pos.getX());
+	/**
+	 * Finds all the corners of the piece
+	 */
+	private void findCorners() {
+		for(Position cell : this.shape.getCells()) {
+			if(!PieceShape.isOnTheSideOfOtherCell(Position.add(cell, new Position(-1, -1)), this)) {
+				this.corners.add(Position.add(cell, new Position(-1, -1)));
+			}
+			if(!PieceShape.isOnTheSideOfOtherCell(Position.add(cell, new Position(-1, 1)), this)) {
+				this.corners.add(Position.add(cell, new Position(-1, 1)));
+			}
+			if(!PieceShape.isOnTheSideOfOtherCell(Position.add(cell, new Position(1, -1)), this)) {
+				this.corners.add(Position.add(cell, new Position(1, -1)));
+			}
+			if(!PieceShape.isOnTheSideOfOtherCell(Position.add(cell, new Position(1, 1)), this)) {
+				this.corners.add(Position.add(cell, new Position(1, 1)));
+			}
 		}
-		return maxX + 1;
 	}
 
-	 int getSizeY() {
-		int maxY = 0;
-		for (Position pos : this.cells) {
-			maxY = Math.max(maxY, pos.getY());
-		}
-		return maxY + 1;
+	/**
+	 * Returns the shape of the piece
+	 *
+	 * @return the shape of the piece
+	 */
+	public PieceShape getShape() {
+		return this.shape;
 	}
 
-	 int getValue() {
-		return this.cells.size();
+	/**
+	 * Returns the position of the piece
+	 *
+	 * @return the position of the piece
+	 */
+	public Position getPosition() {
+		return this.position;
 	}
 
-	private boolean[][] to2DArray() {
-		boolean[][] shape = new boolean[this.getSizeY()][this.getSizeX()];
-		for (Position pos : this.cells) {
-			shape[pos.getY()][pos.getX()] = true;
-		}
-		return shape;
+	/**
+	 * Sets the position of the piece
+	 *
+	 * @param position the position of the piece
+	 */
+	void setPosition(Position position) {
+		this.position = position;
 	}
 
+	/**
+	 * Returns the owner of the piece
+	 *
+	 * @return the owner of the piece
+	 */
+	public Player getOwner() {
+		return this.owner;
+	}
+
+	/**
+	 * Returns the value of the piece
+	 *
+	 * @return the value of the piece
+	 */
+	int getValue() {
+		return this.shape.getCells().size();
+	}
+
+	/**
+	 * Returns the corners of the piece
+	 *
+	 * @return the corners of the piece
+	 */
+	public ArrayList<Position> getCorners() {
+		return this.corners;
+	}
+
+	/**
+	 * Rotates the shape of the piece 90°
+	 */
 	void rotate90() {
-		this.cells = toPositionList(rotate2DArray90(this.to2DArray()));
+		this.shape = toPieceShape(rotate2DArray90(to2DArray(this.getShape())));
 	}
 
+	/**
+	 * Mirrors the shape of the piece
+	 */
 	void mirror() {
-		this.cells = toPositionList(mirror2DArray(this.to2DArray()));
+		this.shape = toPieceShape(mirror2DArray(to2DArray(this.getShape())));
 	}
 
+	/**
+	 * Returns a string made of the shape of the piece
+	 *
+	 * @return a string made of the shape of the piece
+	 */
 	@Override
 	public String toString() {
 		String str = "";
-		for (boolean[] row : this.to2DArray()) {
-			for (boolean cell : row) {
-				str += cell ? "x" : " ";
+		for(boolean[] row : to2DArray(this.getShape())) {
+			for(boolean cell : row) {
+				str = str.concat(cell ? "x" : " ");
 			}
-			str += "\n";
+			str = str.concat("\n");
 		}
 		return str;
 	}

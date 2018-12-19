@@ -1,8 +1,20 @@
-package esi.atl.g44422.Util;
+package esi.atl.g44422.util;
 
-import java.util.ArrayList;
-
+/**
+ * Represents an observable component of the application
+ */
 public interface Observable {
-	public void addObserver(Observer obs);
-	public void removeObserver(Observer obs);
+	/**
+	 * Adds an observer to a component
+	 *
+	 * @param obs the observer
+	 */
+	void addObserver(Observer obs);
+
+	/**
+	 * Removes an observer to a component
+	 *
+	 * @param obs the observer
+	 */
+	void removeObserver(Observer obs);
 }
