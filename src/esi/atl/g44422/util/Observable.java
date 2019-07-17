@@ -17,4 +17,9 @@ public interface Observable {
 	 * @param obs the observer
 	 */
 	void removeObserver(Observer obs);
+
+	/**
+	 * Notifies all the observers attached to this object
+	 */
+	void notifyObservers();
 }

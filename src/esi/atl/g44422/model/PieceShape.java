@@ -44,6 +44,17 @@ public class PieceShape {
 	}
 
 	/**
+	 * Checks if two shapes are equals
+	 *
+	 * @param shape1 the first shape
+	 * @param shape2 the second shape
+	 * @return if the two shape are equals
+	 */
+	public static boolean equals(PieceShape shape1, PieceShape shape2) {
+		return Arrays.deepEquals(Piece.to2DArray(shape1), Piece.to2DArray(shape2));
+	}
+
+	/**
 	 * Returns the cells of the shape
 	 *
 	 * @return the cells of the shape
@@ -76,15 +87,5 @@ public class PieceShape {
 			maxY = Math.max(maxY, pos.getY());
 		}
 		return maxY + 1;
-	}
-
-	/**
-	 * Checks if two shapes are equals
-	 * @param shape1 the first shape
-	 * @param shape2 the second shape
-	 * @return if the two shape are equals
-	 */
-	public static boolean equals(PieceShape shape1, PieceShape shape2) {
-		return Arrays.deepEquals(Piece.to2DArray(shape1), Piece.to2DArray(shape2));
 	}
 }

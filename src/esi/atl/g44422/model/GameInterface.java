@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public interface GameInterface extends Observable {
 
 	/**
+	 * Initializes a new game
+	 */
+	void newGame();
+
+	/**
 	 * Returns the board of the game
 	 *
 	 * @return the board of the game
@@ -118,6 +123,13 @@ public interface GameInterface extends Observable {
 	 * Makes the current player turn his piece
 	 */
 	void currentPlayerTurnsPiece();
+
+	/**
+	 * Returns the history of all moves in the game
+	 *
+	 * @return an arraylist with all moves made in the game
+	 */
+	ArrayList<String> getMovesHistory();
 
 	/**
 	 * Adds an observer to this game's component

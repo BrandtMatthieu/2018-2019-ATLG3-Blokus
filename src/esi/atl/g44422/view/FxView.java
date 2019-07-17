@@ -3,7 +3,6 @@ package esi.atl.g44422.view;
 import esi.atl.g44422.model.Game;
 import esi.atl.g44422.model.Player;
 import esi.atl.g44422.util.Observer;
-
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,11 +11,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
-
 
 
 /**
@@ -31,7 +29,7 @@ public class FxView implements Observer {
 	private final VBox mainVBox;
 	private final MenuBar menuBar;
 	private final Menu file;
-        private final MenuItem history;
+	private final MenuItem history;
 	private final Menu edit;
 	private final Menu help;
 	private final HBox gameInfoBox;
@@ -44,7 +42,7 @@ public class FxView implements Observer {
 	private final Button stopGame;
 	private final Button turnPiece;
 	private final Button flipPiece;
-	private Game game;
+	private final Game game;
 
 	/**
 	 * Creates a new Fx View
@@ -67,24 +65,24 @@ public class FxView implements Observer {
 
 		this.menuBar = new MenuBar();
 		this.file = new Menu("File");
-                this.history = new MenuItem("History");
-                this.file.getItems().add(history);
-                this.history.setOnAction((ActionEvent event) -> {
-                    VBox secondaryLayout = new VBox();
-                    Label title = new Label("Game History :");
-                    title.setAlignment(Pos.CENTER);
-                    title.setFont(new Font(24));
-                    title.setPadding(new Insets(5,5,5,5));
-                    ListView<String> list = new ListView<>();
-                    secondaryLayout.getChildren().addAll(title, list);
-                    Scene secondScene = new Scene(secondaryLayout, 330, 400);
-                    Stage newWindow = new Stage();
-                    newWindow.setTitle("Game History");
-                    newWindow.setScene(secondScene);
-                    newWindow.setX(primaryStage.getX() + 200);
-                    newWindow.setY(primaryStage.getY() + 100);
-                    newWindow.show();
-                });
+		this.history = new MenuItem("History");
+		this.file.getItems().add(history);
+		this.history.setOnAction((ActionEvent event) -> {
+			VBox secondaryLayout = new VBox();
+			Label title = new Label("Game History :");
+			title.setAlignment(Pos.CENTER);
+			title.setFont(new Font(24));
+			title.setPadding(new Insets(5, 5, 5, 5));
+			ListView<String> list = new ListView<>();
+			secondaryLayout.getChildren().addAll(title, list);
+			Scene secondScene = new Scene(secondaryLayout, 330, 400);
+			Stage newWindow = new Stage();
+			newWindow.setTitle("Game History");
+			newWindow.setScene(secondScene);
+			newWindow.setX(primaryStage.getX() + 200);
+			newWindow.setY(primaryStage.getY() + 100);
+			newWindow.show();
+		});
 
 		this.edit = new Menu("Edit");
 		this.help = new Menu("Help");
@@ -107,7 +105,7 @@ public class FxView implements Observer {
 		this.skipTurn = new Button("Skip turn");
 		this.skipTurn.setOnMouseClicked((event) -> {
 			//if(!(game.getCurrentPlayer() instanceof AIPlayer)) {
-				this.game.currentPlayerSkips();
+			this.game.currentPlayerSkips();
 			//}
 		});
 		this.stopGame = new Button("Stop game");
@@ -145,7 +143,6 @@ public class FxView implements Observer {
 	/**
 	 * Updates the Fx View
 	 */
-	@Override
 	public void update() {
 		this.refreshGameInfo(this.game);
 		this.refreshPlayers(this.game.getPlayers());

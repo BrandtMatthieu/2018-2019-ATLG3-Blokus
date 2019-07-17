@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class AIPlayer extends Player {
 
-	Game game;
+	private final Game game;
 
 	/**
 	 * Creates a new artificial intelligence controlled player
@@ -57,6 +57,5 @@ public class AIPlayer extends Player {
 			piecesToTest.remove(testingPiece);
 		}
 		game.currentPlayerSkips();
-		return;
 	}
 }

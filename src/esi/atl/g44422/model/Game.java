@@ -22,6 +22,7 @@ public class Game implements GameInterface {
 	private Player currentPlayer;
 	private Piece selectedPiece;
 	private Position selectedPosition;
+	private ArrayList<String> movesHistory;
 
 	/**
 	 * Creates a new game
@@ -35,13 +36,14 @@ public class Game implements GameInterface {
 	 * Initializes a new game
 	 */
 	public void newGame() {
-		this.players = new ArrayList<>();
+		this.players = new ArrayList<Player>();
 		this.board = new Board(SIZEX, SIZEY);
 		this.winner = null;
 		this.turnNumber = 0.0;
 		this.currentPlayer = null;
 		this.selectedPiece = null;
 		this.selectedPosition = null;
+		this.movesHistory = new ArrayList<String>();
 
 		this.addPlayer(new Player("Human", Color.BLUE));
 		this.addPlayer(new AIPlayer("BOT 1", Color.YELLOW, this));
@@ -152,10 +154,10 @@ public class Game implements GameInterface {
 		});
 
 		Platform.runLater(() -> {
-                    
-                    // Responsable pour faire jouer les bots
-                    // Boulce infinie fait planter le programme
-                    // Pas réussi à combiner event based et non-event based
+
+			// Responsable pour faire jouer les bots
+			// Boulce infinie fait planter le programme
+			// Pas réussi à combiner event based et non-event based
                     /*
 			while(!(this.isDone())) {
 				if(!(currentPlayer instanceof AIPlayer)) {
@@ -321,11 +323,19 @@ public class Game implements GameInterface {
 	}
 
 	/**
+	 * Returns the history of all moves in the game
+	 *
+	 * @return an arraylist with all moves made in the game
+	 */
+	public java.util.ArrayList<String> getMovesHistory() {
+		return this.movesHistory;
+	}
+
+	/**
 	 * Adds an observer to this game's component
 	 *
 	 * @param obs an observer
 	 */
-	@Override
 	public void addObserver(Observer obs) {
 		this.observers.add(obs);
 	}
@@ -335,7 +345,6 @@ public class Game implements GameInterface {
 	 *
 	 * @param obs an observer
 	 */
-	@Override
 	public void removeObserver(Observer obs) {
 		this.observers.remove(obs);
 	}
@@ -343,7 +352,7 @@ public class Game implements GameInterface {
 	/**
 	 * Notifies all the observers attached to this object
 	 */
-	void notifyObservers() {
+	public void notifyObservers() {
 		for(Observer obs : observers) {
 			obs.update();
 		}

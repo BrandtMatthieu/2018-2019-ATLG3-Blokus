@@ -15,7 +15,6 @@ public class ConsoleView implements Observer {
 	/**
 	 * Updates the console view
 	 */
-	@Override
 	public void update() {
 
 	}

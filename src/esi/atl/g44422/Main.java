@@ -22,7 +22,6 @@ public class Main extends Application {
 	 *
 	 * @param primaryStage the primary stage given by JavaFx
 	 */
-	@Override
 	public void start(Stage primaryStage) {
 		new Controller(primaryStage);
 	}

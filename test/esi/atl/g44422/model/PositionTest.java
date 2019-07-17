@@ -1,12 +1,14 @@
 package esi.atl.g44422.model;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class PositionTest {
 
-	Position pos1;
-	Position pos2;
+	private Position pos1;
+	private Position pos2;
 
 	@Before
 	public void initialize() {

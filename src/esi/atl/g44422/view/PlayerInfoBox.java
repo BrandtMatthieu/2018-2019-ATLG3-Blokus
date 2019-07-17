@@ -15,7 +15,7 @@ import javafx.scene.layout.*;
 class PlayerInfoBox extends FlowPane {
 	private final Label playerNickname;
 	private final Label playerScore;
-        private final Label playerStockCount;
+	private final Label playerStockCount;
 	private final FlowPane playerStock;
 
 	/**
@@ -29,7 +29,7 @@ class PlayerInfoBox extends FlowPane {
 		this.setBorder(new Border(new BorderStroke(javafx.scene.paint.Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 		this.playerNickname = new Label("Player : " + player.getNickname() + "            (aka. " + player.getColor().toString() + ")");
 		this.playerScore = new Label("Score : " + player.getScore());
-                this.playerStockCount = new Label("Stock : " + player.getStock().size() + " pieces left");
+		this.playerStockCount = new Label("Stock : " + player.getStock().size() + " pieces left");
 		this.playerStock = new FlowPane();
 		this.displayStock(player, game);
 		VBox vbox = new VBox();
@@ -54,4 +54,3 @@ class PlayerInfoBox extends FlowPane {
 		}
 	}
 }
-

@@ -1,15 +1,17 @@
 package esi.atl.g44422.model;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class GameTest {
 
-	Game myGame;
-	Player player1;
-	Player player2;
-	Player player3;
-	Player player4;
+	private Game myGame;
+	private Player player1;
+	private Player player2;
+	private Player player3;
+	private Player player4;
 
 	@Before
 	public void initialize() {

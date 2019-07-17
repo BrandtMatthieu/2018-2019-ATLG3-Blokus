@@ -31,7 +31,7 @@ public class Piece {
 					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(2, 1), new Position(2, 2)))),
 					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1), new Position(1, 1), new Position(1, 2), new Position(2, 1)))),
 					new PieceShape(new ArrayList<>(asList(new Position(1, 1), new Position(0, 1), new Position(1, 0), new Position(2, 1), new Position(1, 2)))),
-                                        new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(1, 0), new Position(0, 1), new Position(1, 1), new Position(0, 2), new Position(1, 2))))
+					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(1, 0), new Position(0, 1), new Position(1, 1), new Position(0, 2), new Position(1, 2))))
 			)
 	);
 	private final Player owner;

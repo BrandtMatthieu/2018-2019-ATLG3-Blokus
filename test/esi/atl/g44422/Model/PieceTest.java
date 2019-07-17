@@ -1,15 +1,17 @@
 package esi.atl.g44422.model;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.*;
+
 public class PieceTest {
 
-	Player myPlayer;
-	Piece myPiece;
-	Board myBoard;
+	private Player myPlayer;
+	private Piece myPiece;
+	private Board myBoard;
 
 	@Before
 	public void initialize() {

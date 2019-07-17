@@ -1,8 +1,5 @@
 package esi.atl.g44422.model;
 
-import esi.atl.g44422.util.Observer;
-import javafx.application.Platform;
-
 import java.util.ArrayList;
 
 /**
@@ -115,6 +112,7 @@ public class Player {
 
 	/**
 	 * Adds point to the player
+	 *
 	 * @param amount the amount of points to add
 	 */
 	public void addToScore(int amount) {

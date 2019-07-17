@@ -1,11 +1,13 @@
 package esi.atl.g44422.model;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class PieceCodesTest {
 
-	Player testPlayer;
+	private Player testPlayer;
 
 	@Before
 	public void initialize() {

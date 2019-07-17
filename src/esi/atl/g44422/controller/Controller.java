@@ -1,9 +1,9 @@
-package esi.atl.g44422.controller;
+package esi.atl.g44422.Controller;
 
-import esi.atl.g44422.model.*;
-import esi.atl.g44422.util.Observer;
-import esi.atl.g44422.view.ConsoleView;
-import esi.atl.g44422.view.FxView;
+import esi.atl.g44422.Model.Game;
+import esi.atl.g44422.Model.GameInterface;
+import esi.atl.g44422.View.ConsoleView;
+import esi.atl.g44422.View.FxView;
 import javafx.stage.Stage;
 
 /**
