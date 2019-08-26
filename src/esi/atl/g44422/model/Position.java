@@ -1,14 +1,14 @@
 package esi.atl.g44422.model;
 
 /**
- * Represents a position in the game
+ * Represents a position in the game.
  */
 public class Position {
 	private final int x;
 	private final int y;
 
 	/**
-	 * creates a new position
+	 * Creates a new position.
 	 *
 	 * @param x the x position
 	 * @param y the y position
@@ -19,19 +19,19 @@ public class Position {
 	}
 
 	/**
-	 * Checks if two positions are the same
+	 * Checks if two positions are the same.
 	 *
 	 * @param pos1 the first position
 	 * @param pos2 the second position
 	 * @return if two positions are the same
 	 */
 	static boolean equals(Position pos1, Position pos2) {
-		return pos1.getX() == pos2.getX() &&
-				pos1.getY() == pos2.getY();
+		return pos1.getX() == pos2.getX()
+				&& pos1.getY() == pos2.getY();
 	}
 
 	/**
-	 * Adds two positions together
+	 * Adds two positions together.
 	 *
 	 * @param pos1 the first position
 	 * @param pos2 the second position
@@ -42,7 +42,7 @@ public class Position {
 	}
 
 	/**
-	 * Returns the distance between multiple positions
+	 * Returns the distance between multiple positions.
 	 *
 	 * @param pos1 the first position
 	 * @param pos2 the second position
@@ -53,7 +53,7 @@ public class Position {
 	}
 
 	/**
-	 * Returns the x part of the position
+	 * Returns the x part of the position.
 	 *
 	 * @return the x part of the position
 	 */
@@ -62,7 +62,7 @@ public class Position {
 	}
 
 	/**
-	 * Returns the y part of the position
+	 * Returns the y part of the position.
 	 *
 	 * @return the y part of the position
 	 */
@@ -71,7 +71,7 @@ public class Position {
 	}
 
 	/**
-	 * Returns a readable string based of the position
+	 * Returns a readable string based of the position.
 	 *
 	 * @return a readable string based of the position
 	 */

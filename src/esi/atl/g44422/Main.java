@@ -5,11 +5,11 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Entry point for the program
+ * Entry point for the program.
  */
 public class Main extends Application {
 	/**
-	 * Starts the program
+	 * Starts the program.
 	 *
 	 * @param args the console line arguments
 	 */
@@ -18,11 +18,11 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Starts the JavaFx application
+	 * Starts the JavaFx application.
 	 *
 	 * @param primaryStage the primary stage given by JavaFx
 	 */
 	public void start(Stage primaryStage) {
-		new Controller(primaryStage);
+		new Controller(primaryStage).start();
 	}
 }

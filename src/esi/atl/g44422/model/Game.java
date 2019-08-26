@@ -1,17 +1,19 @@
 package esi.atl.g44422.model;
 
 import esi.atl.g44422.util.Observer;
-import javafx.application.Platform;
 
 import java.util.ArrayList;
 
 /**
- * Represents a game of Blokus
+ * Represents a game of Blokus.
  */
 public class Game implements GameInterface {
-	private final int SIZEX = 20;
-	private final int SIZEY = 20;
-	private final int numberRequiredPlayers = 4;
+	/**
+	 * The horizontal size of the the board.
+	 */
+	private static final int SIZEX = 20;
+	private static final int SIZEY = 20;
+	private static final int numberRequiredPlayers = 4;
 
 	private final ArrayList<Observer> observers;
 
@@ -25,7 +27,7 @@ public class Game implements GameInterface {
 	private ArrayList<String> movesHistory;
 
 	/**
-	 * Creates a new game
+	 * Creates a new game.
 	 */
 	public Game() {
 		this.observers = new ArrayList<>();
@@ -33,26 +35,28 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Initializes a new game
+	 * Initializes a new game.
 	 */
 	public void newGame() {
-		this.players = new ArrayList<Player>();
+		this.players = new ArrayList<>();
 		this.board = new Board(SIZEX, SIZEY);
 		this.winner = null;
 		this.turnNumber = 0.0;
 		this.currentPlayer = null;
 		this.selectedPiece = null;
 		this.selectedPosition = null;
-		this.movesHistory = new ArrayList<String>();
+		this.movesHistory = new ArrayList<>();
 
 		this.addPlayer(new Player("Human", Color.BLUE));
 		this.addPlayer(new AIPlayer("BOT 1", Color.YELLOW, this));
 		this.addPlayer(new AIPlayer("BOT 2", Color.RED, this));
 		this.addPlayer(new AIPlayer("BOT 3", Color.GREEN, this));
+
+		this.notifyObservers();
 	}
 
 	/**
-	 * Returns the board of the game
+	 * Returns the board of the game.
 	 *
 	 * @return the board of the game
 	 */
@@ -61,7 +65,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the winner of the game
+	 * Returns the winner of the game.
 	 *
 	 * @return the winner of the game
 	 */
@@ -70,7 +74,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the turn number of the game
+	 * Returns the turn number of the game.
 	 *
 	 * @return the turn number of the game
 	 */
@@ -79,7 +83,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the current player of the game
+	 * Returns the current player of the game.
 	 *
 	 * @return the current player of the game
 	 */
@@ -88,7 +92,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the piece selected by the current player
+	 * Returns the piece selected by the current player.
 	 *
 	 * @return the piece selected by the current player
 	 */
@@ -97,7 +101,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the position selected by the current player
+	 * Returns the position selected by the current player.
 	 *
 	 * @return the position selected by the current player
 	 */
@@ -106,7 +110,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns the number of required player to start the game
+	 * Returns the number of required player to start the game.
 	 *
 	 * @return the number of required player to start the game
 	 */
@@ -115,7 +119,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Returns a list with all the players in the game
+	 * Returns a list with all the players in the game.
 	 *
 	 * @return a list with all the players in the game
 	 */
@@ -124,7 +128,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Adds a player into the current game
+	 * Adds a player into the current game.
 	 *
 	 * @param player the player to add to the game
 	 */
@@ -139,7 +143,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Starts the game
+	 * Starts the game.
 	 */
 	public void start() {
 		if(this.players.isEmpty()) {
@@ -149,28 +153,16 @@ public class Game implements GameInterface {
 		} else {
 			this.currentPlayer = this.players.get(0);
 		}
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
 
-		Platform.runLater(() -> {
+		while(this.getCurrentPlayer() instanceof AIPlayer && !this.isDone()) {
+			this.getCurrentPlayer().play();
+		}
 
-			// Responsable pour faire jouer les bots
-			// Boulce infinie fait planter le programme
-			// Pas réussi à combiner event based et non-event based
-                    /*
-			while(!(this.isDone())) {
-				if(!(currentPlayer instanceof AIPlayer)) {
-					currentPlayerSkips();
-				}
-				currentPlayer.play();
-			}
-                    */
-		});
+		this.notifyObservers();
 	}
 
 	/**
-	 * Checks if the game is done
+	 * Checks if the game is done.
 	 *
 	 * @return if the game is done
 	 */
@@ -179,79 +171,93 @@ public class Game implements GameInterface {
 		for(Player player : this.getPlayers()) {
 			isOver = isOver && player.hasSkipped();
 			if(player.getStock().isEmpty()) {
+				this.movesHistory.add(this.currentPlayer.getNickname() + "\t won the game");
 				return true;
 			}
+		}
+		if(isOver) {
+			this.movesHistory.add(this.currentPlayer.getNickname() + "\t won the game");
 		}
 		return isOver;
 	}
 
 	/**
-	 * Sets the selected piece for the current player
+	 * Sets the selected piece for the current player.
 	 *
 	 * @param piece the piece selected by the current player
 	 */
 	public void currentPlayerSelectsPiece(Piece piece) {
 		this.selectedPiece = piece;
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
+		this.notifyObservers();
 	}
 
 	/**
-	 * Sets the selected position for the current player
+	 * Sets the selected position for the current player.
 	 *
 	 * @param pos the selected position by the current player
 	 */
-	public void currentPlayerSetsPosition(Position pos) {
+	public synchronized void currentPlayerSetsPosition(Position pos) {
 		this.selectedPosition = pos;
-		if(selectedPiece != null) {
+		if((selectedPiece != null) && (!(this.currentPlayer instanceof AIPlayer))) {
 			currentPlayerPutsPiece();
 		}
 	}
 
-	boolean canPutSelectedPiece() {
+	/**
+	 * Tests if the selected piece can be put at the selected position.
+	 *
+	 * @return true if the selected piece can be put at the selected position
+	 */
+	public boolean canPutSelectedPiece() {
 		if(this.currentPlayer.getPiecesPut().isEmpty()) {
-			return (!this.board.isOutOfBounds(this.selectedPiece, this.selectedPosition) &&
-					!this.board.overlapsOtherPiece(this.selectedPiece, this.selectedPosition) &&
-					this.board.firstPiecePlayerTouchesBoardCorner(this.selectedPiece, this.selectedPosition)
+			// if player hasn't put any pieces yet
+			// the piece must be put in one of the corners
+			return (!this.board.isOutOfBounds(this.selectedPiece, this.selectedPosition)
+					&& !this.board.overlapsOtherPiece(this.selectedPiece, this.selectedPosition)
+					&& this.board.firstPiecePlayerTouchesBoardCorner(this.selectedPiece, this.selectedPosition)
 			);
 		} else {
-			return (!this.board.isOutOfBounds(this.selectedPiece, this.selectedPosition) &&
-					!this.board.overlapsOtherPiece(this.selectedPiece, this.selectedPosition) &&
-					this.board.touchesSamePlayerPieceByCorner(this.selectedPiece, this.selectedPosition) &&
-					!this.board.touchesSamePlayerBySide(this.selectedPiece, this.selectedPosition)
+			// the piece can but put anywhere where it touches another piece of the same player
+			return (!this.board.isOutOfBounds(this.selectedPiece, this.selectedPosition)
+					&& !this.board.overlapsOtherPiece(this.selectedPiece, this.selectedPosition)
+					&& this.board.touchesSamePlayerPieceByCorner(this.selectedPiece, this.selectedPosition)
+					&& !this.board.touchesSamePlayerBySide(this.selectedPiece, this.selectedPosition)
 			);
 		}
 	}
 
 	/**
-	 * Puts the selected piece at the selected position on the board
+	 * Puts the selected piece at the selected position on the board.
 	 */
 	public void currentPlayerPutsPiece() {
-		if(canPutSelectedPiece()) {
+		if(canPutSelectedPiece() && this.getCurrentPlayer().getStock().contains(this.selectedPiece)) {
 			this.board.put(this.selectedPiece, this.selectedPosition);
 			this.currentPlayer.putPiece(this.selectedPiece);
-			this.selectedPosition = null;
-			this.selectedPiece = null;
+
+			this.movesHistory.add(this.currentPlayer.getNickname() + "\t added a piece for " + this.selectedPiece.getValue() + " points at " + this.selectedPosition.toString());
+
 			this.currentPlayerEndsTurn();
+			this.notifyObservers();
 		}
 	}
 
 	/**
-	 * Makes the current player skips his turn
+	 * Makes the current player skips his turn.
 	 */
 	public void currentPlayerSkips() {
 		if(!this.isDone()) {
+
+			this.movesHistory.add(this.currentPlayer.getNickname() + "\t skipped his turn");
+
 			this.currentPlayer.skip();
 			this.currentPlayerEndsTurn();
 		}
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
+
+		this.notifyObservers();
 	}
 
 	/**
-	 * Makes the current player end his turn
+	 * Makes the current player end his turn.
 	 */
 	public void currentPlayerEndsTurn() {
 		if(this.isDone()) {
@@ -274,65 +280,63 @@ public class Game implements GameInterface {
 					this.winner = player;
 				}
 			}
-			Platform.runLater(() -> {
-				this.notifyObservers();
-			});
 		} else {
-			Platform.runLater(() -> {
-				this.notifyObservers();
-			});
 			nextPlayer();
 		}
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
+		this.notifyObservers();
 	}
 
 	/**
-	 * Makes the current player turn his piece
+	 * Makes the current player turn his piece.
 	 */
 	public void currentPlayerTurnsPiece() {
 		if(this.selectedPiece != null) {
 			this.selectedPiece.rotate90();
 		}
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
+		this.notifyObservers();
 	}
 
 	/**
-	 * Makes the current player flip his piece
+	 * Makes the current player flip his piece.
 	 */
-	public void currentPlayerFlipsPiece() {
+	public synchronized void currentPlayerFlipsPiece() {
 		if(this.selectedPiece != null) {
 			this.selectedPiece.mirror();
 		}
-		Platform.runLater(() -> {
-			this.notifyObservers();
-		});
+		this.notifyObservers();
 	}
 
 	/**
-	 * Selects the next player as current player
+	 * Selects the next player as current player.
 	 */
 	private void nextPlayer() {
-		this.currentPlayer = this.players.get((this.players.indexOf(this.currentPlayer) + 1) % this.numberRequiredPlayers);
+		this.currentPlayer = this.players.get((this.players.indexOf(this.currentPlayer) + 1) % numberRequiredPlayers);
 		this.turnNumber += (double) 1 / this.getPlayers().size();
 		this.selectedPiece = null;
 		this.selectedPosition = null;
 	}
 
 	/**
-	 * Returns the history of all moves in the game
+	 * Returns the history of all moves in the game.
 	 *
 	 * @return an arraylist with all moves made in the game
 	 */
-	public java.util.ArrayList<String> getMovesHistory() {
-		return this.movesHistory;
+	public ArrayList<String> getMovesHistory() {
+		return new ArrayList<>(this.movesHistory);
 	}
 
 	/**
-	 * Adds an observer to this game's component
+	 * Makes the AI players play.
+	 */
+	public synchronized void aiPlayersPlay() {
+		while(this.currentPlayer instanceof AIPlayer && !this.isDone()) {
+			this.currentPlayer.play();
+			this.notifyObservers();
+		}
+	}
+
+	/**
+	 * Adds an observer to this game's component.
 	 *
 	 * @param obs an observer
 	 */
@@ -341,7 +345,7 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Removes an observer to this game's component
+	 * Removes an observer to this game's component.
 	 *
 	 * @param obs an observer
 	 */
@@ -350,9 +354,9 @@ public class Game implements GameInterface {
 	}
 
 	/**
-	 * Notifies all the observers attached to this object
+	 * Notifies all the observers attached to this object.
 	 */
-	public void notifyObservers() {
+	public synchronized void notifyObservers() {
 		for(Observer obs : observers) {
 			obs.update();
 		}

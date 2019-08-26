@@ -3,7 +3,7 @@ package esi.atl.g44422.model;
 import java.util.ArrayList;
 
 /**
- * Represents a player in the game
+ * Represents a player in the game.
  */
 public class Player {
 	private final String nickname;
@@ -14,7 +14,7 @@ public class Player {
 	private boolean hasSkipped;
 
 	/**
-	 * Creates a new player
+	 * Creates a new player.
 	 *
 	 * @param nickname the name of the player
 	 * @param color    the color of the player
@@ -30,7 +30,7 @@ public class Player {
 	}
 
 	/**
-	 * Returns the name of the player
+	 * Returns the name of the player.
 	 *
 	 * @return the name of the player
 	 */
@@ -39,7 +39,7 @@ public class Player {
 	}
 
 	/**
-	 * Returns the score of the player
+	 * Returns the score of the player.
 	 *
 	 * @return the score of the player
 	 */
@@ -48,16 +48,16 @@ public class Player {
 	}
 
 	/**
-	 * returns if the player has skipped last turn
+	 * returns if the player has skipped last turn.
 	 *
 	 * @return if the player has skipped last turn
 	 */
-	public boolean hasSkipped() {
+	boolean hasSkipped() {
 		return hasSkipped;
 	}
 
 	/**
-	 * Returns the color of the player
+	 * Returns the color of the player.
 	 *
 	 * @return the color of the player
 	 */
@@ -66,7 +66,7 @@ public class Player {
 	}
 
 	/**
-	 * Returns the stock of the player
+	 * Returns the stock of the player.
 	 *
 	 * @return the stock of the player
 	 */
@@ -75,16 +75,16 @@ public class Player {
 	}
 
 	/**
-	 * returns a list with all the pieces put by the player
+	 * returns a list with all the pieces put by the player.
 	 *
 	 * @return a list with all the pieces put by the player
 	 */
-	public ArrayList<Piece> getPiecesPut() {
+	ArrayList<Piece> getPiecesPut() {
 		return piecesPut;
 	}
 
 	/**
-	 * Initializes the stock of the player
+	 * Initializes the stock of the player.
 	 */
 	private void initStock() {
 		for(PieceShape shape : Piece.getDefaultShapes()) {
@@ -93,7 +93,7 @@ public class Player {
 	}
 
 	/**
-	 * Puts a piece and adds this piece to the piecesPut list
+	 * Puts a piece and adds this piece to the piecesPut list.
 	 *
 	 * @param piece the piece that has been put
 	 */
@@ -104,24 +104,24 @@ public class Player {
 	}
 
 	/**
-	 * Makes the player skip
+	 * Makes the player skip.
 	 */
 	void skip() {
 		this.hasSkipped = true;
 	}
 
 	/**
-	 * Adds point to the player
+	 * Adds point to the player.
 	 *
 	 * @param amount the amount of points to add
 	 */
-	public void addToScore(int amount) {
+	void addToScore(int amount) {
 		this.score += amount;
 	}
 
 	/**
-	 * Makes the player plays (only available for AIPlayers)
+	 * Makes the player plays (only available for AIPlayers).
 	 */
-	synchronized void play() {
+	void play() {
 	}
 }

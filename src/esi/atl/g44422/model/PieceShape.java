@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents a piece's shape in the game
+ * Represents a piece's shape in the game.
  */
 public class PieceShape {
 	private final ArrayList<Position> cells;
 
 	/**
-	 * Creates a new PieceShape
+	 * Creates a new PieceShape.
 	 *
 	 * @param cells the cells for the pieceShape
 	 */
@@ -19,7 +19,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Creates a copy of the provided shape
+	 * Creates a copy of the provided shape.
 	 *
 	 * @param shape the provided shape
 	 */
@@ -28,7 +28,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Checks if the cell is on the side of another cell
+	 * Checks if the cell is on the side of another cell.
 	 *
 	 * @param pos   the position of the piece
 	 * @param piece the actual piece
@@ -44,7 +44,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Checks if two shapes are equals
+	 * Checks if two shapes are equals.
 	 *
 	 * @param shape1 the first shape
 	 * @param shape2 the second shape
@@ -55,7 +55,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Returns the cells of the shape
+	 * Returns the cells of the shape.
 	 *
 	 * @return the cells of the shape
 	 */
@@ -64,7 +64,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Returns the maximum size occupied by the shape in horizontal direction
+	 * Returns the maximum size occupied by the shape in horizontal direction.
 	 *
 	 * @return the maximum size occupied by the shape in horizontal direction
 	 */
@@ -77,7 +77,7 @@ public class PieceShape {
 	}
 
 	/**
-	 * Returns the maximum size occupied by the shape in vertical direction
+	 * Returns the maximum size occupied by the shape in vertical direction.
 	 *
 	 * @return the maximum size occupied by the shape in vertical direction
 	 */

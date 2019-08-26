@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import static java.util.Arrays.asList;
 
 /**
- * Represents a piece in the game
+ * Represents a piece in the game.
  */
 public class Piece {
-	static private final ArrayList<PieceShape> defaultShapes = new ArrayList<>(
+	private static final ArrayList<PieceShape> defaultShapes = new ArrayList<>(
 			asList(
 					new PieceShape(new ArrayList<>(asList(new Position(0, 0)))),
 					new PieceShape(new ArrayList<>(asList(new Position(0, 0), new Position(0, 1)))),
@@ -40,12 +40,12 @@ public class Piece {
 	private Position position;
 
 	/**
-	 * Creates a new piece
+	 * Creates a new piece.
 	 *
 	 * @param newShape the shape of the piece
 	 * @param owner    the owner of the piece
 	 */
-	Piece(PieceShape newShape, Player owner) {
+	public Piece(esi.atl.g44422.model.PieceShape newShape, esi.atl.g44422.model.Player owner) {
 		this.shape = newShape;
 		this.position = null;
 		this.owner = owner;
@@ -54,21 +54,21 @@ public class Piece {
 	}
 
 	/**
-	 * Gets a list with all pre-defined shape
+	 * Gets a list with all pre-defined shape.
 	 *
 	 * @return Gets a list with all pre-defined shape
 	 */
-	static public ArrayList<PieceShape> getDefaultShapes() {
+	static ArrayList<PieceShape> getDefaultShapes() {
 		return new ArrayList<>(defaultShapes);
 	}
 
 	/**
-	 * Converts a piece's shape to a 2D boolean array
+	 * Converts a piece's shape to a 2D boolean array.
 	 *
 	 * @param shape the shape to be converted
 	 * @return a 2D boolean array of the shape
 	 */
-	public static boolean[][] to2DArray(PieceShape shape) {
+	static boolean[][] to2DArray(PieceShape shape) {
 		boolean[][] new2DShape = new boolean[shape.getSizeY()][shape.getSizeX()];
 		for(Position pos : shape.getCells()) {
 			new2DShape[pos.getY()][pos.getX()] = true;
@@ -77,12 +77,12 @@ public class Piece {
 	}
 
 	/**
-	 * Returns a piece shape made from a 2d boolean array
+	 * Returns a piece shape made from a 2d boolean array.
 	 *
 	 * @param shape a 2d boolean array of a shape
 	 * @return a piece shape
 	 */
-	public static PieceShape toPieceShape(boolean[][] shape) {
+	static PieceShape toPieceShape(boolean[][] shape) {
 		ArrayList<Position> newShape = new ArrayList<>();
 		for(int y = 0; y < shape.length; y++) {
 			for(int x = 0; x < shape[0].length; x++) {
@@ -95,7 +95,7 @@ public class Piece {
 	}
 
 	/**
-	 * Rotates a 2d boolean array
+	 * Rotates a 2d boolean array.
 	 *
 	 * @param original the array to rotate
 	 * @return the rotated array
@@ -115,7 +115,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns a mirrored array
+	 * Returns a mirrored array.
 	 *
 	 * @param original the original array
 	 * @return the rotated array
@@ -132,7 +132,7 @@ public class Piece {
 	}
 
 	/**
-	 * Finds all the corners of the piece
+	 * Finds all the corners of the piece.
 	 */
 	private void findCorners() {
 		for(Position cell : this.shape.getCells()) {
@@ -152,7 +152,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns the shape of the piece
+	 * Returns the shape of the piece.
 	 *
 	 * @return the shape of the piece
 	 */
@@ -161,7 +161,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns the position of the piece
+	 * Returns the position of the piece.
 	 *
 	 * @return the position of the piece
 	 */
@@ -170,7 +170,7 @@ public class Piece {
 	}
 
 	/**
-	 * Sets the position of the piece
+	 * Sets the position of the piece.
 	 *
 	 * @param position the position of the piece
 	 */
@@ -179,7 +179,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns the owner of the piece
+	 * Returns the owner of the piece.
 	 *
 	 * @return the owner of the piece
 	 */
@@ -188,7 +188,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns the value of the piece
+	 * Returns the value of the piece.
 	 *
 	 * @return the value of the piece
 	 */
@@ -197,7 +197,7 @@ public class Piece {
 	}
 
 	/**
-	 * Returns the corners of the piece
+	 * Returns the corners of the piece.
 	 *
 	 * @return the corners of the piece
 	 */
@@ -206,21 +206,37 @@ public class Piece {
 	}
 
 	/**
-	 * Rotates the shape of the piece 90°
+	 * Rotates the shape of the piece 90°.
 	 */
 	void rotate90() {
 		this.shape = toPieceShape(rotate2DArray90(to2DArray(this.getShape())));
 	}
 
 	/**
-	 * Mirrors the shape of the piece
+	 * Mirrors the shape of the piece.
 	 */
 	void mirror() {
 		this.shape = toPieceShape(mirror2DArray(to2DArray(this.getShape())));
 	}
 
 	/**
-	 * Returns a string made of the shape of the piece
+	 * Returns the number of the piece.
+	 *
+	 * @return the number of the piece
+	 */
+	public int getPieceNumber() {
+		for(int i = 0; i < Piece.defaultShapes.size();) {
+			if(Piece.defaultShapes.get(i).toString().equals(this.toString())) {
+				return i;
+			} else {
+				i++;
+			}
+		}
+		return 0;
+	}
+
+	/**
+	 * Returns a string made of the shape of the piece.
 	 *
 	 * @return a string made of the shape of the piece
 	 */
