@@ -5,10 +5,10 @@
 -->
 
 <project
-        xmlns:fx="javafx:com.sun.javafx.tools.ant"
-        name="jfx-impl"
-        default="jfx-deployment"
-        basedir="..">
+    xmlns:fx="javafx:com.sun.javafx.tools.ant"
+    name="jfx-impl"
+    default="jfx-deployment"
+    basedir="..">
     <description>
         JavaFX-specific
         Ant
@@ -47,15 +47,15 @@
 
     <target name="-check-operating-system">
         <condition
-                property="running.on.mac">
+            property="running.on.mac">
             <os family="mac"/>
         </condition>
         <condition
-                property="running.on.unix">
+            property="running.on.unix">
             <os family="unix"/>
         </condition>
         <condition
-                property="running.on.windows">
+            property="running.on.windows">
             <os family="windows"/>
         </condition>
         <echo message="running.on.mac = ${running.on.mac}"
@@ -70,16 +70,16 @@
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.platform.home.fxsdk.java">
+            property="do.set.platform.home.fxsdk.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${javafx.sdk}${file.separator}bin${file.separator}java"/>
+                        file="${javafx.sdk}${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${javafx.sdk}${file.separator}bin${file.separator}java.exe"/>
+                        file="${javafx.sdk}${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -88,22 +88,22 @@
             depends="-check-platform-home-fxsdk-java"
             if="do.set.platform.home.fxsdk.java">
         <property
-                name="active.platform.home.java.executable"
-                value="${javafx.sdk}${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${javafx.sdk}${file.separator}bin${file.separator}java"/>
     </target>
     <target name="-check-platform-home-java"
             if="platform.home">
         <condition
-                property="do.set.platform.home.java">
+            property="do.set.platform.home.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${platform.home}${file.separator}bin${file.separator}java"/>
+                        file="${platform.home}${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${platform.home}${file.separator}bin${file.separator}java.exe"/>
+                        file="${platform.home}${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -112,22 +112,22 @@
             depends="-set-platform-home-fxsdk-java,-check-platform-home-java"
             if="do.set.platform.home.java">
         <property
-                name="active.platform.home.java.executable"
-                value="${platform.home}${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${platform.home}${file.separator}bin${file.separator}java"/>
     </target>
     <target name="-check-platform-home-probjdk-java"
             unless="active.platform.home.java.executable">
         <condition
-                property="do.set.platform.home.probjdk.java">
+            property="do.set.platform.home.probjdk.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${java.home}${file.separator}..${file.separator}bin${file.separator}java"/>
+                        file="${java.home}${file.separator}..${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${java.home}${file.separator}..${file.separator}bin${file.separator}java.exe"/>
+                        file="${java.home}${file.separator}..${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -136,24 +136,24 @@
             depends="-set-platform-home-java,-check-platform-home-probjdk-java"
             if="do.set.platform.home.probjdk.java">
         <property
-                name="active.platform.home.java.executable"
-                value="${java.home}${file.separator}..${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${java.home}${file.separator}..${file.separator}bin${file.separator}java"/>
     </target>
     <target name="-check-platform-home-envjdk-java"
             unless="active.platform.home.java.executable">
         <property
-                environment="env"/>
+            environment="env"/>
         <condition
-                property="do.set.platform.home.envjdk.java">
+            property="do.set.platform.home.envjdk.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${env.JAVA_HOME}${file.separator}bin${file.separator}java"/>
+                        file="${env.JAVA_HOME}${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${env.JAVA_HOME}${file.separator}bin${file.separator}java.exe"/>
+                        file="${env.JAVA_HOME}${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -162,25 +162,25 @@
             depends="-set-platform-home-probjdk-java,-check-platform-home-envjdk-java"
             if="do.set.platform.home.envjdk.java">
         <property
-                environment="env"/>
+            environment="env"/>
         <property
-                name="active.platform.home.java.executable"
-                value="${env.JAVA_HOME}${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${env.JAVA_HOME}${file.separator}bin${file.separator}java"/>
     </target>
     <target name="-check-platform-home-fxrt-java"
             depends="-check-property-javafx.runtime"
             if="javafx.runtime.defined">
         <condition
-                property="do.set.platform.home.fxrt.java">
+            property="do.set.platform.home.fxrt.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${javafx.runtime}${file.separator}bin${file.separator}java"/>
+                        file="${javafx.runtime}${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${javafx.runtime}${file.separator}bin${file.separator}java.exe"/>
+                        file="${javafx.runtime}${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -189,24 +189,24 @@
             depends="-set-platform-home-envjdk-java,-check-platform-home-fxrt-java"
             if="do.set.platform.home.fxrt.java">
         <property
-                name="active.platform.home.java.executable"
-                value="${javafx.runtime}${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${javafx.runtime}${file.separator}bin${file.separator}java"/>
         <echo message="Warning: java executable not found in JDK, evaluating java executable in RT instead."
               level="info"/>
     </target>
     <target name="-check-platform-home-jre-java"
             unless="active.platform.home.java.executable">
         <condition
-                property="do.set.platform.home.jre.java">
+            property="do.set.platform.home.jre.java">
             <and>
                 <not>
                     <isset property="active.platform.home.java.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${java.home}${file.separator}bin${file.separator}java"/>
+                        file="${java.home}${file.separator}bin${file.separator}java"/>
                     <available
-                            file="${java.home}${file.separator}bin${file.separator}java.exe"/>
+                        file="${java.home}${file.separator}bin${file.separator}java.exe"/>
                 </or>
             </and>
         </condition>
@@ -215,8 +215,8 @@
             depends="-set-platform-home-fxrt-java,-check-platform-home-jre-java"
             if="do.set.platform.home.jre.java">
         <property
-                name="active.platform.home.java.executable"
-                value="${java.home}${file.separator}bin${file.separator}java"/>
+            name="active.platform.home.java.executable"
+            value="${java.home}${file.separator}bin${file.separator}java"/>
         <echo message="Warning: java executable not found in JDK, evaluating java executable in RT instead."
               level="info"/>
     </target>
@@ -239,104 +239,104 @@
         <echo message="version-output:${line.separator}${version-output}"
               level="verbose"/>
         <condition
-                property="have-jdk-older-than-1.6">
+            property="have-jdk-older-than-1.6">
             <or>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.0"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.0"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.1"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.1"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.2"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.2"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.3"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.3"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.4"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.4"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.5"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.5"/>
             </or>
         </condition>
         <fail message="Error:${line.separator}JavaFX 2.0+ projects require JDK version 1.6+ !"
               if="have-jdk-older-than-1.6"/>
         <condition
-                property="have-jdk-7u4or5-mac">
+            property="have-jdk-7u4or5-mac">
             <and>
                 <or>
                     <contains
-                            string="${version-output}"
-                            substring="java version &quot;1.7.0_04"/>
+                        string="${version-output}"
+                        substring="java version &quot;1.7.0_04"/>
                     <contains
-                            string="${version-output}"
-                            substring="java version &quot;1.7.0_05"/>
+                        string="${version-output}"
+                        substring="java version &quot;1.7.0_05"/>
                 </or>
                 <os family="mac"/>
             </and>
         </condition>
         <condition
-                property="have-jdk-pre7u6">
+            property="have-jdk-pre7u6">
             <or>
                 <isset property="have-jdk-older-than-1.6"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.6"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.6"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0&quot;"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0&quot;"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_01"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_01"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_02"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_02"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_03"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_03"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_04"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_04"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_05"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_05"/>
             </or>
         </condition>
         <condition
-                property="have-jdk-pre7u14">
+            property="have-jdk-pre7u14">
             <or>
                 <isset property="have-jdk-pre7u6"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_06"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_06"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_07"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_07"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_08"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_08"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_09"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_09"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_10"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_10"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_11"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_11"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_12"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_12"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_13"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_13"/>
             </or>
         </condition>
         <property
-                name="jdk-version-checked-in-jfximpl"
-                value="true"/>
+            name="jdk-version-checked-in-jfximpl"
+            value="true"/>
         <echo message="have-jdk-7u4or5-mac = ${have-jdk-7u4or5-mac}"
               level="verbose"/>
         <echo message="have-jdk-pre7u6 = ${have-jdk-pre7u6}"
@@ -355,66 +355,66 @@
         <echo message="version-output:${line.separator}${version-output}"
               level="verbose"/>
         <condition
-                property="have-ant-jre-pre7u6">
+            property="have-ant-jre-pre7u6">
             <or>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.0"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.0"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.1"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.1"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.2"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.2"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.3"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.3"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.4"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.4"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.5"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.5"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.6"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.6"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0&quot;"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0&quot;"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_01"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_01"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_02"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_02"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_03"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_03"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_04"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_04"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7.0_05"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7.0_05"/>
             </or>
         </condition>
         <condition
-                property="have-jdk7-css2bin-bug">
+            property="have-jdk7-css2bin-bug">
             <!-- as of NB7.4 release date the external css-to-bss converter is unreliable in all JDK7 versions before 7u40 (with exception of 7u14)-->
             <and>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.7"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.7"/>
                 <not>
                     <matches
-                            string="${version-output}"
-                            pattern="\bjava version &quot;1\.7\.0_(14|[4-9].)"/>
+                        string="${version-output}"
+                        pattern="\bjava version &quot;1\.7\.0_(14|[4-9].)"/>
                 </not>
             </and>
         </condition>
         <property
-                name="ant-jre-version-checked-in-jfximpl"
-                value="true"/>
+            name="ant-jre-version-checked-in-jfximpl"
+            value="true"/>
         <echo message="have-ant-jre-pre7u6 = ${have-ant-jre-pre7u6}"
               level="verbose"/>
         <echo message="have-jdk7-css2bin-bug = ${have-jdk7-css2bin-bug}"
@@ -432,7 +432,7 @@
 
     <target name="-check-endorsed-javafx-ant-classpath">
         <condition
-                property="endorsed-javafx-ant-classpath-available">
+            property="endorsed-javafx-ant-classpath-available">
             <and>
                 <isset property="endorsed.javafx.ant.classpath"/>
                 <not>
@@ -449,19 +449,19 @@
         <echo message="javafx.sdk = ${javafx.sdk}"
               level="verbose"/>
         <condition
-                property="javafx.sdk.defined">
+            property="javafx.sdk.defined">
             <and>
                 <isset property="javafx.sdk"/>
                 <not>
                     <contains
-                            string="${javafx.sdk}"
-                            substring="$${platform"
-                            casesensitive="false"/>
+                        string="${javafx.sdk}"
+                        substring="$${platform"
+                        casesensitive="false"/>
                 </not>
             </and>
         </condition>
         <condition
-                property="javafx.sdk.missing+default">
+            property="javafx.sdk.missing+default">
             <and>
                 <equals arg1="${platform.active}"
                         arg2="Default_JavaFX_Platform"
@@ -472,7 +472,7 @@
             </and>
         </condition>
         <condition
-                property="javafx.sdk.missing-default">
+            property="javafx.sdk.missing-default">
             <and>
                 <not>
                     <equals arg1="${platform.active}"
@@ -496,13 +496,13 @@
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.ant-javafx.in.fxsdk.lib">
+            property="do.set.ant-javafx.in.fxsdk.lib">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}lib${file.separator}ant-javafx.jar"/>
+                    file="${javafx.sdk}${file.separator}lib${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -510,20 +510,20 @@
             depends="-check-ant-javafx-in-fxsdk-lib"
             if="do.set.ant-javafx.in.fxsdk.lib">
         <property
-                name="ant-javafx.jar.location"
-                value="${javafx.sdk}${file.separator}lib${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${javafx.sdk}${file.separator}lib${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-fxsdk-tools"
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.ant-javafx.in.fxsdk.tools">
+            property="do.set.ant-javafx.in.fxsdk.tools">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}tools${file.separator}ant-javafx.jar"/>
+                    file="${javafx.sdk}${file.separator}tools${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -531,19 +531,19 @@
             depends="-set-ant-javafx-in-fxsdk-lib,-check-ant-javafx-in-fxsdk-tools"
             if="do.set.ant-javafx.in.fxsdk.tools">
         <property
-                name="ant-javafx.jar.location"
-                value="${javafx.sdk}${file.separator}tools${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${javafx.sdk}${file.separator}tools${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-platform-home-lib"
             if="platform.home">
         <condition
-                property="do.set.ant-javafx.in.platform.home.lib">
+            property="do.set.ant-javafx.in.platform.home.lib">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
+                    file="${platform.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -551,19 +551,19 @@
             depends="-set-ant-javafx-in-fxsdk-tools,-check-ant-javafx-in-platform-home-lib"
             if="do.set.ant-javafx.in.platform.home.lib">
         <property
-                name="ant-javafx.jar.location"
-                value="${platform.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${platform.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-platform-home-tools"
             if="platform.home">
         <condition
-                property="do.set.ant-javafx.in.platform.home.tools">
+            property="do.set.ant-javafx.in.platform.home.tools">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
+                    file="${platform.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -571,23 +571,23 @@
             depends="-set-ant-javafx-in-platform-home-lib,-check-ant-javafx-in-platform-home-tools"
             if="do.set.ant-javafx.in.platform.home.tools">
         <property
-                name="ant-javafx.jar.location"
-                value="${platform.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${platform.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-probjdk-lib"
             unless="ant-javafx.jar.location">
         <condition
-                property="do.set.ant-javafx.in.probjdk.lib.has_jre">
+            property="do.set.ant-javafx.in.probjdk.lib.has_jre">
             <available
-                    file="${java.home}${file.separator}..${file.separator}lib${file.separator}ant-javafx.jar"/>
+                file="${java.home}${file.separator}..${file.separator}lib${file.separator}ant-javafx.jar"/>
         </condition>
         <condition
-                property="do.set.ant-javafx.in.probjdk.lib.no_jre">
+            property="do.set.ant-javafx.in.probjdk.lib.no_jre">
             <available
-                    file="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
+                file="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
         </condition>
         <condition
-                property="do.set.ant-javafx.in.probjdk.lib">
+            property="do.set.ant-javafx.in.probjdk.lib">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
@@ -603,26 +603,26 @@
             depends="-set-ant-javafx-in-platform-home-tools,-check-ant-javafx-in-probjdk-lib"
             if="do.set.ant-javafx.in.probjdk.lib">
         <condition
-                property="ant-javafx.jar.location"
-                value="${java.home}${file.separator}..${file.separator}lib${file.separator}ant-javafx.jar"
-                else="${java.home}${file.separator}lib${file.separator}ant-javafx.jar">
+            property="ant-javafx.jar.location"
+            value="${java.home}${file.separator}..${file.separator}lib${file.separator}ant-javafx.jar"
+            else="${java.home}${file.separator}lib${file.separator}ant-javafx.jar">
             <isset property="do.set.ant-javafx.in.probjdk.lib.has_jre"/>
         </condition>
     </target>
     <target name="-check-ant-javafx-in-probjdk-tools"
             unless="ant-javafx.jar.location">
         <condition
-                property="do.set.ant-javafx.in.probjdk.tools.has_jre">
+            property="do.set.ant-javafx.in.probjdk.tools.has_jre">
             <available
-                    file="${java.home}${file.separator}..${file.separator}tools${file.separator}ant-javafx.jar"/>
+                file="${java.home}${file.separator}..${file.separator}tools${file.separator}ant-javafx.jar"/>
         </condition>
         <condition
-                property="do.set.ant-javafx.in.probjdk.tools.no_jre">
+            property="do.set.ant-javafx.in.probjdk.tools.no_jre">
             <available
-                    file="${java.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
+                file="${java.home}${file.separator}tools${file.separator}ant-javafx.jar"/>
         </condition>
         <condition
-                property="do.set.ant-javafx.in.probjdk.tools">
+            property="do.set.ant-javafx.in.probjdk.tools">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
@@ -638,22 +638,22 @@
             depends="-set-ant-javafx-in-probjdk-lib,-check-ant-javafx-in-probjdk-tools"
             if="do.set.ant-javafx.in.probjdk.tools">
         <condition
-                property="ant-javafx.jar.location"
-                value="${java.home}${file.separator}..${file.separator}tools${file.separator}ant-javafx.jar"
-                else="${java.home}${file.separator}tools${file.separator}ant-javafx.jar">
+            property="ant-javafx.jar.location"
+            value="${java.home}${file.separator}..${file.separator}tools${file.separator}ant-javafx.jar"
+            else="${java.home}${file.separator}tools${file.separator}ant-javafx.jar">
             <isset property="do.set.ant-javafx.in.probjdk.tools.has_jre"/>
         </condition>
     </target>
     <target name="-check-ant-javafx-in-macjdk-lib"
             unless="ant-javafx.jar.location">
         <condition
-                property="do.set.ant-javafx.in.macjdk.lib">
+            property="do.set.ant-javafx.in.macjdk.lib">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
+                    file="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -661,21 +661,21 @@
             depends="-set-ant-javafx-in-probjdk-tools,-check-ant-javafx-in-macjdk-lib"
             if="do.set.ant-javafx.in.macjdk.lib">
         <property
-                name="ant-javafx.jar.location"
-                value="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${java.home}${file.separator}lib${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-envjdk-lib"
             unless="ant-javafx.jar.location">
         <property
-                environment="env"/>
+            environment="env"/>
         <condition
-                property="do.set.ant-javafx.in.envjdk.lib">
+            property="do.set.ant-javafx.in.envjdk.lib">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${env.JAVA_HOME}${file.separator}lib${file.separator}ant-javafx.jar"/>
+                    file="${env.JAVA_HOME}${file.separator}lib${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -683,21 +683,21 @@
             depends="-set-ant-javafx-in-macjdk-lib,-check-ant-javafx-in-envjdk-lib"
             if="do.set.ant-javafx.in.envjdk.lib">
         <property
-                name="ant-javafx.jar.location"
-                value="${env.JAVA_HOME}${file.separator}lib${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${env.JAVA_HOME}${file.separator}lib${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-check-ant-javafx-in-envjdk-tools"
             unless="ant-javafx.jar.location">
         <property
-                environment="env"/>
+            environment="env"/>
         <condition
-                property="do.set.ant-javafx.in.envjdk.tools">
+            property="do.set.ant-javafx.in.envjdk.tools">
             <and>
                 <not>
                     <isset property="ant-javafx.jar.location"/>
                 </not>
                 <available
-                        file="${env.JAVA_HOME}${file.separator}tools${file.separator}ant-javafx.jar"/>
+                    file="${env.JAVA_HOME}${file.separator}tools${file.separator}ant-javafx.jar"/>
             </and>
         </condition>
     </target>
@@ -705,14 +705,14 @@
             depends="-set-ant-javafx-in-envjdk-lib,-check-ant-javafx-in-envjdk-tools"
             if="do.set.ant-javafx.in.envjdk.tools">
         <property
-                name="ant-javafx.jar.location"
-                value="${env.JAVA_HOME}${file.separator}tools${file.separator}ant-javafx.jar"/>
+            name="ant-javafx.jar.location"
+            value="${env.JAVA_HOME}${file.separator}tools${file.separator}ant-javafx.jar"/>
     </target>
     <target name="-pre-check-ant-javafx-version"
             depends="-set-ant-javafx-in-envjdk-tools"
             unless="ant-javafx-version-already-checked-in-jfximpl">
         <condition
-                property="do.check.ant-javafx.version">
+            property="do.check.ant-javafx.version">
             <and>
                 <isset property="ant-javafx.jar.location"/>
                 <not>
@@ -725,15 +725,15 @@
             depends="-check-endorsed-javafx-ant-classpath,-pre-check-ant-javafx-version"
             if="endorsed-javafx-ant-classpath-available">
         <property
-                name="javafx.ant.classpath"
-                value="${endorsed.javafx.ant.classpath}:${ant-javafx.jar.location}"/>
+            name="javafx.ant.classpath"
+            value="${endorsed.javafx.ant.classpath}:${ant-javafx.jar.location}"/>
     </target>
     <target name="-set-javafx-ant-classpath"
             depends="-check-endorsed-javafx-ant-classpath,-pre-check-ant-javafx-version"
             unless="endorsed-javafx-ant-classpath-available">
         <property
-                name="javafx.ant.classpath"
-                value="${ant-javafx.jar.location}"/>
+            name="javafx.ant.classpath"
+            value="${ant-javafx.jar.location}"/>
     </target>
     <target name="-check-ant-javafx-version"
             depends="-pre-check-ant-javafx-version,
@@ -744,17 +744,17 @@
         <echo message="javafx.ant.classpath = ${javafx.ant.classpath}"
               level="verbose"/>
         <taskdef
-                resource="com/sun/javafx/tools/ant/antlib.xml"
-                uri="javafx:com.sun.javafx.tools.ant"
-                classpath="${javafx.ant.classpath}"/>
+            resource="com/sun/javafx/tools/ant/antlib.xml"
+            uri="javafx:com.sun.javafx.tools.ant"
+            classpath="${javafx.ant.classpath}"/>
         <condition
-                property="have-fx-ant-init">
+            property="have-fx-ant-init">
             <typefound
-                    name="javafx:com.sun.javafx.tools.ant:init-ant"/>
+                name="javafx:com.sun.javafx.tools.ant:init-ant"/>
         </condition>
         <property
-                name="ant-javafx-version-already-checked-in-jfximpl"
-                value="true"/>
+            name="ant-javafx-version-already-checked-in-jfximpl"
+            value="true"/>
         <echo message="have-fx-ant-init = ${have-fx-ant-init}"
               level="verbose"/>
     </target>
@@ -762,26 +762,26 @@
             depends="-check-ant-javafx-version"
             unless="have-fx-ant-init">
         <property
-                name="javafx.ant.version"
-                value="1.0"/>
+            name="javafx.ant.version"
+            value="1.0"/>
     </target>
     <target name="-check-jfx-sdk-version-new"
             depends="-check-ant-javafx-version"
             if="have-fx-ant-init">
         <fx:init-ant/>
         <condition
-                property="have-fx-ant-api-1.1">
+            property="have-fx-ant-api-1.1">
             <!-- new features from JavaFX 2.0.2 are available in API version 1.1 or later -->
             <matches
-                    pattern="1.[1-9]"
-                    string="${javafx.ant.version}"/>
+                pattern="1.[1-9]"
+                string="${javafx.ant.version}"/>
         </condition>
         <condition
-                property="have-fx-ant-api-1.2">
+            property="have-fx-ant-api-1.2">
             <!-- new features from JavaFX 2.2 are available in API version 1.2 or later -->
             <matches
-                    pattern="1.[2-9]"
-                    string="${javafx.ant.version}"/>
+                pattern="1.[2-9]"
+                string="${javafx.ant.version}"/>
         </condition>
     </target>
     <target name="-check-jfx-sdk-version"
@@ -796,14 +796,14 @@
         <echo message="javafx.ant.classpath = ${javafx.ant.classpath}"
               level="verbose"/>
         <property
-                name="jfx.sdk.version.checked"
-                value="true"/>
+            name="jfx.sdk.version.checked"
+            value="true"/>
     </target>
 
     <target name="-check-jfx-deployment"
             depends="-check-jdk-version,-check-jfx-sdk-version">
         <condition
-                property="jfx-deployment-available">
+            property="jfx-deployment-available">
             <and>
                 <or>
                     <isset property="do.set.ant-javafx.in.fxsdk.lib"/>
@@ -819,7 +819,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-deployment-missing+jdk7u6">
+            property="jfx-deployment-missing+jdk7u6">
             <and>
                 <not>
                     <isset property="jfx-deployment-available"/>
@@ -830,7 +830,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-deployment-missing+javafx.sdk.missing+default">
+            property="jfx-deployment-missing+javafx.sdk.missing+default">
             <and>
                 <not>
                     <isset property="jfx-deployment-available"/>
@@ -840,7 +840,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-deployment-missing+javafx.sdk.missing-default">
+            property="jfx-deployment-missing+javafx.sdk.missing-default">
             <and>
                 <not>
                     <isset property="jfx-deployment-available"/>
@@ -868,19 +868,19 @@
         <echo message="javafx.runtime = ${javafx.runtime}"
               level="verbose"/>
         <condition
-                property="javafx.runtime.defined">
+            property="javafx.runtime.defined">
             <and>
                 <isset property="javafx.runtime"/>
                 <not>
                     <contains
-                            string="${javafx.runtime}"
-                            substring="$${platform"
-                            casesensitive="false"/>
+                        string="${javafx.runtime}"
+                        substring="$${platform"
+                        casesensitive="false"/>
                 </not>
             </and>
         </condition>
         <condition
-                property="javafx.runtime.missing+default">
+            property="javafx.runtime.missing+default">
             <and>
                 <equals arg1="${platform.active}"
                         arg2="Default_JavaFX_Platform"
@@ -891,7 +891,7 @@
             </and>
         </condition>
         <condition
-                property="javafx.runtime.missing-default">
+            property="javafx.runtime.missing-default">
             <and>
                 <not>
                     <equals arg1="${platform.active}"
@@ -915,17 +915,17 @@
             depends="-check-property-javafx.runtime"
             if="javafx.runtime.defined">
         <condition
-                property="do.set.jfxrt.in.fxrt.old">
+            property="do.set.jfxrt.in.fxrt.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.runtime}${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${javafx.runtime}${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.fxrt.new">
+            property="do.set.jfxrt.in.fxrt.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.fxrt.old"/>
@@ -934,7 +934,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.runtime}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${javafx.runtime}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -942,31 +942,31 @@
             depends="-check-jfxrt-in-fxrt"
             if="do.set.jfxrt.in.fxrt.old">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.runtime}${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.runtime}${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-fxrt-new"
             depends="-set-jfxrt-in-fxrt-old,-check-jfxrt-in-fxrt"
             if="do.set.jfxrt.in.fxrt.new">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.runtime}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.runtime}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-fxsdk-jre"
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.jfxrt.in.fxsdk.jre.old">
+            property="do.set.jfxrt.in.fxsdk.jre.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.fxsdk.jre.new">
+            property="do.set.jfxrt.in.fxsdk.jre.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.fxsdk.jre.old"/>
@@ -975,7 +975,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -983,31 +983,31 @@
             depends="-set-jfxrt-in-fxrt-new,-check-jfxrt-in-fxsdk-jre"
             if="do.set.jfxrt.in.fxsdk.jre.old">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-fxsdk-jre-new"
             depends="-set-jfxrt-in-fxsdk-jre-old,-check-jfxrt-in-fxsdk-jre"
             if="do.set.jfxrt.in.fxsdk.jre.new">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.sdk}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-fxsdk-rt"
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.jfxrt.in.fxsdk.rt.old">
+            property="do.set.jfxrt.in.fxsdk.rt.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.fxsdk.rt.new">
+            property="do.set.jfxrt.in.fxsdk.rt.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.fxsdk.rt.old"/>
@@ -1016,7 +1016,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -1024,30 +1024,30 @@
             depends="-set-jfxrt-in-fxsdk-jre-new,-check-jfxrt-in-fxsdk-rt"
             if="do.set.jfxrt.in.fxsdk.rt.old">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-fxsdk-rt-new"
             depends="-set-jfxrt-in-fxsdk-rt-old,-check-jfxrt-in-fxsdk-rt"
             if="do.set.jfxrt.in.fxsdk.rt.new">
         <property
-                name="jfxrt.jar.location"
-                value="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${javafx.sdk}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-platform-home-jre"
             if="platform.home">
         <condition
-                property="do.set.jfxrt.in.platform.home.jre.old">
+            property="do.set.jfxrt.in.platform.home.jre.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${platform.home}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.platform.home.jre.new">
+            property="do.set.jfxrt.in.platform.home.jre.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.platform.home.jre.old"/>
@@ -1056,7 +1056,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${platform.home}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -1064,30 +1064,30 @@
             depends="-set-jfxrt-in-fxsdk-rt-new,-check-jfxrt-in-platform-home-jre"
             if="do.set.jfxrt.in.platform.home.jre.old">
         <property
-                name="jfxrt.jar.location"
-                value="${platform.home}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${platform.home}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-platform-home-jre-new"
             depends="-set-jfxrt-in-platform-home-jre-old,-check-jfxrt-in-platform-home-jre"
             if="do.set.jfxrt.in.platform.home.jre.new">
         <property
-                name="jfxrt.jar.location"
-                value="${platform.home}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${platform.home}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-platform-home-rt"
             if="platform.home">
         <condition
-                property="do.set.jfxrt.in.platform.home.rt.old">
+            property="do.set.jfxrt.in.platform.home.rt.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${platform.home}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.platform.home.rt.new">
+            property="do.set.jfxrt.in.platform.home.rt.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.platform.home.rt.old"/>
@@ -1096,7 +1096,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${platform.home}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${platform.home}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -1104,30 +1104,30 @@
             depends="-set-jfxrt-in-platform-home-jre-new,-check-jfxrt-in-platform-home-rt"
             if="do.set.jfxrt.in.platform.home.rt.old">
         <property
-                name="jfxrt.jar.location"
-                value="${platform.home}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${platform.home}${file.separator}rt${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-platform-home-rt-new"
             depends="-set-jfxrt-in-platform-home-rt-old,-check-jfxrt-in-platform-home-rt"
             if="do.set.jfxrt.in.platform.home.rt.new">
         <property
-                name="jfxrt.jar.location"
-                value="${platform.home}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${platform.home}${file.separator}rt${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-jre"
             unless="jfxrt.jar.location">
         <condition
-                property="do.set.jfxrt.in.jre.old">
+            property="do.set.jfxrt.in.jre.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${java.home}${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${java.home}${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.jre.new">
+            property="do.set.jfxrt.in.jre.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.jre.old"/>
@@ -1136,7 +1136,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${java.home}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${java.home}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -1144,32 +1144,32 @@
             depends="-set-jfxrt-in-platform-home-rt-new,-check-jfxrt-in-jre"
             if="do.set.jfxrt.in.jre.old">
         <property
-                name="jfxrt.jar.location"
-                value="${java.home}${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${java.home}${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-jre-new"
             depends="-set-jfxrt-in-jre-old,-check-jfxrt-in-jre"
             if="do.set.jfxrt.in.jre.new">
         <property
-                name="jfxrt.jar.location"
-                value="${java.home}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${java.home}${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-check-jfxrt-in-envjdk-jre"
             unless="jfxrt.jar.location">
         <property
-                environment="env"/>
+            environment="env"/>
         <condition
-                property="do.set.jfxrt.in.envjdk.jre.old">
+            property="do.set.jfxrt.in.envjdk.jre.old">
             <and>
                 <not>
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+                    file="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
             </and>
         </condition>
         <condition
-                property="do.set.jfxrt.in.envjdk.jre.new">
+            property="do.set.jfxrt.in.envjdk.jre.new">
             <and>
                 <not>
                     <isset property="do.set.jfxrt.in.envjdk.jre.old"/>
@@ -1178,7 +1178,7 @@
                     <isset property="jfxrt.jar.location"/>
                 </not>
                 <available
-                        file="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+                    file="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
             </and>
         </condition>
     </target>
@@ -1186,15 +1186,15 @@
             depends="-set-jfxrt-in-jre-new,-check-jfxrt-in-envjdk-jre"
             if="do.set.jfxrt.in.envjdk.jre.old">
         <property
-                name="jfxrt.jar.location"
-                value="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}jfxrt.jar"/>
     </target>
     <target name="-set-jfxrt-in-envjdk-jre-new"
             depends="-set-jfxrt-in-envjdk-jre-old,-check-jfxrt-in-envjdk-jre"
             if="do.set.jfxrt.in.envjdk.jre.new">
         <property
-                name="jfxrt.jar.location"
-                value="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
+            name="jfxrt.jar.location"
+            value="${env.JAVA_HOME}${file.separator}jre${file.separator}lib${file.separator}ext${file.separator}jfxrt.jar"/>
     </target>
     <target name="-pre-check-jfx-runtime"
             depends="-set-jfxrt-in-envjdk-jre-new">
@@ -1205,7 +1205,7 @@
     <target name="-check-jfx-runtime"
             depends="-check-jdk-version, -pre-check-jfx-runtime">
         <condition
-                property="jfx-runtime-available">
+            property="jfx-runtime-available">
             <and>
                 <or>
                     <isset property="do.set.jfxrt.in.fxrt.old"/>
@@ -1239,7 +1239,7 @@
             depends="-check-property-javafx.runtime"
             if="javafx.runtime.defined">
         <condition
-                property="do.set.webstart.in.fxrt">
+            property="do.set.webstart.in.fxrt">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
@@ -1247,9 +1247,9 @@
                 <isset property="javafx.runtime.defined"/>
                 <or>
                     <available
-                            file="${javafx.runtime}${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${javafx.runtime}${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${javafx.runtime}${file.separator}bin${file.separator}javaws"/>
+                        file="${javafx.runtime}${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1258,14 +1258,14 @@
             depends="-check-webstart-in-fxrt"
             if="do.set.webstart.in.fxrt">
         <property
-                name="active.webstart.executable"
-                value="${javafx.runtime}${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${javafx.runtime}${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-fxsdk-jre"
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.webstart.in.fxsdk.jre">
+            property="do.set.webstart.in.fxsdk.jre">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
@@ -1273,9 +1273,9 @@
                 <isset property="javafx.sdk.defined"/>
                 <or>
                     <available
-                            file="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
+                        file="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1284,14 +1284,14 @@
             depends="-set-webstart-in-fxrt,-check-webstart-in-fxsdk-jre"
             if="do.set.webstart.in.fxsdk.jre">
         <property
-                name="active.webstart.executable"
-                value="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${javafx.sdk}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-fxsdk"
             depends="-check-property-javafx.sdk"
             if="javafx.sdk.defined">
         <condition
-                property="do.set.webstart.in.fxsdk">
+            property="do.set.webstart.in.fxsdk">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
@@ -1299,9 +1299,9 @@
                 <isset property="javafx.sdk.defined"/>
                 <or>
                     <available
-                            file="${javafx.sdk}${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${javafx.sdk}${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${javafx.sdk}${file.separator}bin${file.separator}javaws"/>
+                        file="${javafx.sdk}${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1310,22 +1310,22 @@
             depends="-set-webstart-in-fxsdk-jre,-check-webstart-in-fxsdk"
             if="do.set.webstart.in.fxsdk">
         <property
-                name="active.webstart.executable"
-                value="${javafx.sdk}${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${javafx.sdk}${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-platform-home-jre"
             if="platform.home">
         <condition
-                property="do.set.webstart.in.platform.home.jre">
+            property="do.set.webstart.in.platform.home.jre">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
+                        file="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1334,22 +1334,22 @@
             depends="-set-webstart-in-fxsdk,-check-webstart-in-platform-home-jre"
             if="do.set.webstart.in.platform.home.jre">
         <property
-                name="active.webstart.executable"
-                value="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${platform.home}${file.separator}jre${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-platform-home"
             if="platform.home">
         <condition
-                property="do.set.webstart.in.platform.home">
+            property="do.set.webstart.in.platform.home">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${platform.home}${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${platform.home}${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${platform.home}${file.separator}bin${file.separator}javaws"/>
+                        file="${platform.home}${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1358,22 +1358,22 @@
             depends="-set-webstart-in-platform-home-jre,-check-webstart-in-platform-home"
             if="do.set.webstart.in.platform.home">
         <property
-                name="active.webstart.executable"
-                value="${platform.home}${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${platform.home}${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-jre"
             unless="active.webstart.executable">
         <condition
-                property="do.set.webstart.in.jre">
+            property="do.set.webstart.in.jre">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${java.home}${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${java.home}${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${java.home}${file.separator}bin${file.separator}javaws"/>
+                        file="${java.home}${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1382,22 +1382,22 @@
             depends="-set-webstart-in-platform-home,-check-webstart-in-jre"
             if="do.set.webstart.in.jre">
         <property
-                name="active.webstart.executable"
-                value="${java.home}${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${java.home}${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-probjdk"
             unless="active.webstart.executable">
         <condition
-                property="do.set.webstart.in.probjdk">
+            property="do.set.webstart.in.probjdk">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws"/>
+                        file="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1406,24 +1406,24 @@
             depends="-set-webstart-in-jre,-check-webstart-in-probjdk"
             if="do.set.webstart.in.probjdk">
         <property
-                name="active.webstart.executable"
-                value="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${java.home}${file.separator}..${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-check-webstart-in-envjdk"
             unless="active.webstart.executable">
         <property
-                environment="env"/>
+            environment="env"/>
         <condition
-                property="do.set.webstart.in.envjdk">
+            property="do.set.webstart.in.envjdk">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
                 </not>
                 <or>
                     <available
-                            file="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws.exe"/>
+                        file="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws.exe"/>
                     <available
-                            file="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws"/>
+                        file="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws"/>
                 </or>
             </and>
         </condition>
@@ -1432,14 +1432,14 @@
             depends="-set-webstart-in-probjdk,-check-webstart-in-envjdk"
             if="do.set.webstart.in.envjdk">
         <property
-                name="active.webstart.executable"
-                value="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws"/>
+            name="active.webstart.executable"
+            value="${env.JAVA_HOME}${file.separator}bin${file.separator}javaws"/>
     </target>
     <target name="-pre-check-webstart-in-unix"
             depends="-check-operating-system,-set-webstart-in-envjdk"
             unless="active.webstart.executable">
         <condition
-                property="running.on.unix-active.webstart.executable">
+            property="running.on.unix-active.webstart.executable">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
@@ -1460,7 +1460,7 @@
             <arg line="-v javaws"/>
         </exec>
         <condition
-                property="do.set.webstart.in.unix">
+            property="do.set.webstart.in.unix">
             <and>
                 <not>
                     <isset property="active.webstart.executable"/>
@@ -1482,8 +1482,8 @@
             depends="-set-webstart-in-envjdk,-check-webstart-in-unix"
             if="do.set.webstart.in.unix">
         <property
-                name="active.webstart.executable"
-                value="${exec.which.javaws.output}"/>
+            name="active.webstart.executable"
+            value="${exec.which.javaws.output}"/>
     </target>
     <target name="-pre-check-jfx-webstart"
             depends="-set-webstart-in-unix">
@@ -1494,7 +1494,7 @@
     <target name="-check-jfx-webstart"
             depends="-pre-check-jfx-webstart">
         <condition
-                property="jfx-webstart-available">
+            property="jfx-webstart-available">
             <and>
                 <or>
                     <isset property="do.set.webstart.in.fxrt"/>
@@ -1511,7 +1511,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-webstart-missing+jdk7u6">
+            property="jfx-webstart-missing+jdk7u6">
             <and>
                 <not>
                     <isset property="jfx-webstart-available"/>
@@ -1522,7 +1522,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-webstart-missing+javafx.runtime.missing+default">
+            property="jfx-webstart-missing+javafx.runtime.missing+default">
             <and>
                 <not>
                     <isset property="jfx-webstart-available"/>
@@ -1532,7 +1532,7 @@
             </and>
         </condition>
         <condition
-                property="jfx-webstart-missing+javafx.runtime.missing-default">
+            property="jfx-webstart-missing+javafx.runtime.missing-default">
             <and>
                 <not>
                     <isset property="jfx-webstart-available"/>
@@ -1569,17 +1569,17 @@
     <target name="-check-default-run-config"
             unless="config">
         <property
-                name="config"
-                value="&lt;default config&gt;"/>
+            name="config"
+            value="&lt;default config&gt;"/>
     </target>
 
     <target name="-check-project">
         <condition
-                property="main-class-available">
+            property="main-class-available">
             <isset property="javafx.main.class"/>
         </condition>
         <condition
-                property="vmargs-available">
+            property="vmargs-available">
             <and>
                 <isset property="run.jvmargs"/>
                 <not>
@@ -1589,7 +1589,7 @@
             </and>
         </condition>
         <condition
-                property="preloader-available">
+            property="preloader-available">
             <and>
                 <isset property="javafx.preloader.enabled"/>
                 <equals arg1="${javafx.preloader.enabled}"
@@ -1607,14 +1607,14 @@
             </and>
         </condition>
         <condition
-                property="app-with-preloader">
+            property="app-with-preloader">
             <and>
                 <istrue value="${preloader-available}"/>
                 <istrue value="${main-class-available}"/>
             </and>
         </condition>
         <condition
-                property="app-with-external-preloader-jar">
+            property="app-with-external-preloader-jar">
             <and>
                 <isset property="app-with-preloader"/>
                 <isset property="javafx.preloader.type"/>
@@ -1624,7 +1624,7 @@
             </and>
         </condition>
         <condition
-                property="app-without-preloader">
+            property="app-without-preloader">
             <and>
                 <not>
                     <istrue value="${preloader-available}"/>
@@ -1633,7 +1633,7 @@
             </and>
         </condition>
         <condition
-                property="preloader-app">
+            property="preloader-app">
             <and>
                 <isset property="javafx.preloader"/>
                 <equals arg1="${javafx.preloader}"
@@ -1641,7 +1641,7 @@
             </and>
         </condition>
         <condition
-                property="fx-in-swing-app">
+            property="fx-in-swing-app">
             <and>
                 <isset property="javafx.swing"/>
                 <equals arg1="${javafx.swing}"
@@ -1649,14 +1649,14 @@
             </and>
         </condition>
         <condition
-                property="fx-in-swing-workaround-app">
+            property="fx-in-swing-workaround-app">
             <and>
                 <istrue value="${fx-in-swing-app}"/>
                 <istrue value="${preloader-app}"/>
             </and>
         </condition>
         <condition
-                property="preloader-app-no-workaround">
+            property="preloader-app-no-workaround">
             <and>
                 <istrue value="${preloader-app}"/>
                 <not>
@@ -1665,7 +1665,7 @@
             </and>
         </condition>
         <condition
-                property="html-template-available">
+            property="html-template-available">
             <and>
                 <isset property="javafx.run.htmltemplate"/>
                 <not>
@@ -1675,7 +1675,7 @@
             </and>
         </condition>
         <condition
-                property="icon-available">
+            property="icon-available">
             <and>
                 <isset property="javafx.deploy.icon"/>
                 <not>
@@ -1685,7 +1685,7 @@
             </and>
         </condition>
         <condition
-                property="dimensions-available">
+            property="dimensions-available">
             <and>
                 <isset property="javafx.run.width"/>
                 <isset property="javafx.run.height"/>
@@ -1700,7 +1700,7 @@
             </and>
         </condition>
         <condition
-                property="update-mode-background">
+            property="update-mode-background">
             <and>
                 <isset property="javafx.deploy.backgroundupdate"/>
                 <equals arg1="${javafx.deploy.backgroundupdate}"
@@ -1709,7 +1709,7 @@
             </and>
         </condition>
         <condition
-                property="offline-allowed">
+            property="offline-allowed">
             <and>
                 <isset property="javafx.deploy.allowoffline"/>
                 <equals arg1="${javafx.deploy.allowoffline}"
@@ -1718,7 +1718,7 @@
             </and>
         </condition>
         <condition
-                property="permissions-elevated">
+            property="permissions-elevated">
             <and>
                 <isset property="javafx.deploy.permissionselevated"/>
                 <equals arg1="${javafx.deploy.permissionselevated}"
@@ -1727,7 +1727,7 @@
             </and>
         </condition>
         <condition
-                property="binary-encode-css">
+            property="binary-encode-css">
             <and>
                 <isset property="javafx.binarycss"/>
                 <equals arg1="${javafx.binarycss}"
@@ -1736,7 +1736,7 @@
             </and>
         </condition>
         <condition
-                property="rebase-lib-jars">
+            property="rebase-lib-jars">
             <and>
                 <isset property="javafx.rebase.libs"/>
                 <equals arg1="${javafx.rebase.libs}"
@@ -1745,7 +1745,7 @@
             </and>
         </condition>
         <condition
-                property="use-blob-signing">
+            property="use-blob-signing">
             <and>
                 <isset property="javafx.signing.blob"/>
                 <equals arg1="${javafx.signing.blob}"
@@ -1797,7 +1797,7 @@
             depends="-check-project,-check-jfx-deployment"
             if="fx-in-swing-app">
         <condition
-                property="fx-in-swing-app-workaround">
+            property="fx-in-swing-app-workaround">
             <and>
                 <isset property="fx-in-swing-app"/>
                 <not>
@@ -1816,7 +1816,7 @@
             depends="-check-project,-check-jfx-deployment"
             if="icon-available">
         <condition
-                property="icon-deployment-may-not-be-supported">
+            property="icon-deployment-may-not-be-supported">
             <and>
                 <isset property="icon-available"/>
                 <not>
@@ -1835,89 +1835,89 @@
             depends="-check-project"
             if="dimensions-available">
         <property
-                name="javafx.width"
-                value="${javafx.run.width}"/>
+            name="javafx.width"
+            value="${javafx.run.width}"/>
         <property
-                name="javafx.height"
-                value="${javafx.run.height}"/>
+            name="javafx.height"
+            value="${javafx.run.height}"/>
     </target>
     <target name="-reset-dimensions"
             depends="-check-project"
             unless="dimensions-available">
         <property
-                name="javafx.width"
-                value="800"/>
+            name="javafx.width"
+            value="800"/>
         <property
-                name="javafx.height"
-                value="600"/>
+            name="javafx.height"
+            value="600"/>
     </target>
 
     <target name="-set-update-mode-background"
             depends="-check-project"
             if="update-mode-background">
         <property
-                name="update-mode"
-                value="background"/>
+            name="update-mode"
+            value="background"/>
     </target>
     <target name="-set-update-mode-eager"
             depends="-check-project"
             unless="update-mode-background">
         <property
-                name="update-mode"
-                value="eager"/>
+            name="update-mode"
+            value="eager"/>
     </target>
 
     <target name="-set-permissions-elevated"
             depends="-check-project"
             if="permissions-elevated">
         <property
-                name="permissions.elevated"
-                value="true"/>
+            name="permissions.elevated"
+            value="true"/>
     </target>
     <target name="-reset-permissions-elevated"
             depends="-check-project"
             unless="permissions-elevated">
         <property
-                name="permissions.elevated"
-                value="false"/>
+            name="permissions.elevated"
+            value="false"/>
     </target>
 
     <target name="-set-binary-css"
             depends="-check-project,-init-css-conversion"
             if="do.copy.binary.css">
         <property
-                name="css-include-ext"
-                value="bss"/>
+            name="css-include-ext"
+            value="bss"/>
         <property
-                name="css-exclude-ext"
-                value="css"/>
+            name="css-exclude-ext"
+            value="css"/>
     </target>
     <target name="-unset-binary-css"
             depends="-check-project,-init-css-conversion"
             unless="do.copy.binary.css">
         <property
-                name="css-include-ext"
-                value="css"/>
+            name="css-include-ext"
+            value="css"/>
         <property
-                name="css-exclude-ext"
-                value="bss"/>
+            name="css-exclude-ext"
+            value="bss"/>
     </target>
     <target name="-copy-binary-css"
             depends="-init-css-conversion,-set-binary-css,-unset-binary-css,-copy-binary-css-bypass,-copy-binary-css-impl"/>
     <target name="-init-css-conversion"
             depends="-check-project,-check-ant-jre-version">
         <fileset
-                id="cssfiles"
-                dir="${basedir}${file.separator}${build.classes.dir}">
+            id="cssfiles"
+            dir="${basedir}${file.separator}${build.classes.dir}">
             <include
-                    name="**${file.separator}*.css"/>
+                name="**${file.separator}*.css"/>
         </fileset>
         <pathconvert
-                refid="cssfiles"
-                property="cssfileset.notempty"
-                setonempty="false"/>
+            refid="cssfiles"
+            property="cssfileset.notempty"
+            setonempty="false"/>
         <condition
-                property="do.copy.binary.css">
+            property="do.copy.binary.css">
             <and>
                 <isset property="binary-encode-css"/>
                 <isset property="cssfileset.notempty"/>
@@ -1927,7 +1927,7 @@
             </and>
         </condition>
         <condition
-                property="do.bypass.binary.css">
+            property="do.bypass.binary.css">
             <and>
                 <isset property="binary-encode-css"/>
                 <isset property="cssfileset.notempty"/>
@@ -1949,16 +1949,16 @@
             depends="-init-css-conversion"
             if="do.copy.binary.css">
         <property
-                name="cssfileslist"
-                refid="cssfiles"/>
+            name="cssfileslist"
+            refid="cssfiles"/>
         <echo message="css files to binary convert: "
               level="verbose">
             ${cssfileslist}
         </echo>
         <fx:csstobin
-                outdir="${basedir}${file.separator}${build.classes.dir}">
+            outdir="${basedir}${file.separator}${build.classes.dir}">
             <fileset
-                    refid="cssfiles"/>
+                refid="cssfiles"/>
         </fx:csstobin>
     </target>
 
@@ -1976,18 +1976,18 @@
         <echo message="Warning: Dependent Libraries copy (-jfx-copylibs) skipped in fallback build mode due to JDK missing JavaScript support."/>
     </target>
     <macrodef
-            name="jfx-copylibs-js-impl">
+        name="jfx-copylibs-js-impl">
         <sequential>
             <local name="run.classpath.without.build.classes.and.dist.dir"/>
             <pathconvert
-                    property="run.classpath.without.build.classes.and.dist.dir">
+                property="run.classpath.without.build.classes.and.dist.dir">
                 <path path="${run.classpath}"/>
                 <map from="${basedir}${file.separator}${build.classes.dir}"
                      to=""/>
                 <map from="${basedir}${file.separator}${dist.jar}"
                      to=""/>
                 <scriptmapper
-                        language="javascript">
+                    language="javascript">
                     self.addMappedName(
                     (source.indexOf("jfxrt.jar")
                     >=
@@ -2076,7 +2076,7 @@
                   overwrite="true">
                 <path>
                     <pathelement
-                            path="${run.and.lib.classpath}"/>
+                        path="${run.and.lib.classpath}"/>
                 </path>
             </copy>
         </sequential>
@@ -2100,7 +2100,7 @@
     </target>
     <target name="-check-rebase-libs">
         <condition
-                property="do-rebase-lib-jars">
+            property="do-rebase-lib-jars">
             <and>
                 <isset property="rebase-lib-jars"/>
                 <not>
@@ -2109,7 +2109,7 @@
             </and>
         </condition>
         <condition
-                property="do-skip-rebase-libs">
+            property="do-skip-rebase-libs">
             <and>
                 <isset property="rebase-lib-jars"/>
                 <isset property="fallback.no.javascript"/>
@@ -2123,14 +2123,14 @@
     </target>
 
     <macrodef
-            name="rebase-libs-js-impl">
+        name="rebase-libs-js-impl">
         <sequential>
             <property
-                    name="pp_rebase_dir"
-                    value="${basedir}${file.separator}${dist.dir}${file.separator}lib"/>
+                name="pp_rebase_dir"
+                value="${basedir}${file.separator}${dist.dir}${file.separator}lib"/>
             <property
-                    name="pp_rebase_fs"
-                    value="*.jar"/>
+                name="pp_rebase_fs"
+                value="*.jar"/>
             <echo message="JavaScript: -rebase-libs-js-impl"
                   level="verbose"/>
             <script language="javascript">
@@ -2159,14 +2159,14 @@
     </macrodef>
 
     <macrodef
-            name="rebase-lib">
+        name="rebase-lib">
         <attribute
-                name="jarfile"/>
+            name="jarfile"/>
         <sequential>
             <local name="tmpdir"/>
             <property
-                    name="tmpdir"
-                    value="${java.io.tmpdir}${file.separator}${user.name}_${ant.project.name}_rebase"/>
+                name="tmpdir"
+                value="${java.io.tmpdir}${file.separator}${user.name}_${ant.project.name}_rebase"/>
             <echo message="tmpdir = ${tmpdir}"
                   level="verbose"/>
             <delete dir="${tmpdir}"
@@ -2176,20 +2176,20 @@
                    dest="${tmpdir}">
                 <patternset>
                     <include
-                            name="META-INF${file.separator}MANIFEST.MF"/>
+                        name="META-INF${file.separator}MANIFEST.MF"/>
                 </patternset>
             </unzip>
             <local name="manifest.file.temp"/>
             <property
-                    name="manifest.file.temp"
-                    value="${tmpdir}${file.separator}META-INF${file.separator}MANIFEST.MF"/>
+                name="manifest.file.temp"
+                value="${tmpdir}${file.separator}META-INF${file.separator}MANIFEST.MF"/>
             <echo message="manifest.file.temp = ${manifest.file.temp}"
                   level="verbose"/>
             <!-- edited manifest file -->
             <local name="manifest.file.temp.new"/>
             <property
-                    name="manifest.file.temp.new"
-                    value="${manifest.file.temp}_new"/>
+                name="manifest.file.temp.new"
+                value="${manifest.file.temp}_new"/>
             <echo message="manifest.file.temp.new = ${manifest.file.temp.new}"
                   level="verbose"/>
             <echo message="JavaScript: rebase-lib"
@@ -2295,7 +2295,7 @@
                 ]]>
             </script>
             <antcall
-                    target="-move-new-manifest-if-exists">
+                target="-move-new-manifest-if-exists">
                 <param name="move.file.from"
                        value="${manifest.file.temp.new}"/>
                 <param name="move.file.to"
@@ -2311,9 +2311,9 @@
 
     <target name="-new-temp-mainfest-existence">
         <condition
-                property="new-temp-manifest-exists">
+            property="new-temp-manifest-exists">
             <available
-                    file="${move.file.from}"/>
+                file="${move.file.from}"/>
         </condition>
         <echo message="new-temp-manifest-exists = ${new-temp-manifest-exists}"
               level="verbose"/>
@@ -2331,7 +2331,7 @@
         <echo message="Rebase jarfile = ${jar.file.to.rebase}"
               level="verbose"/>
         <rebase-lib
-                jarfile="${jar.file.to.rebase}"/>
+            jarfile="${jar.file.to.rebase}"/>
     </target>
 
 
@@ -2345,45 +2345,45 @@
     <target name="-check-dist-lib-exists">
         <deploy-defines/>
         <available
-                file="${jfx.deployment.dir}${file.separator}lib"
-                type="dir"
-                property="dist.lib.exists"/>
+            file="${jfx.deployment.dir}${file.separator}lib"
+            type="dir"
+            property="dist.lib.exists"/>
     </target>
     <target name="-check-jfx-deployment-jar-current-nolib"
             depends="-check-dist-lib-exists"
             unless="dist.lib.exists">
         <uptodate
-                property="jfx-deployment-jar-current"
-                targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
+            property="jfx-deployment-jar-current"
+            targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
             <srcfiles
-                    dir="${basedir}${file.separator}${build.classes.dir}"
-                    includes="**${file.separator}*"/>
+                dir="${basedir}${file.separator}${build.classes.dir}"
+                includes="**${file.separator}*"/>
             <srcfiles
-                    dir="${basedir}${file.separator}nbproject"
-                    includes="**${file.separator}*"/>
+                dir="${basedir}${file.separator}nbproject"
+                includes="**${file.separator}*"/>
         </uptodate>
     </target>
     <target name="-check-jfx-deployment-jar-current-lib"
             depends="-check-dist-lib-exists"
             if="dist.lib.exists">
         <uptodate
-                property="jfx-deployment-jar-current"
-                targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
+            property="jfx-deployment-jar-current"
+            targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
             <srcfiles
-                    dir="${basedir}${file.separator}${build.classes.dir}"
-                    includes="**${file.separator}*"/>
+                dir="${basedir}${file.separator}${build.classes.dir}"
+                includes="**${file.separator}*"/>
             <srcfiles
-                    dir="${jfx.deployment.dir}${file.separator}lib"
-                    includes="**${file.separator}*"/>
+                dir="${jfx.deployment.dir}${file.separator}lib"
+                includes="**${file.separator}*"/>
             <srcfiles
-                    dir="${basedir}${file.separator}nbproject"
-                    includes="**${file.separator}*"/>
+                dir="${basedir}${file.separator}nbproject"
+                includes="**${file.separator}*"/>
         </uptodate>
     </target>
     <target name="-check-jfx-deployment-launch"
             depends="-check-jfx-deployment,-check-jfx-deployment-jar-current-nolib,-check-jfx-deployment-jar-current-lib">
         <condition
-                property="do-jfx-deployment-script">
+            property="do-jfx-deployment-script">
             <and>
                 <isset property="jfx-deployment-available"/>
                 <not>
@@ -2395,7 +2395,7 @@
             </and>
         </condition>
         <condition
-                property="do-jfx-deployment-noscript">
+            property="do-jfx-deployment-noscript">
             <and>
                 <isset property="jfx-deployment-available"/>
                 <isset property="fallback.no.javascript"/>
@@ -2409,13 +2409,13 @@
             depends="-check-jfx-deployment-launch"
             if="do-jfx-deployment-script">
         <antcall
-                target="jfx-deployment-script"/>
+            target="jfx-deployment-script"/>
     </target>
     <target name="-do-jfx-deployment-noscript"
             depends="-check-jfx-deployment-launch"
             if="do-jfx-deployment-noscript">
         <antcall
-                target="jfx-deployment-noscript"/>
+            target="jfx-deployment-noscript"/>
     </target>
 
     <target name="jfx-deployment-script"
@@ -2483,7 +2483,7 @@
 
     <target name="-security-props-check">
         <condition
-                property="javafx.signed.true">
+            property="javafx.signed.true">
             <istrue value="${javafx.signing.enabled}"/>
         </condition>
     </target>
@@ -2491,7 +2491,7 @@
     <target name="-check-signing-possible"
             depends="-security-props-check,-check-jfx-deployment,-unavailable-signjars-task">
         <condition
-                property="javafx.signed.true+signjars.task.available">
+            property="javafx.signed.true+signjars.task.available">
             <and>
                 <isset property="javafx.signed.true"/>
                 <isset property="jfx-deployment-available"/>
@@ -2504,8 +2504,8 @@
             if="javafx.signed.true+signjars.task.available"
             unless="do.not.init.keystore">
         <property
-                name="javafx.signjar.vendor"
-                value="CN=${application.vendor}"/>
+            name="javafx.signjar.vendor"
+            value="CN=${application.vendor}"/>
         <echo message="Going to create default keystore in ${javafx.signjar.keystore}"/>
         <genkey dname="${javafx.signjar.vendor}"
                 alias="${javafx.signjar.alias}"
@@ -2517,10 +2517,10 @@
     <target name="-check-keystore-exists"
             depends="-security-props-check">
         <available
-                property="javafx.signjar.keystore.exists"
-                file="${javafx.signjar.keystore}"/>
+            property="javafx.signjar.keystore.exists"
+            file="${javafx.signjar.keystore}"/>
         <condition
-                property="do.not.init.keystore">
+            property="do.not.init.keystore">
             <or>
                 <not>
                     <isset property="javafx.signed.true"/>
@@ -2532,7 +2532,7 @@
 
     <target name="-javafx-init-signing">
         <condition
-                property="generated.key.signing">
+            property="generated.key.signing">
             <equals arg1="${javafx.signing.type}"
                     arg2="self"
                     trim="true"/>
@@ -2543,40 +2543,40 @@
             depends="-javafx-init-signing"
             if="generated.key.signing">
         <property
-                name="javafx.signjar.keystore"
-                value="${basedir}${file.separator}build${file.separator}nb-jfx.jks"/>
+            name="javafx.signjar.keystore"
+            value="${basedir}${file.separator}build${file.separator}nb-jfx.jks"/>
         <property
-                name="javafx.signjar.storepass"
-                value="storepass"/>
+            name="javafx.signjar.storepass"
+            value="storepass"/>
         <property
-                name="javafx.signjar.keypass"
-                value="keypass"/>
+            name="javafx.signjar.keypass"
+            value="keypass"/>
         <property
-                name="javafx.signjar.alias"
-                value="nb-jfx"/>
+            name="javafx.signjar.alias"
+            value="nb-jfx"/>
     </target>
 
     <target name="-javafx-init-keystore2"
             depends="-javafx-init-signing"
             unless="generated.key.signing">
         <property
-                name="javafx.signjar.keystore"
-                value="${javafx.signing.keystore}"/>
+            name="javafx.signjar.keystore"
+            value="${javafx.signing.keystore}"/>
         <property
-                name="javafx.signjar.storepass"
-                value="${javafx.signing.keystore.password}"/>
+            name="javafx.signjar.storepass"
+            value="${javafx.signing.keystore.password}"/>
         <property
-                name="javafx.signjar.keypass"
-                value="${javafx.signing.keyalias.password}"/>
+            name="javafx.signjar.keypass"
+            value="${javafx.signing.keyalias.password}"/>
         <property
-                name="javafx.signjar.alias"
-                value="${javafx.signing.keyalias}"/>
+            name="javafx.signjar.alias"
+            value="${javafx.signing.keyalias}"/>
     </target>
 
     <target name="-check-signing-security"
             depends="-security-props-check">
         <condition
-                property="is.signing.unsafe">
+            property="is.signing.unsafe">
             <or>
                 <not>
                     <isset property="javafx.signed.true"/>
@@ -2601,26 +2601,26 @@
     <!-- Project Deployment Macros -->
 
     <macrodef
-            name="deploy-defines">
+        name="deploy-defines">
         <sequential>
             <basename
-                    property="jfx.deployment.jar"
-                    file="${dist.jar}"/>
+                property="jfx.deployment.jar"
+                file="${dist.jar}"/>
             <property
-                    name="jfx.deployment.dir"
-                    location="${dist.dir}"/>
+                name="jfx.deployment.dir"
+                location="${dist.dir}"/>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-preprocess">
+        name="deploy-preprocess">
         <sequential>
             <delete includeEmptyDirs="true"
                     quiet="true">
                 <fileset
-                        dir="${jfx.deployment.dir}${file.separator}lib">
+                    dir="${jfx.deployment.dir}${file.separator}lib">
                     <exclude
-                            name="**${file.separator}*.jar"/>
+                        name="**${file.separator}*.jar"/>
                 </fileset>
             </delete>
         </sequential>
@@ -2628,36 +2628,36 @@
 
     <!-- fx:jar scripted call enables passing of arbitrarily long list of params and fx-version dependent behavior -->
     <macrodef
-            name="deploy-jar">
+        name="deploy-jar">
         <sequential>
             <antcall
-                    target="-pre-jfx-jar"/>
+                target="-pre-jfx-jar"/>
             <echo message="javafx.ant.classpath = ${javafx.ant.classpath}"
                   level="verbose"/>
             <typedef
-                    name="fx_jar"
-                    classname="com.sun.javafx.tools.ant.FXJar"
-                    classpath="${javafx.ant.classpath}"/>
+                name="fx_jar"
+                classname="com.sun.javafx.tools.ant.FXJar"
+                classpath="${javafx.ant.classpath}"/>
             <echo message="Launching &lt;fx:jar&gt; task from ${ant-javafx.jar.location}"
                   level="info"/>
             <property
-                    name="pp_jar_destfile"
-                    value="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}"/>
+                name="pp_jar_destfile"
+                value="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}"/>
             <property
-                    name="pp_jar_buildclasses"
-                    value="${basedir}${file.separator}${build.classes.dir}"/>
+                name="pp_jar_buildclasses"
+                value="${basedir}${file.separator}${build.classes.dir}"/>
             <property
-                    name="pp_jar_cssbss"
-                    value="**${file.separator}*.${css-exclude-ext}"/>
+                name="pp_jar_cssbss"
+                value="**${file.separator}*.${css-exclude-ext}"/>
             <property
-                    name="pp_jar_dir"
-                    value="${jfx.deployment.dir}"/>
+                name="pp_jar_dir"
+                value="${jfx.deployment.dir}"/>
             <property
-                    name="pp_jar_fs1"
-                    value="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                name="pp_jar_fs1"
+                value="lib${file.separator}${javafx.preloader.jar.filename}"/>
             <property
-                    name="pp_jar_fs2"
-                    value="lib${file.separator}*.jar"/>
+                name="pp_jar_fs2"
+                value="lib${file.separator}*.jar"/>
             <echo message="deploy_jar: pp_jar_destfile = ${pp_jar_destfile}"
                   level="verbose"/>
             <echo message="deploy_jar: pp_jar_buildclasses = ${pp_jar_buildclasses}"
@@ -2983,12 +2983,12 @@
                 ]]>
             </script>
             <antcall
-                    target="-post-jfx-jar"/>
+                target="-post-jfx-jar"/>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-sign">
+        name="deploy-sign">
         <sequential>
             <echo message="keystore=${javafx.signjar.keystore}"
                   level="verbose"/>
@@ -2999,23 +2999,23 @@
             <echo message="keypass=${javafx.signjar.keypass}"
                   level="verbose"/>
             <signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                 </fileset>
             </signjar>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-sign-blob">
+        name="deploy-sign-blob">
         <sequential>
             <echo message="keystore=${javafx.signjar.keystore}"
                   level="verbose"/>
@@ -3028,23 +3028,23 @@
             <echo message="Launching &lt;fx:signjar&gt; task from ${ant-javafx.jar.location}"
                   level="info"/>
             <fx:signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                 </fileset>
             </fx:signjar>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-sign-preloader">
+        name="deploy-sign-preloader">
         <sequential>
             <echo message="keystore=${javafx.signjar.keystore}"
                   level="verbose"/>
@@ -3055,36 +3055,36 @@
             <echo message="keypass=${javafx.signjar.keypass}"
                   level="verbose"/>
             <signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                 </fileset>
             </signjar>
             <signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                     <exclude
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                 </fileset>
             </signjar>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-sign-blob-preloader">
+        name="deploy-sign-blob-preloader">
         <sequential>
             <echo message="keystore=${javafx.signjar.keystore}"
                   level="verbose"/>
@@ -3095,51 +3095,51 @@
             <echo message="keypass=${javafx.signjar.keypass}"
                   level="verbose"/>
             <signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                 </fileset>
             </signjar>
             <echo message="Launching &lt;fx:signjar&gt; task from ${ant-javafx.jar.location}"
                   level="info"/>
             <fx:signjar
-                    keystore="${javafx.signjar.keystore}"
-                    storepass="${javafx.signjar.storepass}"
-                    alias="${javafx.signjar.alias}"
-                    keypass="${javafx.signjar.keypass}">
+                keystore="${javafx.signjar.keystore}"
+                storepass="${javafx.signjar.storepass}"
+                alias="${javafx.signjar.alias}"
+                keypass="${javafx.signjar.keypass}">
                 <fileset
-                        dir="${jfx.deployment.dir}">
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                     <exclude
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                 </fileset>
             </fx:signjar>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="deploy-process-template">
+        name="deploy-process-template">
         <sequential>
             <echo message="javafx.run.htmltemplate = ${javafx.run.htmltemplate}"
                   level="verbose"/>
             <pathconvert
-                    property="javafx.run.htmltemplate.processed">
+                property="javafx.run.htmltemplate.processed">
                 <path path="${javafx.run.htmltemplate}"/>
                 <mapper>
                     <chainedmapper>
                         <flattenmapper/>
                         <globmapper
-                                from="*"
-                                to="${jfx.deployment.dir}${file.separator}*"
-                                casesensitive="no"/>
+                            from="*"
+                            to="${jfx.deployment.dir}${file.separator}*"
+                            casesensitive="no"/>
                     </chainedmapper>
                 </mapper>
             </pathconvert>
@@ -3150,29 +3150,29 @@
 
     <!-- fx:deploy scripted call enables passing of arbitrarily long lists of params, vmoptions and callbacks and fx-version dependent behavior -->
     <macrodef
-            name="deploy-deploy">
+        name="deploy-deploy">
         <sequential>
             <antcall
-                    target="-pre-jfx-deploy"/>
+                target="-pre-jfx-deploy"/>
             <antcall
-                    target="-call-pre-jfx-native"/>
+                target="-call-pre-jfx-native"/>
             <echo message="javafx.ant.classpath = ${javafx.ant.classpath}"
                   level="verbose"/>
             <typedef
-                    name="fx_deploy"
-                    classname="com.sun.javafx.tools.ant.DeployFXTask"
-                    classpath="${javafx.ant.classpath}"/>
+                name="fx_deploy"
+                classname="com.sun.javafx.tools.ant.DeployFXTask"
+                classpath="${javafx.ant.classpath}"/>
             <echo message="Launching &lt;fx:deploy&gt; task from ${ant-javafx.jar.location}"
                   level="info"/>
             <property
-                    name="pp_deploy_dir"
-                    value="${jfx.deployment.dir}"/>
+                name="pp_deploy_dir"
+                value="${jfx.deployment.dir}"/>
             <property
-                    name="pp_deploy_fs1"
-                    value="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                name="pp_deploy_fs1"
+                value="lib${file.separator}${javafx.preloader.jar.filename}"/>
             <property
-                    name="pp_deploy_fs2"
-                    value="lib${file.separator}*.jar"/>
+                name="pp_deploy_fs2"
+                value="lib${file.separator}*.jar"/>
             <echo message="deploy_deploy: pp_deploy_dir = ${pp_deploy_dir}"
                   level="verbose"/>
             <echo message="deploy_deploy: pp_deploy_fs1 = ${pp_deploy_fs1}"
@@ -3182,9 +3182,9 @@
             <echo message="JavaScript: deploy-deploy"
                   level="verbose"/>
             <basename
-                    property="jfx.deployment.base"
-                    file="${jfx.deployment.jar}"
-                    suffix=".jar"/>
+                property="jfx.deployment.base"
+                file="${jfx.deployment.jar}"
+                suffix=".jar"/>
             <script language="javascript">
                 <![CDATA[
                     function isTrue(prop) {
@@ -3593,42 +3593,42 @@
                 ]]>
             </script>
             <antcall
-                    target="-post-jfx-deploy"/>
+                target="-post-jfx-deploy"/>
             <antcall
-                    target="-call-post-jfx-native"/>
+                target="-call-post-jfx-native"/>
         </sequential>
     </macrodef>
 
     <!-- JavaFX SDK 2.0.x and 2.1.x deploy task can not generate pre-FX jnlp which is needed for FX-in-Swing projects-->
     <macrodef
-            name="deploy-deploy-swing">
+        name="deploy-deploy-swing">
         <sequential>
             <antcall
-                    target="-pre-jfx-deploy"/>
+                target="-pre-jfx-deploy"/>
             <local name="permissions-elevated-token"/>
             <condition
-                    property="permissions-elevated-token"
-                    value="${line.separator}    &lt;security&gt;${line.separator}        &lt;all-permissions/&gt;${line.separator}    &lt;/security&gt;"
-                    else="">
+                property="permissions-elevated-token"
+                value="${line.separator}    &lt;security&gt;${line.separator}        &lt;all-permissions/&gt;${line.separator}    &lt;/security&gt;"
+                else="">
                 <isset property="permissions-elevated"/>
             </condition>
             <local name="offline-allowed-token"/>
             <condition
-                    property="offline-allowed-token"
-                    value="${line.separator}        &lt;offline-allowed/&gt;"
-                    else="">
+                property="offline-allowed-token"
+                value="${line.separator}        &lt;offline-allowed/&gt;"
+                else="">
                 <isset property="offline-allowed"/>
             </condition>
             <local name="update-mode-background-token"/>
             <condition
-                    property="update-mode-background-token"
-                    value="background"
-                    else="always">
+                property="update-mode-background-token"
+                value="background"
+                else="always">
                 <isset property="update-mode-background"/>
             </condition>
             <local name="html-template-processed-available"/>
             <condition
-                    property="html-template-processed-available">
+                property="html-template-processed-available">
                 <and>
                     <isset property="javafx.run.htmltemplate.processed"/>
                     <not>
@@ -3639,11 +3639,11 @@
             </condition>
             <local name="javafx.deploy.icon.basename"/>
             <basename
-                    property="javafx.deploy.icon.basename"
-                    file="${javafx.deploy.icon}"/>
+                property="javafx.deploy.icon.basename"
+                file="${javafx.deploy.icon}"/>
             <local name="local-icon-filename-available"/>
             <condition
-                    property="local-icon-filename-available">
+                property="local-icon-filename-available">
                 <and>
                     <isset property="icon-available"/>
                     <isset property="javafx.deploy.icon.basename"/>
@@ -3653,41 +3653,41 @@
                     </not>
                     <not>
                         <contains
-                                string="${javafx.deploy.icon.basename}"
-                                substring="$${javafx"
-                                casesensitive="false"/>
+                            string="${javafx.deploy.icon.basename}"
+                            substring="$${javafx"
+                            casesensitive="false"/>
                     </not>
                     <not>
                         <contains
-                                string="${javafx.deploy.icon}"
-                                substring="http:"
-                                casesensitive="false"/>
+                            string="${javafx.deploy.icon}"
+                            substring="http:"
+                            casesensitive="false"/>
                     </not>
                 </and>
             </condition>
             <local name="icon-token"/>
             <condition
-                    property="icon-token"
-                    value="${line.separator}        &lt;icon href=&quot;${javafx.deploy.icon.basename}&quot; kind=&quot;default&quot;/&gt;">
+                property="icon-token"
+                value="${line.separator}        &lt;icon href=&quot;${javafx.deploy.icon.basename}&quot; kind=&quot;default&quot;/&gt;">
                 <isset property="local-icon-filename-available"/>
             </condition>
             <condition
-                    property="icon-token"
-                    value="${line.separator}        &lt;icon href=&quot;${javafx.deploy.icon}&quot; kind=&quot;default&quot;/&gt;"
-                    else="">
+                property="icon-token"
+                value="${line.separator}        &lt;icon href=&quot;${javafx.deploy.icon}&quot; kind=&quot;default&quot;/&gt;"
+                else="">
                 <isset property="icon-available"/>
             </condition>
             <basename
-                    property="dist.filename"
-                    file="${dist.jar}"
-                    suffix=".jar"/>
+                property="dist.filename"
+                file="${dist.jar}"
+                suffix=".jar"/>
             <length file="${dist.jar}"
                     property="dist.jar.size"/>
             <local name="vmargs-token"/>
             <condition
-                    property="vmargs-token"
-                    value="java-vm-args=&quot;${run.jvmargs}&quot; "
-                    else="">
+                property="vmargs-token"
+                value="java-vm-args=&quot;${run.jvmargs}&quot; "
+                else="">
                 <isset property="vmargs-available"/>
             </condition>
             <local name="applet-params-token"/>
@@ -3757,13 +3757,13 @@
             </script>
             <local name="application.desc.processed"/>
             <condition
-                    property="application.desc.processed"
-                    value="${application.desc}"
-                    else="Swing applet embedding JavaFX components.">
+                property="application.desc.processed"
+                value="${application.desc}"
+                else="Swing applet embedding JavaFX components.">
                 <isset property="application.desc"/>
             </condition>
             <filterchain
-                    id="jnlp.template.filter">
+                id="jnlp.template.filter">
                 <replacetokens>
                     <token key="NAME"
                            value="${dist.filename}"/>
@@ -3800,17 +3800,17 @@
             <copy file="${basedir}${file.separator}nbproject${file.separator}templates${file.separator}FXSwingTemplateApplication.jnlp"
                   tofile="${dist.dir}${file.separator}${dist.filename}_application.jnlp">
                 <filterchain
-                        refid="jnlp.template.filter"/>
+                    refid="jnlp.template.filter"/>
             </copy>
             <copy file="${basedir}${file.separator}nbproject${file.separator}templates${file.separator}FXSwingTemplateApplet.jnlp"
                   tofile="${dist.dir}${file.separator}${dist.filename}_applet.jnlp">
                 <filterchain
-                        refid="jnlp.template.filter"/>
+                    refid="jnlp.template.filter"/>
             </copy>
             <copy file="${basedir}${file.separator}nbproject${file.separator}templates${file.separator}FXSwingTemplate.html"
                   tofile="${dist.dir}${file.separator}${dist.filename}.html">
                 <filterchain
-                        refid="jnlp.template.filter"/>
+                    refid="jnlp.template.filter"/>
             </copy>
             <echo message="JavaScript: deploy-deploy-swing 2"
                   level="verbose"/>
@@ -3872,7 +3872,7 @@
                 ]]>
             </script>
             <antcall
-                    target="-post-jfx-deploy"/>
+                target="-post-jfx-deploy"/>
         </sequential>
     </macrodef>
 
@@ -3880,198 +3880,198 @@
     <!-- Fallback Project Deployment Macros To Support At Least Partially JDKs Without JavaScript Support -->
 
     <macrodef
-            name="fallback-deploy-application-def">
+        name="fallback-deploy-application-def">
         <sequential>
             <echo message="Warning: Parameters (if any) not passed to &lt;fx:application&gt; in fallback build mode due to JDK missing JavaScript support."/>
             <fx:application
-                    id="fxApp"
-                    name="${application.title}"
-                    mainClass="${javafx.main.class}"
-                    fallbackClass="${javafx.fallback.class}">
+                id="fxApp"
+                name="${application.title}"
+                mainClass="${javafx.main.class}"
+                fallbackClass="${javafx.fallback.class}">
                 <!-- PARAMETERS NOT PASSED IN FALLBACK -->
             </fx:application>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-application-def-preloader">
+        name="fallback-deploy-application-def-preloader">
         <sequential>
             <echo message="Warning: Parameters (if any) not passed to &lt;fx:application&gt; in fallback build mode due to JDK missing JavaScript support."/>
             <fx:application
-                    id="fxApp"
-                    name="${application.title}"
-                    mainClass="${javafx.main.class}"
-                    preloaderClass="${javafx.preloader.class}"
-                    fallbackClass="${javafx.fallback.class}">
+                id="fxApp"
+                name="${application.title}"
+                mainClass="${javafx.main.class}"
+                preloaderClass="${javafx.preloader.class}"
+                fallbackClass="${javafx.fallback.class}">
                 <!-- PARAMETERS NOT PASSED IN FALLBACK -->
             </fx:application>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-application-def-swing">
+        name="fallback-deploy-application-def-swing">
         <sequential>
             <echo message="Warning: Parameters (if any) not passed to &lt;fx:application&gt; in fallback build mode due to JDK missing JavaScript support."/>
             <fx:application
-                    id="fxApp"
-                    name="${application.title}"
-                    mainClass="${main.class}"
-                    fallbackClass="${javafx.fallback.class}"
-                    toolkit="swing">
+                id="fxApp"
+                name="${application.title}"
+                mainClass="${main.class}"
+                fallbackClass="${javafx.fallback.class}"
+                toolkit="swing">
                 <!-- PARAMETERS NOT PASSED IN FALLBACK -->
             </fx:application>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-resources">
+        name="fallback-deploy-resources">
         <sequential>
             <fx:resources
-                    id="appRes">
+                id="appRes">
                 <fx:fileset
-                        requiredFor="startup"
-                        dir="${jfx.deployment.dir}">
+                    requiredFor="startup"
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                     <exclude
-                            name="lib${file.separator}${jfx.deployment.jar}"/>
+                        name="lib${file.separator}${jfx.deployment.jar}"/>
                 </fx:fileset>
             </fx:resources>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-resources-preloader">
+        name="fallback-deploy-resources-preloader">
         <sequential>
             <fx:resources
-                    id="appRes">
+                id="appRes">
                 <fx:fileset
-                        requiredFor="preloader"
-                        dir="${jfx.deployment.dir}">
+                    requiredFor="preloader"
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                 </fx:fileset>
                 <fx:fileset
-                        requiredFor="startup"
-                        dir="${jfx.deployment.dir}">
+                    requiredFor="startup"
+                    dir="${jfx.deployment.dir}">
                     <include
-                            name="${jfx.deployment.jar}"/>
+                        name="${jfx.deployment.jar}"/>
                     <include
-                            name="lib${file.separator}*.jar"/>
+                        name="lib${file.separator}*.jar"/>
                     <exclude
-                            name="lib${file.separator}${javafx.preloader.jar.filename}"/>
+                        name="lib${file.separator}${javafx.preloader.jar.filename}"/>
                     <exclude
-                            name="lib${file.separator}${jfx.deployment.jar}"/>
+                        name="lib${file.separator}${jfx.deployment.jar}"/>
                 </fx:fileset>
             </fx:resources>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-jar">
+        name="fallback-deploy-jar">
         <sequential>
             <antcall
-                    target="-pre-jfx-jar"/>
+                target="-pre-jfx-jar"/>
             <fx:jar destfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
                 <fx:application
-                        refid="fxApp"/>
+                    refid="fxApp"/>
                 <fx:resources
-                        refid="appRes"/>
+                    refid="appRes"/>
                 <fileset
-                        dir="${build.classes.dir}">
+                    dir="${build.classes.dir}">
                     <exclude
-                            name="**${file.separator}*.${css-exclude-ext}"/>
+                        name="**${file.separator}*.${css-exclude-ext}"/>
                 </fileset>
                 <manifest>
                     <attribute
-                            name="Implementation-Vendor"
-                            value="${application.vendor}"/>
+                        name="Implementation-Vendor"
+                        value="${application.vendor}"/>
                     <attribute
-                            name="Implementation-Title"
-                            value="${application.title}"/>
+                        name="Implementation-Title"
+                        value="${application.title}"/>
                     <attribute
-                            name="Implementation-Version"
-                            value="1.0"/>
+                        name="Implementation-Version"
+                        value="1.0"/>
                 </manifest>
             </fx:jar>
             <antcall
-                    target="-post-jfx-jar"/>
+                target="-post-jfx-jar"/>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-deploy">
+        name="fallback-deploy-deploy">
         <sequential>
             <antcall
-                    target="-pre-jfx-deploy"/>
+                target="-pre-jfx-deploy"/>
             <echo message="Warning: JVM Arguments and Callbacks (if any) not passed to &lt;fx:deploy&gt; in fallback build mode due to JDK missing JavaScript support."/>
             <fx:deploy
-                    width="${javafx.width}"
-                    height="${javafx.height}"
-                    outdir="${jfx.deployment.dir}"
-                    embedjnlp="true"
-                    updatemode="${update-mode}"
-                    outfile="${application.title}"
-                    includeDT="${javafx.deploy.includeDT}">
+                width="${javafx.width}"
+                height="${javafx.height}"
+                outdir="${jfx.deployment.dir}"
+                embedjnlp="true"
+                updatemode="${update-mode}"
+                outfile="${application.title}"
+                includeDT="${javafx.deploy.includeDT}">
                 <fx:application
-                        refid="fxApp"/>
+                    refid="fxApp"/>
                 <fx:resources
-                        refid="appRes"/>
+                    refid="appRes"/>
                 <fx:info
-                        title="${application.title}"
-                        vendor="${application.vendor}"/>
+                    title="${application.title}"
+                    vendor="${application.vendor}"/>
                 <fx:permissions
-                        elevated="${permissions.elevated}"/>
+                    elevated="${permissions.elevated}"/>
                 <fx:preferences
-                        shortcut="${javafx.deploy.adddesktopshortcut}"
-                        install="${javafx.deploy.installpermanently}"
-                        menu="${javafx.deploy.addstartmenushortcut}"/>
+                    shortcut="${javafx.deploy.adddesktopshortcut}"
+                    install="${javafx.deploy.installpermanently}"
+                    menu="${javafx.deploy.addstartmenushortcut}"/>
                 <!-- PLATFORM NOT PASSED IN FALLBACK -->
                 <!-- CALLBACKS NOT PASSED IN FALLBACK -->
             </fx:deploy>
             <antcall
-                    target="-post-jfx-deploy"/>
+                target="-post-jfx-deploy"/>
         </sequential>
     </macrodef>
 
     <macrodef
-            name="fallback-deploy-deploy-template">
+        name="fallback-deploy-deploy-template">
         <sequential>
             <antcall
-                    target="-pre-jfx-deploy"/>
+                target="-pre-jfx-deploy"/>
             <echo message="Warning: JVM Arguments and Callbacks (if any) not passed to &lt;fx:deploy&gt; in fallback build mode due to JDK missing JavaScript support."/>
             <deploy-process-template/>
             <fx:deploy
-                    width="${javafx.width}"
-                    height="${javafx.height}"
-                    outdir="${jfx.deployment.dir}"
-                    embedjnlp="true"
-                    updatemode="${update-mode}"
-                    outfile="${application.title}"
-                    includeDT="${javafx.deploy.includeDT}">
+                width="${javafx.width}"
+                height="${javafx.height}"
+                outdir="${jfx.deployment.dir}"
+                embedjnlp="true"
+                updatemode="${update-mode}"
+                outfile="${application.title}"
+                includeDT="${javafx.deploy.includeDT}">
                 <fx:application
-                        refid="fxApp"/>
+                    refid="fxApp"/>
                 <fx:resources
-                        refid="appRes"/>
+                    refid="appRes"/>
                 <fx:info
-                        title="${application.title}"
-                        vendor="${application.vendor}"/>
+                    title="${application.title}"
+                    vendor="${application.vendor}"/>
                 <fx:permissions
-                        elevated="${permissions.elevated}"/>
+                    elevated="${permissions.elevated}"/>
                 <fx:preferences
-                        shortcut="${javafx.deploy.adddesktopshortcut}"
-                        install="${javafx.deploy.installpermanently}"
-                        menu="${javafx.deploy.addstartmenushortcut}"/>
+                    shortcut="${javafx.deploy.adddesktopshortcut}"
+                    install="${javafx.deploy.installpermanently}"
+                    menu="${javafx.deploy.addstartmenushortcut}"/>
                 <fx:template
-                        file="${javafx.run.htmltemplate}"
-                        tofile="${javafx.run.htmltemplate.processed}"/>
+                    file="${javafx.run.htmltemplate}"
+                    tofile="${javafx.run.htmltemplate.processed}"/>
                 <!-- PLATFORM NOT PASSED IN FALLBACK -->
                 <!-- CALLBACKS NOT PASSED IN FALLBACK -->
             </fx:deploy>
             <antcall
-                    target="-post-jfx-deploy"/>
+                target="-post-jfx-deploy"/>
         </sequential>
     </macrodef>
 
@@ -4082,7 +4082,7 @@
             depends="-check-project,-javafx-init-keystore"
             if="javafx.signed.true+signjars.task.available">
         <condition
-                property="sign-nopreloader-notemplate">
+            property="sign-nopreloader-notemplate">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4097,7 +4097,7 @@
             </and>
         </condition>
         <condition
-                property="sign-preloader-notemplate">
+            property="sign-preloader-notemplate">
             <and>
                 <isset property="app-with-preloader"/>
                 <not>
@@ -4112,7 +4112,7 @@
             </and>
         </condition>
         <condition
-                property="sign-nopreloader-template">
+            property="sign-nopreloader-template">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4125,7 +4125,7 @@
             </and>
         </condition>
         <condition
-                property="sign-preloader-template">
+            property="sign-preloader-template">
             <and>
                 <isset property="app-with-preloader"/>
                 <isset property="html-template-available"/>
@@ -4138,7 +4138,7 @@
             </and>
         </condition>
         <condition
-                property="sign-nopreloader-notemplate-swing">
+            property="sign-nopreloader-notemplate-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4151,7 +4151,7 @@
             </and>
         </condition>
         <condition
-                property="sign-nopreloader-template-swing">
+            property="sign-nopreloader-template-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4162,7 +4162,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-nopreloader-notemplate">
+            property="sign-blob-nopreloader-notemplate">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4175,7 +4175,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-preloader-notemplate">
+            property="sign-blob-preloader-notemplate">
             <and>
                 <isset property="app-with-preloader"/>
                 <not>
@@ -4188,7 +4188,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-nopreloader-template">
+            property="sign-blob-nopreloader-template">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4199,7 +4199,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-preloader-template">
+            property="sign-blob-preloader-template">
             <and>
                 <isset property="app-with-preloader"/>
                 <isset property="html-template-available"/>
@@ -4210,7 +4210,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-nopreloader-notemplate-swing">
+            property="sign-blob-nopreloader-notemplate-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4221,7 +4221,7 @@
             </and>
         </condition>
         <condition
-                property="sign-blob-nopreloader-template-swing">
+            property="sign-blob-nopreloader-template-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4233,7 +4233,7 @@
     <target name="-check-nosign"
             depends="-check-project">
         <condition
-                property="nosign-nopreloader-notemplate">
+            property="nosign-nopreloader-notemplate">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4248,7 +4248,7 @@
             </and>
         </condition>
         <condition
-                property="nosign-preloader-notemplate">
+            property="nosign-preloader-notemplate">
             <and>
                 <isset property="app-with-preloader"/>
                 <not>
@@ -4263,7 +4263,7 @@
             </and>
         </condition>
         <condition
-                property="nosign-nopreloader-template">
+            property="nosign-nopreloader-template">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4276,7 +4276,7 @@
             </and>
         </condition>
         <condition
-                property="nosign-preloader-template">
+            property="nosign-preloader-template">
             <and>
                 <isset property="app-with-preloader"/>
                 <isset property="html-template-available"/>
@@ -4289,7 +4289,7 @@
             </and>
         </condition>
         <condition
-                property="nosign-nopreloader-notemplate-swing">
+            property="nosign-nopreloader-notemplate-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <not>
@@ -4302,7 +4302,7 @@
             </and>
         </condition>
         <condition
-                property="nosign-nopreloader-template-swing">
+            property="nosign-nopreloader-template-swing">
             <and>
                 <isset property="app-without-preloader"/>
                 <isset property="html-template-available"/>
@@ -4586,7 +4586,7 @@
             depends="-check-sign">
         <local name="fail-deploy-swing-possible"/>
         <condition
-                property="fail-deploy-swing-possible">
+            property="fail-deploy-swing-possible">
             <and>
                 <or>
                     <isset property="sign-nopreloader-notemplate-swing"/>
@@ -4796,7 +4796,7 @@
             depends="-check-nosign">
         <local name="fail-deploy-swing-possible"/>
         <condition
-                property="fail-deploy-swing-possible">
+            property="fail-deploy-swing-possible">
             <and>
                 <or>
                     <isset property="nosign-nopreloader-notemplate-swing"/>
@@ -4929,22 +4929,22 @@
 
     <target name="build-native">
         <property
-                name="javafx.native.bundling.type"
-                value="${native.bundling.type}"/>
+            name="javafx.native.bundling.type"
+            value="${native.bundling.type}"/>
         <antcall
-                target="jfx-build-native"/>
+            target="jfx-build-native"/>
     </target>
     <target name="build-native-noscript">
         <property
-                name="javafx.native.bundling.type"
-                value="${native.bundling.type}"/>
+            name="javafx.native.bundling.type"
+            value="${native.bundling.type}"/>
         <antcall
-                target="jfx-build-native-noscript"/>
+            target="jfx-build-native-noscript"/>
     </target>
 
     <target name="-check-do-jar">
         <condition
-                property="do-jar-false">
+            property="do-jar-false">
             <and>
                 <isset property="do.jar"/>
                 <equals arg1="${do.jar}"
@@ -4954,21 +4954,21 @@
     </target>
     <target name="-set-fallback-no-javascript">
         <property
-                name="fallback.no.javascript"
-                value="true"/>
+            name="fallback.no.javascript"
+            value="true"/>
         <echo message="Warning: Using fallback build infrastructure due to default JDK missing JavaScript support."/>
     </target>
     <target name="-jfx-do-compile"
             depends="-check-do-jar"
             if="do-jar-false">
         <antcall
-                target="compile"/>
+            target="compile"/>
     </target>
     <target name="-jfx-do-jar"
             depends="-check-do-jar"
             unless="do-jar-false">
         <antcall
-                target="jar"/>
+            target="jar"/>
     </target>
     <target name="-jfx-do-post-jar"
             depends="-init-check,-check-project"
@@ -4979,8 +4979,8 @@
 
     <target name="-set-do-build-native-package">
         <property
-                name="do.build.native.package"
-                value="true"/>
+            name="do.build.native.package"
+            value="true"/>
         <echo message="do.build.native.package = ${do.build.native.package}"
               level="verbose"/>
     </target>
@@ -4993,19 +4993,19 @@
     <target name="-call-pre-jfx-native"
             if="do.build.native.package">
         <antcall
-                target="-pre-jfx-native"/>
+            target="-pre-jfx-native"/>
     </target>
     <target name="-call-post-jfx-native"
             if="do.build.native.package">
         <antcall
-                target="-post-jfx-native"/>
+            target="-post-jfx-native"/>
     </target>
 
     <target name="-check-native-bundling-type"
             depends="-check-operating-system"
             if="do.build.native.package">
         <condition
-                property="need.Inno.presence">
+            property="need.Inno.presence">
             <and>
                 <isset property="running.on.windows"/>
                 <isset property="javafx.native.bundling.type"/>
@@ -5023,7 +5023,7 @@
             </and>
         </condition>
         <condition
-                property="need.WiX.presence">
+            property="need.WiX.presence">
             <and>
                 <isset property="running.on.windows"/>
                 <isset property="javafx.native.bundling.type"/>
@@ -5041,7 +5041,7 @@
             </and>
         </condition>
         <condition
-                property="need.dpkg.presence">
+            property="need.dpkg.presence">
             <and>
                 <isset property="running.on.unix"/>
                 <isset property="javafx.native.bundling.type"/>
@@ -5053,7 +5053,7 @@
             </and>
         </condition>
         <condition
-                property="need.rpmbuild.presence">
+            property="need.rpmbuild.presence">
             <and>
                 <isset property="running.on.unix"/>
                 <isset property="javafx.native.bundling.type"/>
@@ -5091,31 +5091,31 @@
         <echo message="exec-result:${exec-result}"
               level="verbose"/>
         <condition
-                property="missing.Inno">
+            property="missing.Inno">
             <not>
                 <and>
                     <contains
+                        string="${exec-output}"
+                        substring="Inno Setup"/>
+                    <not>
+                        <contains
                             string="${exec-output}"
-                            substring="Inno Setup"/>
-                    <not>
-                        <contains
-                                string="${exec-output}"
-                                substring="Inno Setup 1"/>
+                            substring="Inno Setup 1"/>
                     </not>
                     <not>
                         <contains
-                                string="${exec-output}"
-                                substring="Inno Setup 2"/>
+                            string="${exec-output}"
+                            substring="Inno Setup 2"/>
                     </not>
                     <not>
                         <contains
-                                string="${exec-output}"
-                                substring="Inno Setup 3"/>
+                            string="${exec-output}"
+                            substring="Inno Setup 3"/>
                     </not>
                     <not>
                         <contains
-                                string="${exec-output}"
-                                substring="Inno Setup 4"/>
+                            string="${exec-output}"
+                            substring="Inno Setup 4"/>
                     </not>
                 </and>
             </not>
@@ -5141,12 +5141,12 @@
         <echo message="exec-result:${exec-result}"
               level="verbose"/>
         <condition
-                property="missing.WiX">
+            property="missing.WiX">
             <not>
                 <matches
-                        string="${exec-output}"
-                        pattern="windows\s+installer\s+xml\s+(toolset\s+)?compiler\s+version\s+3.*"
-                        casesensitive="false"/>
+                    string="${exec-output}"
+                    pattern="windows\s+installer\s+xml\s+(toolset\s+)?compiler\s+version\s+3.*"
+                    casesensitive="false"/>
             </not>
         </condition>
     </target>
@@ -5163,7 +5163,7 @@
             <arg line="-v dpkg"/>
         </exec>
         <condition
-                property="missing.dpkg">
+            property="missing.dpkg">
             <not>
                 <and>
                     <isset property="exec.which.dpkg.result"/>
@@ -5191,7 +5191,7 @@
             <arg line="-v rpmbuild"/>
         </exec>
         <condition
-                property="missing.rpmbuild">
+            property="missing.rpmbuild">
             <not>
                 <and>
                     <isset property="exec.which.rpmbuild.result"/>
@@ -5209,19 +5209,19 @@
     <target name="-check-native-packager-external-tools"
             depends="-check-Inno-presence, -check-WiX-presence, -check-dpkg-presence, -check-rpmbuild-presence">
         <property
-                name="missing.Inno.message"
-                value="JavaFX native packager requires external Inno Setup 5+ tools installed and included on PATH to create EXE installer. See http://www.jrsoftware.org/"/>
+            name="missing.Inno.message"
+            value="JavaFX native packager requires external Inno Setup 5+ tools installed and included on PATH to create EXE installer. See http://www.jrsoftware.org/"/>
         <property
-                name="missing.WiX.message"
-                value="JavaFX native packager requires external WiX 3.0+ tools installed and included on PATH to create MSI installer. See http://wix.sourceforge.net/"/>
+            name="missing.WiX.message"
+            value="JavaFX native packager requires external WiX 3.0+ tools installed and included on PATH to create MSI installer. See http://wix.sourceforge.net/"/>
         <property
-                name="missing.dpkg.message"
-                value="JavaFX native packager requires Debian Packager tools to create DEB package, but dpkg could not be found."/>
+            name="missing.dpkg.message"
+            value="JavaFX native packager requires Debian Packager tools to create DEB package, but dpkg could not be found."/>
         <property
-                name="missing.rpmbuild.message"
-                value="JavaFX native packager requires RPMBuild to create RPM package, but rpmbuild could not be found."/>
+            name="missing.rpmbuild.message"
+            value="JavaFX native packager requires RPMBuild to create RPM package, but rpmbuild could not be found."/>
         <condition
-                property="missing.Inno.WiX">
+            property="missing.Inno.WiX">
             <and>
                 <isset property="missing.Inno"/>
                 <isset property="missing.WiX"/>
@@ -5249,37 +5249,37 @@
 
     <target name="-mark-project-state-running">
         <property
-                name="project.state.running"
-                value="true"/>
+            name="project.state.running"
+            value="true"/>
         <echo message="project.state.running = ${project.state.running}"
               level="verbose"/>
     </target>
     <target name="-mark-project-state-debugging">
         <property
-                name="project.state.debugging"
-                value="true"/>
+            name="project.state.debugging"
+            value="true"/>
         <echo message="project.state.debugging = ${project.state.debugging}"
               level="verbose"/>
     </target>
     <target name="-mark-project-state-debugging-in-browser"
             depends="-mark-project-state-debugging">
         <property
-                name="project.state.debugging.in.browser"
-                value="true"/>
+            name="project.state.debugging.in.browser"
+            value="true"/>
         <echo message="project.state.debugging.in.browser = ${project.state.debugging.in.browser}"
               level="verbose"/>
     </target>
     <target name="-mark-project-state-profiling">
         <property
-                name="project.state.profiling"
-                value="true"/>
+            name="project.state.profiling"
+            value="true"/>
         <echo message="project.state.profiling = ${project.state.profiling}"
               level="verbose"/>
     </target>
     <target name="-mark-project-needs-jnlp">
         <property
-                name="project.needs.jnlp"
-                value="true"/>
+            name="project.needs.jnlp"
+            value="true"/>
         <echo message="project.needs.jnlp = ${project.needs.jnlp}"
               level="verbose"/>
     </target>
@@ -5287,7 +5287,7 @@
     <!-- set property javafx.disable.concurrent.runs=true to disable runs from temporary directory -->
     <target name="-check-concurrent-runs">
         <condition
-                property="disable-concurrent-runs">
+            property="disable-concurrent-runs">
             <and>
                 <isset property="javafx.disable.concurrent.runs"/>
                 <equals arg1="${javafx.disable.concurrent.runs}"
@@ -5296,18 +5296,18 @@
             </and>
         </condition>
         <condition
-                property="temp.run.jar"
-                value="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
+            property="temp.run.jar"
+            value="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
             <isset property="disable-concurrent-runs"/>
         </condition>
         <condition
-                property="temp.run.jnlp"
-                value="${jfx.deployment.jnlp}">
+            property="temp.run.jnlp"
+            value="${jfx.deployment.jnlp}">
             <isset property="disable-concurrent-runs"/>
         </condition>
         <condition
-                property="temp.run.html"
-                value="${jfx.deployment.html}">
+            property="temp.run.html"
+            value="${jfx.deployment.html}">
             <isset property="disable-concurrent-runs"/>
         </condition>
     </target>
@@ -5317,35 +5317,35 @@
         <echo message="Creating temp run dir"
               level="verbose"/>
         <tempfile
-                property="temp.run.dir"
-                destDir="${basedir}${file.separator}${dist.dir}${file.separator}"
-                prefix="run"/>
+            property="temp.run.dir"
+            destDir="${basedir}${file.separator}${dist.dir}${file.separator}"
+            prefix="run"/>
         <echo message="temp.run.dir = ${temp.run.dir}"
               level="verbose"/>
         <copy todir="${temp.run.dir}"
               includeemptydirs="true"
               overwrite="true">
             <fileset
-                    dir="${basedir}${file.separator}${dist.dir}">
+                dir="${basedir}${file.separator}${dist.dir}">
                 <exclude
-                        name="**${file.separator}bundles${file.separator}**"/>
+                    name="**${file.separator}bundles${file.separator}**"/>
                 <exclude
-                        name="**${file.separator}run*${file.separator}**"/>
+                    name="**${file.separator}run*${file.separator}**"/>
             </fileset>
         </copy>
         <property
-                name="temp.run.jar"
-                value="${temp.run.dir}${file.separator}${jfx.deployment.jar}"/>
+            name="temp.run.jar"
+            value="${temp.run.dir}${file.separator}${jfx.deployment.jar}"/>
         <basename
-                property="jfx.deployment.base"
-                file="${jfx.deployment.jar}"
-                suffix=".jar"/>
+            property="jfx.deployment.base"
+            file="${jfx.deployment.jar}"
+            suffix=".jar"/>
         <property
-                name="temp.run.jnlp"
-                value="${temp.run.dir}${file.separator}${jfx.deployment.base}.jnlp"/>
+            name="temp.run.jnlp"
+            value="${temp.run.dir}${file.separator}${jfx.deployment.base}.jnlp"/>
         <property
-                name="temp.run.html"
-                value="${temp.run.dir}${file.separator}${jfx.deployment.base}.html"/>
+            name="temp.run.html"
+            value="${temp.run.dir}${file.separator}${jfx.deployment.base}.html"/>
     </target>
     <target name="-remove-temp-run-dir"
             if="temp.run.dir">
@@ -5360,11 +5360,11 @@
             name="jfx-project-run">
         <echo message="Executing ${temp.run.jar} using platform ${platform.java}"/>
         <property
-                name="run.jvmargs"
-                value=""/>
+            name="run.jvmargs"
+            value=""/>
         <property
-                name="run.jvmargs.ide"
-                value=""/>
+            name="run.jvmargs.ide"
+            value=""/>
         <java jar="${temp.run.jar}"
               dir="${work.dir}"
               fork="true"
@@ -5372,9 +5372,9 @@
             <jvmarg line="${endorsed.classpath.cmd.line.arg}"/>
             <jvmarg value="-Dfile.encoding=${runtime.encoding}"/>
             <redirector
-                    errorencoding="${runtime.encoding}"
-                    inputencoding="${runtime.encoding}"
-                    outputencoding="${runtime.encoding}"/>
+                errorencoding="${runtime.encoding}"
+                inputencoding="${runtime.encoding}"
+                outputencoding="${runtime.encoding}"/>
             <jvmarg line="${run.jvmargs}"/>
             <jvmarg line="${run.jvmargs.ide}"/>
             <classpath>
@@ -5383,25 +5383,25 @@
             <arg line="${application.args}"/>
             <syspropertyset>
                 <propertyref
-                        prefix="run-sys-prop."/>
+                    prefix="run-sys-prop."/>
                 <mapper from="run-sys-prop.*"
                         to="*"
                         type="glob"/>
             </syspropertyset>
         </java>
         <antcall
-                target="-remove-temp-run-dir"/>
+            target="-remove-temp-run-dir"/>
     </target>
     <target depends="init,compile,jar,-create-temp-run-dir,-debug-start-debugger"
             description="Debug JavaFX project standalone."
             name="jfx-project-debug">
         <echo message="Executing ${temp.run.jar} using platform ${platform.java}"/>
         <property
-                name="run.jvmargs"
-                value=""/>
+            name="run.jvmargs"
+            value=""/>
         <property
-                name="run.jvmargs.ide"
-                value=""/>
+            name="run.jvmargs.ide"
+            value=""/>
         <java jar="${temp.run.jar}"
               dir="${work.dir}"
               fork="true"
@@ -5412,9 +5412,9 @@
             <jvmarg value="-Dglass.disableGrab=true"/>
             <jvmarg value="-Dfile.encoding=${runtime.encoding}"/>
             <redirector
-                    errorencoding="${runtime.encoding}"
-                    inputencoding="${runtime.encoding}"
-                    outputencoding="${runtime.encoding}"/>
+                errorencoding="${runtime.encoding}"
+                inputencoding="${runtime.encoding}"
+                outputencoding="${runtime.encoding}"/>
             <jvmarg line="${run.jvmargs}"/>
             <jvmarg line="${run.jvmargs.ide}"/>
             <classpath>
@@ -5423,14 +5423,14 @@
             <arg line="${application.args}"/>
             <syspropertyset>
                 <propertyref
-                        prefix="run-sys-prop."/>
+                    prefix="run-sys-prop."/>
                 <mapper from="run-sys-prop.*"
                         to="*"
                         type="glob"/>
             </syspropertyset>
         </java>
         <antcall
-                target="-remove-temp-run-dir"/>
+            target="-remove-temp-run-dir"/>
     </target>
 
 
@@ -5455,20 +5455,20 @@
             depends="-init-project">
         <deploy-defines/>
         <uptodate
-                property="jfx.deployment.jar.newer.than.nbproject"
-                targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
+            property="jfx.deployment.jar.newer.than.nbproject"
+            targetfile="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}">
             <srcfiles
-                    dir="${basedir}${file.separator}nbproject"
-                    includes="**${file.separator}*"/>
+                dir="${basedir}${file.separator}nbproject"
+                includes="**${file.separator}*"/>
         </uptodate>
         <echo message="jfx.deployment.jar.newer.than.nbproject = ${jfx.deployment.jar.newer.than.nbproject}"
               level="verbose"/>
         <available
-                file="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}"
-                type="file"
-                property="jfx.deployment.jar.exists"/>
+            file="${jfx.deployment.dir}${file.separator}${jfx.deployment.jar}"
+            type="file"
+            property="jfx.deployment.jar.exists"/>
         <condition
-                property="request.clean.due.to.config.change">
+            property="request.clean.due.to.config.change">
             <and>
                 <isset property="jfx.deployment.jar.exists"/>
                 <not>
@@ -5483,7 +5483,7 @@
         <echo message="Config change detected. Invoking clean."
               level="verbose"/>
         <antcall
-                target="clean"/>
+            target="clean"/>
     </target>
 
     <target depends="-profile-check-1,-profile-pre72"
@@ -5493,48 +5493,48 @@
             unless="profiler.info.jvmargs.agent">
         <startprofiler/>
         <antcall
-                target="jfxsa-run"/>
+            target="jfxsa-run"/>
     </target>
 
     <!-- Shared Debugging init -->
 
     <target name="-init-debug-args">
         <property
-                name="version-output"
-                value="java version &quot;${ant.java.version}"/>
+            name="version-output"
+            value="java version &quot;${ant.java.version}"/>
         <condition
-                property="have-jdk-older-than-1.4">
+            property="have-jdk-older-than-1.4">
             <or>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.0"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.0"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.1"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.1"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.2"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.2"/>
                 <contains
-                        string="${version-output}"
-                        substring="java version &quot;1.3"/>
+                    string="${version-output}"
+                    substring="java version &quot;1.3"/>
             </or>
         </condition>
         <condition
-                else="-Xdebug"
-                property="debug-args-line"
-                value="-Xdebug -Xnoagent -Djava.compiler=none">
+            else="-Xdebug"
+            property="debug-args-line"
+            value="-Xdebug -Xnoagent -Djava.compiler=none">
             <istrue value="${have-jdk-older-than-1.4}"/>
         </condition>
         <condition
-                else="dt_socket"
-                property="debug-transport-by-os"
-                value="dt_shmem">
+            else="dt_socket"
+            property="debug-transport-by-os"
+            value="dt_shmem">
             <os family="windows"/>
         </condition>
         <condition
-                else="${debug-transport-by-os}"
-                property="debug-transport"
-                value="${debug.transport}">
+            else="${debug-transport-by-os}"
+            property="debug-transport"
+            value="${debug.transport}">
             <isset property="debug.transport"/>
         </condition>
     </target>
@@ -5546,33 +5546,33 @@
             depends="-swing-api-check"
             unless="fx-in-swing-app-workaround">
         <basename
-                property="jfx.deployment.base"
-                file="${jfx.deployment.jar}"
-                suffix=".jar"/>
+            property="jfx.deployment.base"
+            file="${jfx.deployment.jar}"
+            suffix=".jar"/>
         <property
-                name="jfx.deployment.jnlp"
-                location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}.jnlp"/>
+            name="jfx.deployment.jnlp"
+            location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}.jnlp"/>
     </target>
     <target name="-check-jnlp-file-swing"
             depends="-swing-api-check"
             if="fx-in-swing-app-workaround">
         <basename
-                property="jfx.deployment.base"
-                file="${jfx.deployment.jar}"
-                suffix=".jar"/>
+            property="jfx.deployment.base"
+            file="${jfx.deployment.jar}"
+            suffix=".jar"/>
         <property
-                name="jfx.deployment.jnlp"
-                location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}_application.jnlp"/>
+            name="jfx.deployment.jnlp"
+            location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}_application.jnlp"/>
     </target>
     <target name="-check-jnlp-file"
             depends="-check-jnlp-file-fx,-check-jnlp-file-swing">
         <condition
-                property="jnlp-file-exists">
+            property="jnlp-file-exists">
             <available
-                    file="${jfx.deployment.jnlp}"/>
+                file="${jfx.deployment.jnlp}"/>
         </condition>
         <condition
-                property="jnlp-file-exists+netbeans.home">
+            property="jnlp-file-exists+netbeans.home">
             <and>
                 <isset property="jnlp-file-exists"/>
                 <isset property="netbeans.home"/>
@@ -5584,16 +5584,16 @@
             depends="-check-jnlp-file"
             unless="jnlp-file-exists">
         <antcall
-                target="jfx-deployment"/>
+            target="jfx-deployment"/>
         <antcall
-                target="-check-jnlp-file"/>
+            target="-check-jnlp-file"/>
     </target>
 
     <!-- set property javafx.enable.concurrent.external.runs=true to enable multiple runs of the same WebStart or Run-in-Browser project -->
     <target name="-check-concurrent-jnlp-runs"
             depends="-resolve-jnlp-file">
         <condition
-                property="disable-concurrent-runs">
+            property="disable-concurrent-runs">
             <not>
                 <and>
                     <isset property="javafx.enable.concurrent.external.runs"/>
@@ -5604,8 +5604,8 @@
             </not>
         </condition>
         <condition
-                property="temp.run.jnlp"
-                value="${jfx.deployment.jnlp}">
+            property="temp.run.jnlp"
+            value="${jfx.deployment.jnlp}">
             <isset property="disable-concurrent-runs"/>
         </condition>
     </target>
@@ -5624,7 +5624,7 @@
             <arg file="${temp.run.jnlp}"/>
         </exec>
         <antcall
-                target="-warn-concurrent-jnlp-runs"/>
+            target="-warn-concurrent-jnlp-runs"/>
     </target>
 
     <target name="jfxws-debug"
@@ -5647,19 +5647,19 @@
 
     <target name="-profile-check-1">
         <property
-                name="run.jvmargs.ide"
-                value=""/>
+            name="run.jvmargs.ide"
+            value=""/>
         <condition
-                property="profiler.configured">
+            property="profiler.configured">
             <or>
                 <contains
-                        casesensitive="true"
-                        string="${run.jvmargs.ide}"
-                        substring="-agentpath:"/>
+                    casesensitive="true"
+                    string="${run.jvmargs.ide}"
+                    substring="-agentpath:"/>
                 <contains
-                        casesensitive="true"
-                        string="${run.jvmargs.ide}"
-                        substring="-javaagent:"/>
+                    casesensitive="true"
+                    string="${run.jvmargs.ide}"
+                    substring="-javaagent:"/>
             </or>
         </condition>
     </target>
@@ -5667,7 +5667,7 @@
     <target if="jnlp-file-exists+netbeans.home"
             name="-profile-check-jnlp">
         <antcall
-                target="-profile-check-1"/>
+            target="-profile-check-1"/>
     </target>
 
     <target name="-do-jfxws-profile"
@@ -5675,8 +5675,8 @@
             -check-jdk-7u4or5-mac,jar,-check-jfx-webstart,-resolve-jnlp-file,-check-jfx-runtime,-warn-insufficient-signing">
         <echo message="Executing ${jfx.deployment.jnlp} in profile mode using ${active.webstart.executable}"/>
         <property
-                name="run.jvmargs.ide"
-                value=""/>
+            name="run.jvmargs.ide"
+            value=""/>
         <exec executable="${active.webstart.executable}">
             <env key="JAVAWS_VM_ARGS"
                  value="${run.jvmargs.ide}"/>
@@ -5691,7 +5691,7 @@
             description="Profile JavaFX javaws project in IDE">
         <startprofiler/>
         <antcall
-                target="-do-jfxws-profile"/>
+            target="-do-jfxws-profile"/>
     </target>
 
     <target name="jfxws-run-noscript"
@@ -5709,7 +5709,7 @@
     <target name="-check-selected-browser-path"
             depends="-check-default-run-config">
         <condition
-                property="javafx.run.inbrowser.undefined">
+            property="javafx.run.inbrowser.undefined">
             <or>
                 <and>
                     <isset property="javafx.run.inbrowser"/>
@@ -5724,11 +5724,11 @@
             </or>
         </condition>
         <condition
-                property="javafx.run.inbrowser.path-exists">
+            property="javafx.run.inbrowser.path-exists">
             <and>
                 <isset property="javafx.run.inbrowser.path"/>
                 <available
-                        file="${javafx.run.inbrowser.path}"/>
+                    file="${javafx.run.inbrowser.path}"/>
             </and>
         </condition>
         <fail message="Error:${line.separator}Browser selection not recognizable from ${config} run configuration.${line.separator}Please go to Project Properties dialog, category Run, to select a valid browser."
@@ -5747,11 +5747,11 @@
     <target name="-check-template-processed-html-file"
             depends="-substitute-template-processed-html-file">
         <condition
-                property="html-file-exists">
+            property="html-file-exists">
             <and>
                 <isset property="html-template-available"/>
                 <available
-                        file="${javafx.run.htmltemplate.processed}"/>
+                    file="${javafx.run.htmltemplate.processed}"/>
             </and>
         </condition>
     </target>
@@ -5760,27 +5760,27 @@
             depends="-check-template-processed-html-file"
             if="html-file-exists">
         <property
-                name="jfx.deployment.html"
-                location="${javafx.run.htmltemplate.processed}"/>
+            name="jfx.deployment.html"
+            location="${javafx.run.htmltemplate.processed}"/>
     </target>
 
     <target name="-set-html-file"
             depends="-set-template-processed-html-file"
             unless="html-file-exists">
         <basename
-                property="jfx.deployment.base"
-                file="${jfx.deployment.jar}"
-                suffix=".jar"/>
+            property="jfx.deployment.base"
+            file="${jfx.deployment.jar}"
+            suffix=".jar"/>
         <property
-                name="jfx.deployment.html"
-                location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}.html"/>
+            name="jfx.deployment.html"
+            location="${jfx.deployment.dir}${file.separator}${jfx.deployment.base}.html"/>
         <condition
-                property="html-file-exists">
+            property="html-file-exists">
             <available
-                    file="${jfx.deployment.html}"/>
+                file="${jfx.deployment.html}"/>
         </condition>
         <condition
-                property="html-file-exists+netbeans.home">
+            property="html-file-exists+netbeans.home">
             <and>
                 <isset property="html-file-exists"/>
                 <isset property="netbeans.home"/>
@@ -5792,7 +5792,7 @@
     <target name="-check-concurrent-html-runs"
             depends="-set-html-file">
         <condition
-                property="disable-concurrent-runs">
+            property="disable-concurrent-runs">
             <or>
                 <not>
                     <and>
@@ -5805,13 +5805,13 @@
                 <and>
                     <isset property="html-template-available"/>
                     <available
-                            file="${javafx.run.htmltemplate.processed}"/>
+                        file="${javafx.run.htmltemplate.processed}"/>
                 </and>
             </or>
         </condition>
         <condition
-                property="temp.run.html"
-                value="${jfx.deployment.html}">
+            property="temp.run.html"
+            value="${jfx.deployment.html}">
             <isset property="disable-concurrent-runs"/>
         </condition>
     </target>
@@ -5828,14 +5828,14 @@
         <echo message="Executing ${temp.run.html} using ${javafx.run.inbrowser}"/>
         <echo message="(${javafx.run.inbrowser.path})"/>
         <property
-                name="javafx.run.inbrowser.arguments"
-                value=""/>
+            name="javafx.run.inbrowser.arguments"
+            value=""/>
         <exec executable="${javafx.run.inbrowser.path}">
             <arg line="${javafx.run.inbrowser.arguments}"/>
             <arg file="${temp.run.html}"/>
         </exec>
         <antcall
-                target="-warn-concurrent-html-runs"/>
+            target="-warn-concurrent-html-runs"/>
     </target>
 
     <target name="jfxbe-debug"
@@ -5847,7 +5847,7 @@
             description="Debug JavaFX project in browser">
         <!-- after the session clean up the jnlp containing debug settings -->
         <antcall
-                target="clean"/>
+            target="clean"/>
     </target>
 
     <target name="-debug-jfxbe-debuggee"
@@ -5855,8 +5855,8 @@
         <echo message="Executing ${jfx.deployment.html} in debug mode using ${javafx.run.inbrowser}"/>
         <echo message="(${javafx.run.inbrowser.path})"/>
         <property
-                name="javafx.run.inbrowser.arguments"
-                value=""/>
+            name="javafx.run.inbrowser.arguments"
+            value=""/>
         <exec executable="${javafx.run.inbrowser.path}">
             <arg line="${javafx.run.inbrowser.arguments}"/>
             <env key="_JPI_VM_OPTIONS"
@@ -5868,7 +5868,7 @@
     <target if="html-file-exists+netbeans.home"
             name="-profile-check-html">
         <antcall
-                target="-profile-check-1"/>
+            target="-profile-check-1"/>
     </target>
 
     <target name="-do-jfxbe-profile"
@@ -5877,11 +5877,11 @@
         <echo message="Executing ${jfx.deployment.html} in profile mode using ${javafx.run.inbrowser}"/>
         <echo message="(${javafx.run.inbrowser.path})"/>
         <property
-                name="run.jvmargs.ide"
-                value=""/>
+            name="run.jvmargs.ide"
+            value=""/>
         <property
-                name="javafx.run.inbrowser.arguments"
-                value=""/>
+            name="javafx.run.inbrowser.arguments"
+            value=""/>
         <exec executable="${javafx.run.inbrowser.path}">
             <arg line="${javafx.run.inbrowser.arguments}"/>
             <env key="_JPI_VM_OPTIONS"
@@ -5896,7 +5896,7 @@
             description="Profile JavaFX project in browser">
         <startprofiler/>
         <antcall
-                target="-do-jfxbe-profile"/>
+            target="-do-jfxbe-profile"/>
     </target>
 
     <target name="jfxbe-run-noscript"

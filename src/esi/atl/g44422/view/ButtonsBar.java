@@ -10,93 +10,93 @@ import javafx.scene.layout.HBox;
  */
 public class ButtonsBar extends HBox {
 
-	/**
-	 * The new game button.
-	 */
-	private final Button newGame;
+    /**
+     * The new game button.
+     */
+    private final Button newGame;
 
-	/**
-	 * The skip turn button.
-	 */
-	private final Button skipTurn;
+    /**
+     * The skip turn button.
+     */
+    private final Button skipTurn;
 
-	/**
-	 * The stop game button.
-	 */
-	private final Button stopGame;
+    /**
+     * The stop game button.
+     */
+    private final Button stopGame;
 
-	/**
-	 * The turn piece button.
-	 */
-	private final Button turnPiece;
+    /**
+     * The turn piece button.
+     */
+    private final Button turnPiece;
 
-	/**
-	 * The flip piece button.
-	 */
-	private final Button flipPiece;
+    /**
+     * The flip piece button.
+     */
+    private final Button flipPiece;
 
-	/**
-	 * Creates a new button bar.
-	 */
-	ButtonsBar() {
-		this.newGame = new Button("New Game");
+    /**
+     * Creates a new button bar.
+     */
+    ButtonsBar() {
+        this.newGame = new Button("New Game");
 
-		this.skipTurn = new Button("Skip turn");
+        this.skipTurn = new Button("Skip turn");
 
-		this.stopGame = new Button("Stop game");
+        this.stopGame = new Button("Stop game");
 
-		this.turnPiece = new Button("Turn selected piece");
+        this.turnPiece = new Button("Turn selected piece");
 
-		this.flipPiece = new Button("Flip selected piece");
+        this.flipPiece = new Button("Flip selected piece");
 
-		this.getChildren().addAll(this.newGame, this.skipTurn, this.stopGame, this.turnPiece, this.flipPiece);
-		this.setPadding(new Insets(10, 10, 10, 10));
-		this.setSpacing(5);
-		this.setAlignment(Pos.CENTER);
-	}
+        this.getChildren().addAll(this.newGame, this.skipTurn, this.stopGame, this.turnPiece, this.flipPiece);
+        this.setPadding(new Insets(10, 10, 10, 10));
+        this.setSpacing(5);
+        this.setAlignment(Pos.CENTER);
+    }
 
-	/**
-	 * Returns the naw game button.
-	 *
-	 * @return the new game button
-	 */
-	public Button getNewGame() {
-		return newGame;
-	}
+    /**
+     * Returns the naw game button.
+     *
+     * @return the new game button
+     */
+    public Button getNewGame() {
+        return newGame;
+    }
 
-	/**
-	 * Returns the skip turn button.
-	 *
-	 * @return the skip turn button
-	 */
-	public Button getSkipTurn() {
-		return skipTurn;
-	}
+    /**
+     * Returns the skip turn button.
+     *
+     * @return the skip turn button
+     */
+    public Button getSkipTurn() {
+        return skipTurn;
+    }
 
-	/**
-	 * Returns the stop game button.
-	 *
-	 * @return the stop game button
-	 */
-	public Button getStopGame() {
-		return stopGame;
-	}
+    /**
+     * Returns the stop game button.
+     *
+     * @return the stop game button
+     */
+    public Button getStopGame() {
+        return stopGame;
+    }
 
-	/**
-	 * Returns the turn piece button.
-	 *
-	 * @return the turn piece button
-	 */
-	public Button getTurnPiece() {
-		return turnPiece;
-	}
+    /**
+     * Returns the turn piece button.
+     *
+     * @return the turn piece button
+     */
+    public Button getTurnPiece() {
+        return turnPiece;
+    }
 
-	/**
-	 * Returns the flip piece button.
-	 *
-	 * @return the flip piece button
-	 */
-	public Button getFlipPiece() {
-		return flipPiece;
-	}
+    /**
+     * Returns the flip piece button.
+     *
+     * @return the flip piece button
+     */
+    public Button getFlipPiece() {
+        return flipPiece;
+    }
 }
