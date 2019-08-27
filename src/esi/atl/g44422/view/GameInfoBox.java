@@ -18,6 +18,8 @@ class GameInfoBox extends FlowPane implements Observer {
     private final Label turnNumberLabel;
     private final Label currentPlayerNickname;
     private PieceGrid selectedPiecePreview;
+    private Label cellsTaken;
+    private Label piecesPlacedCount;
 
     /**
      * Creates a new info-box.
@@ -40,6 +42,10 @@ class GameInfoBox extends FlowPane implements Observer {
         this.currentPlayerNickname = new Label();
 
         this.selectedPiecePreview = new PieceGrid(null, 5, this.game);
+        
+        this.cellsTaken = new Label();
+        
+        this.piecesPlacedCount = new Label();
 
         this.update();
     }
@@ -50,6 +56,8 @@ class GameInfoBox extends FlowPane implements Observer {
     public void update() {
         this.getChildren().clear();
         this.turnNumberLabel.setText("Turn number: " + (this.game.getTurnNumber() + 1));
+        this.cellsTaken.setText("Cells taken: " + this.game.getBoard().getPiecesPut().stream().map(piece -> piece.getShape().getCells().size()).mapToInt(Integer::intValue).sum());
+        this.piecesPlacedCount.setText("Pieces put: " + this.game.getBoard().getPiecesPut().size());
         if (this.game.getCurrentPlayer() != null) {
             if (this.game.getWinner() != null) {
                 this.currentPlayerNickname.setText("Winner : " + this.game.getWinner().getNickname());
@@ -62,6 +70,6 @@ class GameInfoBox extends FlowPane implements Observer {
                 this.selectedPiecePreview.setVisible(true);
             }
         }
-        this.getChildren().addAll(turnNumberLabel, currentPlayerNickname, selectedPiecePreview);
+        this.getChildren().addAll(turnNumberLabel, currentPlayerNickname, selectedPiecePreview, cellsTaken, piecesPlacedCount);
     }
 }
