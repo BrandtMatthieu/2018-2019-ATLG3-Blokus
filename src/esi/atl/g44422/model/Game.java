@@ -229,13 +229,12 @@ public class Game implements GameInterface {
      * Puts the selected piece at the selected position on the board.
      */
     public void currentPlayerPutsPiece() {
-        if (canPutSelectedPiece() && this.getCurrentPlayer().getStock().contains(this.selectedPiece)) {
+        if (!this.getCurrentPlayer().hasPlayed() && canPutSelectedPiece() && this.getCurrentPlayer().getStock().contains(this.selectedPiece)) {
             this.board.put(this.selectedPiece, this.selectedPosition);
             this.currentPlayer.putPiece(this.selectedPiece);
 
             this.movesHistory.add(this.currentPlayer.getNickname() + "\t added a piece for " + this.selectedPiece.getValue() + " points at " + this.selectedPosition.toString());
 
-            this.currentPlayerEndsTurn();
             this.notifyObservers();
         }
     }
@@ -259,6 +258,10 @@ public class Game implements GameInterface {
      * Makes the current player end his turn.
      */
     public void currentPlayerEndsTurn() {
+        if(!this.getCurrentPlayer().hasPlayed() && !this.getCurrentPlayer().hasSkipped()) {
+            return;
+        }
+        
         if (this.isDone()) {
             for (Player player : this.getPlayers()) {
                 if (this.winner == null) {
@@ -282,6 +285,24 @@ public class Game implements GameInterface {
         } else {
             nextPlayer();
         }
+        
+        this.notifyObservers();
+    }
+    
+    /**
+     * Makes the current player cancel his turn.
+     */
+    public void currentPlayerCancelsTurn() {
+        if(!this.currentPlayer.hasPlayed() || this.currentPlayer.hasSkipped()) {
+            return;
+        }
+        
+        Piece pieceToRemove = this.board.getPiecesPut().get(this.board.getPiecesPut().size() - 1);
+        this.board.removePiece(pieceToRemove);
+        this.currentPlayer.removePiece(pieceToRemove);
+        
+        this.movesHistory.remove(this.movesHistory.size() - 1);
+        
         this.notifyObservers();
     }
 
@@ -309,6 +330,7 @@ public class Game implements GameInterface {
      * Selects the next player as current player.
      */
     private void nextPlayer() {
+        this.currentPlayer.reset();
         this.currentPlayer = this.players.get((this.players.indexOf(this.currentPlayer) + 1) % numberRequiredPlayers);
         this.turnNumber += (double) 1 / this.getPlayers().size();
         this.selectedPiece = null;

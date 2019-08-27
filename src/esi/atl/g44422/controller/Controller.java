@@ -60,7 +60,7 @@ public class Controller {
         /*
 		 * Adds listener to the "new game" button.
          */
-        fxView.getButtonsBar().getNewGame().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        this.fxView.getButtonsBar().getNewGame().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             this.game.newGame();
             this.fxView.newGame();
             this.newGame();
@@ -70,7 +70,7 @@ public class Controller {
         /*
 		 * Adds listener to the "new game" button.
          */
-        fxView.getButtonsBar().getSkipTurn().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        this.fxView.getButtonsBar().getSkipTurn().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             this.game.currentPlayerSkips();
             this.game.aiPlayersPlay();
         });
@@ -78,28 +78,43 @@ public class Controller {
         /*
 		 * Adds listener to the "stop game" button.
          */
-        fxView.getButtonsBar().getStopGame().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        this.fxView.getButtonsBar().getStopGame().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             System.exit(0);
         });
 
         /*
 		 * Adds listener to the "turn piece" button.
          */
-        fxView.getButtonsBar().getTurnPiece().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        this.fxView.getButtonsBar().getTurnPiece().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             this.game.currentPlayerTurnsPiece();
         });
 
         /*
 		 * Adds listener to the "flip piece" button.
          */
-        fxView.getButtonsBar().getFlipPiece().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+        this.fxView.getButtonsBar().getFlipPiece().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             this.game.currentPlayerFlipsPiece();
+        });
+        
+        /**
+         * Adds listener to the "validate turn" button.
+         */
+        this.fxView.getButtonsBar().getValidateTurn().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            this.game.currentPlayerEndsTurn();
+            this.game.aiPlayersPlay();
+        });
+        
+        /**
+         * Adds listener to the "cancel turn" button.
+         */
+        this.fxView.getButtonsBar().getCancelTurn().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            this.game.currentPlayerCancelsTurn();
         });
 
         /*
 		 * Adds listener to the "history" button.
          */
-        fxView.getMenuBox().getHistory().addEventHandler(Event.ANY, event -> {
+        this.fxView.getMenuBox().getHistory().addEventHandler(Event.ANY, event -> {
             this.fxView.showHistory();
             this.fxView.getHistoryWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event2 -> {
                 this.fxView.closeHistory();

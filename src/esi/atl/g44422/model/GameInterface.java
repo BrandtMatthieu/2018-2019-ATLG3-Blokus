@@ -118,6 +118,11 @@ public interface GameInterface extends Observable {
      * Makes the current player end his turn.
      */
     void currentPlayerEndsTurn();
+    
+    /**
+     * makes the current player cancel his turn.
+     */
+    void currentPlayerCancelsTurn();
 
     /**
      * Makes the current player turn his piece.

@@ -34,6 +34,16 @@ public class ButtonsBar extends HBox {
      * The flip piece button.
      */
     private final Button flipPiece;
+    
+    /**
+     * The validate turn button.
+     */
+    private final Button validateTurn;
+    
+    /**
+     * The cancel turn button.
+     */
+    private final Button cancelTurn;
 
     /**
      * Creates a new button bar.
@@ -48,8 +58,12 @@ public class ButtonsBar extends HBox {
         this.turnPiece = new Button("Turn selected piece");
 
         this.flipPiece = new Button("Flip selected piece");
+        
+        this.validateTurn = new Button("Validate turn");
+        
+        this.cancelTurn = new Button("Cancel turn");
 
-        this.getChildren().addAll(this.newGame, this.skipTurn, this.stopGame, this.turnPiece, this.flipPiece);
+        this.getChildren().addAll(this.newGame, this.skipTurn, this.stopGame, this.turnPiece, this.flipPiece, this.validateTurn, this.cancelTurn);
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setSpacing(5);
         this.setAlignment(Pos.CENTER);
@@ -98,5 +112,23 @@ public class ButtonsBar extends HBox {
      */
     public Button getFlipPiece() {
         return flipPiece;
+    }
+    
+    /**
+     * Returns the validate turn button.
+     * 
+     * @return the validate turn button
+     */
+    public Button getValidateTurn() {
+        return validateTurn;
+    }
+
+    /**
+     * Returns the cancel turn button.
+     * 
+     * @return the cancel turn button
+     */
+    public Button getCancelTurn() {
+        return cancelTurn;
     }
 }

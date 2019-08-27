@@ -74,6 +74,14 @@ public class Board extends GridPane {
         piece.setPosition(position);
         this.piecesPut.add(piece);
     }
+    
+    /**
+     * Removes the piece put on the board.
+     * @param piece the piece to remove from the board
+     */
+    void removePiece(Piece piece) {
+        this.piecesPut.remove(piece);
+    }
 
     /**
      * Checks if the piece is out of bounds of the board at tha position.

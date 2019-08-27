@@ -42,6 +42,7 @@ public class AIPlayer extends Player {
                             this.game.currentPlayerSetsPosition(new Position(x, y));
                             if (this.game.canPutSelectedPiece()) {
                                 this.game.currentPlayerPutsPiece();
+                                this.game.currentPlayerEndsTurn();
                                 return;
                             }
                         }

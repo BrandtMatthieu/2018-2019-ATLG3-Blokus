@@ -12,6 +12,7 @@ public class Player {
     private final ArrayList<Piece> stock;
     private final ArrayList<Piece> piecesPut;
     private int score;
+    private boolean hasPlayed;
     private boolean hasSkipped;
 
     /**
@@ -23,6 +24,7 @@ public class Player {
     public Player(String nickname, Color color) {
         this.nickname = nickname;
         this.score = 0;
+        this.hasPlayed = false;
         this.hasSkipped = false;
         this.color = color;
         this.stock = new ArrayList<>();
@@ -47,9 +49,18 @@ public class Player {
     public int getScore() {
         return score;
     }
+    
+    /**
+     * Returns if the player has played and has put a piece.
+     * 
+     * @return if the player has played and has put a piece.
+     */
+    boolean hasPlayed() {
+        return hasPlayed;
+    }
 
     /**
-     * returns if the player has skipped last turn.
+     * Returns if the player has skipped last turn.
      *
      * @return if the player has skipped last turn
      */
@@ -99,9 +110,30 @@ public class Player {
      * @param piece the piece that has been put
      */
     void putPiece(Piece piece) {
+        if(!this.stock.contains(piece)) {
+            return;
+        }
+        
+        this.hasPlayed = true;
         this.piecesPut.add(piece);
         this.score += piece.getValue();
         this.stock.remove(piece);
+    }
+    
+    /**
+     * Makes the player remove a piece from his pieces put.
+     * 
+     * @param piece the piece to remove
+     */
+    void removePiece(Piece piece) {
+        if(!this.piecesPut.contains(piece)) {
+            return;
+        }
+        
+        this.piecesPut.remove(piece);
+        this.stock.add(piece);
+        this.score -= piece.getValue();
+        this.hasPlayed = false;
     }
 
     /**
@@ -109,6 +141,7 @@ public class Player {
      */
     void skip() {
         this.hasSkipped = true;
+        this.hasPlayed = false;
     }
 
     /**
@@ -124,5 +157,13 @@ public class Player {
      * Makes the player plays (only available for AIPlayers).
      */
     void play() {
+    }
+    
+    /**
+     * resets the player's playing status.
+     */
+    void reset() {
+        this.hasPlayed = false;
+        this.hasSkipped = false;
     }
 }
