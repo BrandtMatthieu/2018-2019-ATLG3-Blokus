@@ -243,6 +243,10 @@ public class Game implements GameInterface {
      * Makes the current player skips his turn.
      */
     public void currentPlayerSkips() {
+        if(this.currentPlayer.hasPlayed()) {
+            this.currentPlayerCancelsTurn();
+        }
+        
         if (!this.isDone()) {
 
             this.movesHistory.add(this.currentPlayer.getNickname() + "\t skipped his turn");

@@ -1,5 +1,6 @@
 package esi.atl.g44422.view;
 
+import esi.atl.g44422.model.GameInterface;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,6 +10,8 @@ import javafx.scene.layout.HBox;
  * Represents the bar with all action button in the application.
  */
 public class ButtonsBar extends HBox {
+    
+    private GameInterface game;
 
     /**
      * The new game button.
@@ -48,7 +51,9 @@ public class ButtonsBar extends HBox {
     /**
      * Creates a new button bar.
      */
-    ButtonsBar() {
+    ButtonsBar(GameInterface game) {
+        this.game = game;
+        
         this.newGame = new Button("New Game");
 
         this.skipTurn = new Button("Skip turn");
@@ -130,5 +135,15 @@ public class ButtonsBar extends HBox {
      */
     public Button getCancelTurn() {
         return cancelTurn;
+    }
+    
+    public void update() {
+        if(game.getCurrentPlayer() != null && game.getCurrentPlayer().hasPlayed()) {
+            this.validateTurn.setDisable(false);
+            this.cancelTurn.setDisable(false);
+        } else {
+            this.validateTurn.setDisable(true);
+            this.cancelTurn.setDisable(true);
+        }
     }
 }

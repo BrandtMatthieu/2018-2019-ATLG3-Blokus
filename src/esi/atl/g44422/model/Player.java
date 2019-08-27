@@ -55,7 +55,7 @@ public class Player {
      * 
      * @return if the player has played and has put a piece.
      */
-    boolean hasPlayed() {
+    public boolean hasPlayed() {
         return hasPlayed;
     }
 
@@ -64,7 +64,7 @@ public class Player {
      *
      * @return if the player has skipped last turn
      */
-    boolean hasSkipped() {
+    public boolean hasSkipped() {
         return hasSkipped;
     }
 

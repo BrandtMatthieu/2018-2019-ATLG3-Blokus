@@ -167,7 +167,7 @@ public class FxView implements Observer {
         mainHBox.setPadding(new Insets(5, 5, 5, 5));
         mainHBox.setSpacing(5);
 
-        this.buttonsBar = new ButtonsBar();
+        this.buttonsBar = new ButtonsBar(this.game);
 
         VBox mainVBox = new VBox();
         mainVBox.setPadding(new Insets(5, 5, 5, 5));
@@ -220,5 +220,7 @@ public class FxView implements Observer {
         if (this.historyWindow != null) {
             this.historyWindow.update();
         }
+        
+        this.buttonsBar.update();
     }
 }
